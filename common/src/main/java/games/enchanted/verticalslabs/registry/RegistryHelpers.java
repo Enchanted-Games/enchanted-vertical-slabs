@@ -4,7 +4,7 @@ import games.enchanted.verticalslabs.block.CombinableVerticalSlabBlock;
 import games.enchanted.verticalslabs.block.OxidizableVerticalSlab;
 import games.enchanted.verticalslabs.CommonEntrypoint;
 import games.enchanted.verticalslabs.VerticalSlabsConstants;
-import games.enchanted.verticalslabs.util.BlockAndItem;
+import games.enchanted.verticalslabs.block.BlockAndItem;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;

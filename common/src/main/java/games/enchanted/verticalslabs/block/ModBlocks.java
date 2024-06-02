@@ -1,10 +1,7 @@
-package games.enchanted.verticalslabs.registry;
+package games.enchanted.verticalslabs.block;
 
-import games.enchanted.verticalslabs.util.BlockAndItem;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-
-import java.util.function.Supplier;
 
 import static games.enchanted.verticalslabs.registry.RegistryHelpers.registerVerticalSlab;
 

@@ -1,8 +1,8 @@
 package games.enchanted.verticalslabs;
 
 import games.enchanted.verticalslabs.platform.RegisterInterface;
-import games.enchanted.verticalslabs.registry.ModBlocks;
-import games.enchanted.verticalslabs.registry.ModItems;
+import games.enchanted.verticalslabs.block.ModBlocks;
+import games.enchanted.verticalslabs.item.ModItems;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
