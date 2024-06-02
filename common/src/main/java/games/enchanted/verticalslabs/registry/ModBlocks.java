@@ -1,13 +1,17 @@
 package games.enchanted.verticalslabs.registry;
 
-import games.enchanted.verticalslabs.Constants;
-import games.enchanted.verticalslabs.platform.Services;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.Block;
+import games.enchanted.verticalslabs.util.BlockAndItem;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
+import java.util.function.Supplier;
+
+import static games.enchanted.verticalslabs.registry.RegistryHelpers.registerVerticalSlab;
+
 public class ModBlocks {
-//    public static final Block testblock = Services.REGISTRY_UTIL.registerBlock(new ResourceLocation(Constants.MOD_ID, "testblock"), new Block(BlockBehaviour.Properties.of()) );
-;
+    public static final BlockBehaviour.Properties OAK_WOOD = BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_SLAB);
+
+    public static final BlockAndItem BLOCK = registerVerticalSlab("vertical_oak_slab",OAK_WOOD);
+
     public static void register(){};
 }

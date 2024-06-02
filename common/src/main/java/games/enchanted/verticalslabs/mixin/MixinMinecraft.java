@@ -1,6 +1,6 @@
 package games.enchanted.verticalslabs.mixin;
 
-import games.enchanted.verticalslabs.Constants;
+import games.enchanted.verticalslabs.VerticalSlabsConstants;
 import net.minecraft.client.Minecraft;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,7 +13,7 @@ public class MixinMinecraft {
     @Inject(at = @At("TAIL"), method = "<init>")
     private void init(CallbackInfo info) {
         
-        Constants.LOG.info("This line is printed by an example mod common mixin!");
-        Constants.LOG.info("MC Version: {}", Minecraft.getInstance().getVersionType());
+        VerticalSlabsConstants.LOG.info("This line is printed by an example mod common mixin!");
+        VerticalSlabsConstants.LOG.info("MC Version: {}", Minecraft.getInstance().getVersionType());
     }
 }

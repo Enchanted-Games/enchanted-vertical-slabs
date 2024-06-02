@@ -1,6 +1,8 @@
 package games.enchanted.verticalslabs;
 
 import games.enchanted.verticalslabs.platform.RegisterInterface;
+import games.enchanted.verticalslabs.registry.ModBlocks;
+import games.enchanted.verticalslabs.registry.ModItems;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -13,14 +15,17 @@ import java.util.function.Supplier;
 public class FabricModEntrypoint implements ModInitializer, RegisterInterface {
     @Override
     public void onInitialize() {
-        CommonClass.init(this);
+        CommonEntrypoint.init(this);
+
+        ModBlocks.register();
+        ModItems.register();
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public <R, T extends R> Supplier<T> register(ResourceKey<? extends Registry<R>> registryKey, Supplier<T> entry, ResourceLocation key) {
+    public <R, T extends R> T register(ResourceKey<? extends Registry<R>> registryKey, Supplier<T> entry, ResourceLocation key) {
         Registry<R> registry = Objects.requireNonNull( BuiltInRegistries.REGISTRY.get((ResourceKey) registryKey) );
         T registered = Registry.register(registry, key, entry.get() );
-        return () -> registered;
+        return registered;
     }
 }
