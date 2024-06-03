@@ -1,0 +1,12 @@
+{
+	"parent": "enchanted-vertical-slabs:block/vertical_slab",
+	"textures": {
+		"north": "#all",
+		"up": "#all",
+		"east": "#all",
+		"south": "#all",
+		"west": "#all",
+		"down": "#all",
+		"particle": "#all"
+	}
+}

@@ -1,0 +1,35 @@
+{
+  "variants": {
+    "facing=north,single_slab=true": {
+      "model": "enchanted-vertical-slabs:block/vertical_oxidized_cut_copper_slab",
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=north,single_slab=false": {
+      "model": "minecraft:block/oxidized_cut_copper"
+    },
+    "facing=east,single_slab=true": {
+      "model": "enchanted-vertical-slabs:block/vertical_oxidized_cut_copper_slab",
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=east,single_slab=false": {
+      "model": "minecraft:block/oxidized_cut_copper"
+    },
+    "facing=south,single_slab=true": {
+      "model": "enchanted-vertical-slabs:block/vertical_oxidized_cut_copper_slab",
+      "uvlock": true
+    },
+    "facing=south,single_slab=false": {
+      "model": "minecraft:block/oxidized_cut_copper"
+    },
+    "facing=west,single_slab=true": {
+      "model": "enchanted-vertical-slabs:block/vertical_oxidized_cut_copper_slab",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=west,single_slab=false": {
+      "model": "minecraft:block/oxidized_cut_copper"
+    }
+  }
+}

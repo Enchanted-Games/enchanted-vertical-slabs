@@ -3,9 +3,8 @@
   "minVersion": "0.8",
   "package": "games.enchanted.verticalslabs.mixin",
   "compatibilityLevel": "JAVA_21",
-  "mixins": [],
+  "mixins": ["WeatheringCopperMixin"],
   "client": [
-    "MixinTitleScreen"
   ],
   "server": [],
   "injectors": {

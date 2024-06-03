@@ -1,5 +1,7 @@
 package games.enchanted.verticalslabs.platform.services;
 
+import net.minecraft.world.level.block.Block;
+
 public interface PlatformHelperInterface {
 
     /**
@@ -30,7 +32,12 @@ public interface PlatformHelperInterface {
      * @return The name of the environment type.
      */
     default String getEnvironmentName() {
-
         return isDevelopmentEnvironment() ? "development" : "production";
     }
+
+    void addWaxableBlockPair(Block unwaxed, Block waxed);
+
+    void addOxidisableBlockPair(Block less, Block more);
+
+    void addFlammableBlock(Block block, int burnTime, int spread);
 }

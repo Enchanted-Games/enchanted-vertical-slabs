@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#",
+        "#",
+        "#"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:cobblestone"
+        }
+    },
+    "result": {
+        "id": "enchanted-vertical-slabs:vertical_cobblestone_slab",
+        "count": 6
+    }
+}
