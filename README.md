@@ -1,14 +1,5 @@
 # Enchanted Vertical Slabs
-A simple mod that adds vertical slabs to Minecraft in a vanilla-like way. They can be crafted the same way a normal slab can in a crafting table just vertically instead of horizontally.
-
-This is a mostly rewritten version of the original [Enchanted Vertical Slabs](https://github.com/Enchanted-Games/vertical-slabs) mod that now supports NeoForge and Fabric
-
-Originally forked from [jaredlll08/MultiLoader-Template](https://github.com/jaredlll08/MultiLoader-Template)
-
-## W.I.P
-This rewrite is still a work in progress and doesn't have all the features of the original mod.
-
-
+A simple mod that adds vertical slabs to Minecraft in a vanilla-like way.
 
 ## Set up in IntelliJ IDEA
 
@@ -20,5 +11,4 @@ This rewrite is still a work in progress and doesn't have all the features of th
 
 
 ## License
-<p xmlns:cc="http://creativecommons.org/ns#" >Enchanted Vertical Slabs by <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="https://enchanted.games">ioblackshaw (a.k.a. Enchanted_Games)</a> is licensed under <a href="http://creativecommons.org/licenses/by-nc/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY-NC 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1"></a></p> 
-Video content creators may monetise videos including this work provided the license is followed.
+See Main branch
