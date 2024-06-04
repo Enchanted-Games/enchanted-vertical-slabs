@@ -72,6 +72,9 @@ public class ModBlocks {
     public static final BlockAndItem VERTICAL_POLISHED_BLACKSTONE_BRICK_SLAB = registerVerticalSlab("vertical_polished_blackstone_brick_slab", ModBlockBehaviours.BLACKSTONE);
 
     public static final BlockAndItem VERTICAL_MUD_BRICK_SLAB = registerVerticalSlab("vertical_mud_brick_slab", ModBlockBehaviours.MUD_BRICK);
-    
-    public static void register(){};
+
+    /**
+     * Calls the class to register blocks
+     */
+    public static void register() {};
 }

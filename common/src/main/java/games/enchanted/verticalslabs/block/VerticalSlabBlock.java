@@ -50,18 +50,13 @@ public class VerticalSlabBlock extends HorizontalDirectionalBlock implements Sim
         if( !state.getValue(SINGLE) ) {
             return Shapes.block();
         }
-        switch (state.getValue(FACING)) {
-            case Direction.NORTH:
-                return Shapes.create(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.5f);
-            case Direction.EAST:
-                return Shapes.create(0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
-            case Direction.SOUTH:
-                return Shapes.create(0.0f, 0.0f, 0.5f, 1.0f, 1.0f, 1.0f);
-            case Direction.WEST:
-                return Shapes.create(0.0f, 0.0f, 0.0f, 0.5f, 1.0f, 1.0f);
-            default:
-                return Shapes.block();
-        }
+        return switch ( state.getValue(FACING) ) {
+            case Direction.NORTH -> Shapes.create(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.5f);
+            case Direction.EAST -> Shapes.create(0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
+            case Direction.SOUTH -> Shapes.create(0.0f, 0.0f, 0.5f, 1.0f, 1.0f, 1.0f);
+            case Direction.WEST -> Shapes.create(0.0f, 0.0f, 0.0f, 0.5f, 1.0f, 1.0f);
+            default -> Shapes.block();
+        };
     }
 
     @Override
@@ -80,8 +75,6 @@ public class VerticalSlabBlock extends HorizontalDirectionalBlock implements Sim
 
         double hitposX = context.getClickLocation().x - (double)context.getClickedPos().getX();
         double hitposZ = context.getClickLocation().z - (double)context.getClickedPos().getZ();
-
-        VerticalSlabsConstants.LOG.info("hitposX: " + hitposX + " hitposZ: " + hitposZ);
 
         Direction facingDirection = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
         switch (facingDirection) {

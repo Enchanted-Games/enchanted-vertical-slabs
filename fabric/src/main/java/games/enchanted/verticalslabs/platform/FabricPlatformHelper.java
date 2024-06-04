@@ -7,7 +7,6 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.world.level.block.Block;
 
 public class FabricPlatformHelper implements PlatformHelperInterface {
-
     @Override
     public String getPlatformName() {
         return "Fabric";
@@ -29,7 +28,7 @@ public class FabricPlatformHelper implements PlatformHelperInterface {
     }
 
     @Override
-    public void addOxidisableBlockPair(Block less, Block more) {
+    public void addWeatheringBlockPair(Block less, Block more) {
         OxidizableBlocksRegistry.registerOxidizableBlockPair(less, more);
     }
 

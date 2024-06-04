@@ -1,5 +1,6 @@
 package games.enchanted.verticalslabs;
 
+import games.enchanted.verticalslabs.item.FuelItems;
 import games.enchanted.verticalslabs.platform.FabricCreativeTabRegistration;
 import games.enchanted.verticalslabs.platform.RegisterInterface;
 import games.enchanted.verticalslabs.block.ModBlocks;
@@ -25,9 +26,9 @@ public class FabricModEntrypoint implements ModInitializer, RegisterInterface {
         FlammableBlocks.registerFlammableBlocks();
 
         ModItems.register();
+        FuelItems.registerFuelItems();
 
         FabricCreativeTabRegistration.registerTabs();
-
     }
 
     @SuppressWarnings("unchecked")

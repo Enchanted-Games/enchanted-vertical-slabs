@@ -13,7 +13,7 @@ public class ModCreativeTab {
         public final String registryName;
 
         /**
-         * A class to hold data required to register a CreativeModeTab
+         * A class to hold data required to register a CreativeModeTab without directly creating a CreativeModeTab
          *
          * @param groupIcon    the creative tab icon
          * @param registryName the creative tab registry name

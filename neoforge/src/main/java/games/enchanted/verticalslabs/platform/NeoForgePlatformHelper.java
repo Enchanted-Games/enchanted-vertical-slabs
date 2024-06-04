@@ -15,7 +15,6 @@ import net.neoforged.fml.loading.FMLLoader;
 import java.util.function.Supplier;
 
 public class NeoForgePlatformHelper implements PlatformHelperInterface {
-
     @Override
     public String getPlatformName() {
         return "NeoForge";
@@ -38,14 +37,12 @@ public class NeoForgePlatformHelper implements PlatformHelperInterface {
     }
 
     @Override
-    public void addOxidisableBlockPair(Block less, Block more) {
+    public void addWeatheringBlockPair(Block less, Block more) {
         ImmutableBiMap.Builder<Block,Block> builder = ImmutableBiMap.builder();
         if(WeatheringCopperMap.MAP != null) {
             builder.putAll(WeatheringCopperMap.MAP);
         }
         WeatheringCopperMap.MAP = builder.put(less, more).build();
-
-        System.out.println(WeatheringCopperMap.MAP);
     }
 
     @Override
