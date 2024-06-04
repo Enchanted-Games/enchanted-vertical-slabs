@@ -1,8 +1,0 @@
-{
-    "parent": "enchanted-vertical-slabs:block/vertical_slab_side",
-    "textures": {
-        "top": "minecraft:block/smooth_stone",
-        "side": "minecraft:block/smooth_stone_slab_side",
-        "bottom": "minecraft:block/smooth_stone"
-    }
-}
