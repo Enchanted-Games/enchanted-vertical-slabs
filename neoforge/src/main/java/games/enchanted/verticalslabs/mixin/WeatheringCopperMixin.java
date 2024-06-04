@@ -1,6 +1,6 @@
 package games.enchanted.verticalslabs.mixin;
 
-import games.enchanted.verticalslabs.block.WeatheringCopperMap;
+import games.enchanted.verticalslabs.block.SpecialBlockMaps;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.WeatheringCopper;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,8 +21,8 @@ public interface WeatheringCopperMixin {
         cancellable = true
     )
     private static void getPrevious(Block block, CallbackInfoReturnable<Optional<Block>> ci){
-        if(WeatheringCopperMap.MAP != null) {
-            Block previous = WeatheringCopperMap.MAP.inverse().get(block);
+        if(SpecialBlockMaps.WEATHERING_COPPER_MAP != null) {
+            Block previous = SpecialBlockMaps.WEATHERING_COPPER_MAP.inverse().get(block);
             if(previous != null) {
                 ci.setReturnValue(Optional.of(previous));
             }
@@ -35,10 +35,10 @@ public interface WeatheringCopperMixin {
         cancellable = true
     )
     private static void getFirst(Block block, CallbackInfoReturnable<Block> ci){
-        if(WeatheringCopperMap.MAP != null) {
+        if(SpecialBlockMaps.WEATHERING_COPPER_MAP != null) {
             Block first = block;
             Block previous;
-            while((previous = WeatheringCopperMap.MAP.inverse().get(first)) != null) {
+            while((previous = SpecialBlockMaps.WEATHERING_COPPER_MAP.inverse().get(first)) != null) {
                 first = previous;
             }
             if(first != block) {
@@ -53,8 +53,8 @@ public interface WeatheringCopperMixin {
         cancellable = true
     )
     private static void getNext(Block block, CallbackInfoReturnable<Optional<Block>> ci){
-        if(WeatheringCopperMap.MAP != null) {
-            Block next = WeatheringCopperMap.MAP.get(block);
+        if(SpecialBlockMaps.WEATHERING_COPPER_MAP != null) {
+            Block next = SpecialBlockMaps.WEATHERING_COPPER_MAP.get(block);
             if(next != null) {
                 ci.setReturnValue(Optional.of(next));
             }

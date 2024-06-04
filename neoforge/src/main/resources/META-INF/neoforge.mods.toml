@@ -5,7 +5,7 @@ issueTrackerURL = "${mod_issues}"
 
 [[mods]]
 modId = "${mod_id}"
-version = "${version}"
+version = "${mod_version}"
 displayName = "${mod_name}"
 #updateJSONURL = "" #optional (see https://docs.neoforged.net/docs/misc/updatechecker/)
 displayURL = "${mod_homepage}"
@@ -31,6 +31,3 @@ type="required"
 versionRange = "${minecraft_version_range}"
 ordering = "NONE"
 side = "BOTH"
-
-[[accessTransformers]]
-file = "META-INF/accesstransformer.cfg"

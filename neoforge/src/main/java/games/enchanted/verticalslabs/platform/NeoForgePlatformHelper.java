@@ -3,7 +3,7 @@ package games.enchanted.verticalslabs.platform;
 import com.google.common.base.Suppliers;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
-import games.enchanted.verticalslabs.block.WeatheringCopperMap;
+import games.enchanted.verticalslabs.block.SpecialBlockMaps;
 import games.enchanted.verticalslabs.platform.services.PlatformHelperInterface;
 import net.minecraft.world.item.HoneycombItem;
 import net.minecraft.world.level.block.Block;
@@ -32,17 +32,20 @@ public class NeoForgePlatformHelper implements PlatformHelperInterface {
 
     @Override
     public void addWaxableBlockPair(Block unwaxed, Block waxed) {
-        Supplier<BiMap<Block, Block>> oldWAXABLES = HoneycombItem.WAXABLES;
-        HoneycombItem.WAXABLES = Suppliers.memoize(() -> ImmutableBiMap.<Block, Block>builder().putAll(oldWAXABLES.get()).put(unwaxed, waxed).build())::get;
+        ImmutableBiMap.Builder<Block,Block> builder = ImmutableBiMap.builder();
+        if(SpecialBlockMaps.WAXABLE_BLOCKS != null) {
+            builder.putAll(SpecialBlockMaps.WAXABLE_BLOCKS);
+        }
+        SpecialBlockMaps.WAXABLE_BLOCKS = builder.put(waxed, unwaxed).build();
     }
 
     @Override
     public void addWeatheringBlockPair(Block less, Block more) {
         ImmutableBiMap.Builder<Block,Block> builder = ImmutableBiMap.builder();
-        if(WeatheringCopperMap.MAP != null) {
-            builder.putAll(WeatheringCopperMap.MAP);
+        if(SpecialBlockMaps.WEATHERING_COPPER_MAP != null) {
+            builder.putAll(SpecialBlockMaps.WEATHERING_COPPER_MAP);
         }
-        WeatheringCopperMap.MAP = builder.put(less, more).build();
+        SpecialBlockMaps.WEATHERING_COPPER_MAP = builder.put(less, more).build();
     }
 
     @Override
