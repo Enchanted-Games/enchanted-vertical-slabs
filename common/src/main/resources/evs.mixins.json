@@ -4,7 +4,10 @@
   "package": "games.enchanted.verticalslabs.mixin",
   "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_21",
-  "mixins": [],
+  "mixins": [
+    "WallBlockMixin",
+    "IronBarsBlockMixin"
+  ],
   "client": [
   ],
   "server": [],

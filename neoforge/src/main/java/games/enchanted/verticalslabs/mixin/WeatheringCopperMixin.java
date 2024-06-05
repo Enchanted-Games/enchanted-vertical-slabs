@@ -10,11 +10,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Optional;
 
-// this is needed because you cant modify WeatheringCopper.NEXT_BY_BLOCK at all for whatever reason
 @Mixin(WeatheringCopper.class)
 @SuppressWarnings("unused")
 public interface WeatheringCopperMixin {
-
     @Inject(
         at = @At("HEAD"),
         method = "getPrevious(Lnet/minecraft/world/level/block/Block;)Ljava/util/Optional;",

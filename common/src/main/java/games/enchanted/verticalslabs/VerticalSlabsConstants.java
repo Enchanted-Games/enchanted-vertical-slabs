@@ -1,5 +1,6 @@
 package games.enchanted.verticalslabs;
 
+import net.minecraft.world.item.HoneycombItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
