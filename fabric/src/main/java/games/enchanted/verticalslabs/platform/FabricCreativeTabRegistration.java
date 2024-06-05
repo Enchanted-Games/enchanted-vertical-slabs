@@ -52,7 +52,7 @@ public class FabricCreativeTabRegistration {
             content.addAfter(Items.MUD_BRICK_SLAB, ModBlocks.VERTICAL_MUD_BRICK_SLAB.getBlockItem());
             content.addAfter(Items.SANDSTONE_SLAB, ModBlocks.VERTICAL_SANDSTONE_SLAB.getBlockItem());
             content.addAfter(Items.SMOOTH_SANDSTONE_SLAB, ModBlocks.VERTICAL_SMOOTH_SANDSTONE_SLAB.getBlockItem());
-            content.addBefore(Items.RED_SANDSTONE, ModBlocks.VERTICAL_CUT_SANDSTONE_SLAB.getBlockItem());
+            content.addAfter(Items.CUT_STANDSTONE_SLAB, ModBlocks.VERTICAL_CUT_SANDSTONE_SLAB.getBlockItem());
             content.addAfter(Items.RED_SANDSTONE_SLAB, ModBlocks.VERTICAL_RED_SANDSTONE_SLAB.getBlockItem());
             content.addAfter(Items.SMOOTH_RED_SANDSTONE_SLAB, ModBlocks.VERTICAL_SMOOTH_RED_SANDSTONE_SLAB.getBlockItem());
             content.addAfter(Items.CUT_RED_SANDSTONE_SLAB, ModBlocks.VERTICAL_CUT_RED_SANDSTONE_SLAB.getBlockItem());
@@ -62,6 +62,9 @@ public class FabricCreativeTabRegistration {
             content.addAfter(Items.NETHER_BRICK_SLAB, ModBlocks.VERTICAL_NETHER_BRICK_SLAB.getBlockItem());
             content.addAfter(Items.RED_NETHER_BRICK_SLAB, ModBlocks.VERTICAL_RED_NETHER_BRICK_SLAB.getBlockItem());
             content.addAfter(Items.BLACKSTONE_SLAB, ModBlocks.VERTICAL_BLACKSTONE_SLAB.getBlockItem());
+            content.addAfter(Items.TUFF_SLAB, ModBlocks.VERTICAL_TUFF_SLAB.getBlockItem());
+            content.addAfter(Items.POLISHED_TUFF_SLAB, ModBlocks.VERTICAL_POLISHED_TUFF_SLAB.getBlockItem());
+            content.addAfter(Items.TUFF_BRICK_SLAB, ModBlocks.VERTICAL_TUFF_BRICK_SLAB.getBlockItem());
             content.addAfter(Items.POLISHED_BLACKSTONE_SLAB, ModBlocks.VERTICAL_POLISHED_BLACKSTONE_SLAB.getBlockItem());
             content.addAfter(Items.POLISHED_BLACKSTONE_BRICK_SLAB, ModBlocks.VERTICAL_POLISHED_BLACKSTONE_BRICK_SLAB.getBlockItem());
             content.addAfter(Items.END_STONE_BRICK_SLAB, ModBlocks.VERTICAL_ENDSTONE_BRICK_SLAB.getBlockItem());
