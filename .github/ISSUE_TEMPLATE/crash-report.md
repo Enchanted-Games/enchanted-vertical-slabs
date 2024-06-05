@@ -1,7 +1,7 @@
 ---
 name: Crash report
 about: Report a crash
-title: ''
+title: "[Crash] "
 labels: crash, unconfirmed
 assignees: ''
 

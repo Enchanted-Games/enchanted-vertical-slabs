@@ -1,7 +1,7 @@
 ---
 name: Bug report
 about: Create a bug report to help fix issues
-title: "[BUG]"
+title: "[Bug] "
 labels: bug, unconfirmed
 assignees: ''
 
@@ -24,6 +24,6 @@ If applicable, add screenshots / videos / logs to help explain the bug
 
 **Environment**
  - Mod Version:
- - Mod Loader: [fabric/neoforge]
+ - Mod Loader: [fabric/neoforge/both]
  - Mod Loader Version: 
  - Fabric Api Version: (if applicable)
