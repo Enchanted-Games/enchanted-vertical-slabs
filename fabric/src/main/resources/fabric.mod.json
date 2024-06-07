@@ -1,18 +1,19 @@
 {
     "schemaVersion": 1,
     "id": "${mod_id}",
-    "version": "${version}",
+    "version": "${mod_version}",
     "name": "${mod_name}",
     "description": "${description}",
     "authors": [
         "${mod_author}"
     ],
     "contact": {
-        "homepage": "https://fabricmc.net/",
-        "sources": "https://github.com/FabricMC/fabric-example-mod"
+        "homepage": "${mod_homepage}",
+        "sources": "${mod_source}",
+        "issues": "${mod_issues}"
     },
     "license": "${license}",
-    "icon": "${mod_id}.png",
+    "icon": "assets/enchanted-vertical-slabs/icon.png",
     "environment": "*",
     "entrypoints": {
         "main": [

@@ -1,5 +1,6 @@
 package games.enchanted.verticalslabs.block;
 
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
@@ -17,5 +18,8 @@ public class ModBlockBehaviours {
     public static final BlockBehaviour.Properties BLACKSTONE = BlockBehaviour.Properties.ofFullCopy(Blocks.BLACKSTONE);
     public static final BlockBehaviour.Properties COPPER = BlockBehaviour.Properties.ofFullCopy(Blocks.COPPER_BLOCK);
     public static final BlockBehaviour.Properties MUD_BRICK = BlockBehaviour.Properties.ofFullCopy(Blocks.MUD_BRICKS);
+    public static final BlockBehaviour.Properties TUFF = BlockBehaviour.Properties.ofFullCopy(Blocks.TUFF).requiredFeatures(FeatureFlags.UPDATE_1_21);
+    public static final BlockBehaviour.Properties POLISHED_TUFF = BlockBehaviour.Properties.ofFullCopy(Blocks.POLISHED_TUFF).requiredFeatures(FeatureFlags.UPDATE_1_21);
+    public static final BlockBehaviour.Properties TUFF_BRICK = BlockBehaviour.Properties.ofFullCopy(Blocks.TUFF_BRICKS).requiredFeatures(FeatureFlags.UPDATE_1_21);
 
 }
