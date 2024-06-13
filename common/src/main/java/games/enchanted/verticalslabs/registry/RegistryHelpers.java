@@ -16,13 +16,13 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 public class RegistryHelpers {
     public static BlockItem registerBlockItem(String id, Block block) {
         Item.Properties settings = new Item.Properties();
-        return CommonEntrypoint.platformRegister.register(BuiltInRegistries.ITEM.key(), () -> new BlockItem(block, settings), new ResourceLocation(VerticalSlabsConstants.MOD_ID, id));
+        return CommonEntrypoint.platformRegister.register(BuiltInRegistries.ITEM.key(), () -> new BlockItem(block, settings), ResourceLocation.fromNamespaceAndPath(VerticalSlabsConstants.MOD_ID, id));
     }
     public static Block registerVerticalSlabBlock(String id, BlockBehaviour.Properties blockSettings) {
-        return CommonEntrypoint.platformRegister.register(BuiltInRegistries.BLOCK.key(), () -> new VerticalSlabBlock(blockSettings), new ResourceLocation(VerticalSlabsConstants.MOD_ID, id));
+        return CommonEntrypoint.platformRegister.register(BuiltInRegistries.BLOCK.key(), () -> new VerticalSlabBlock(blockSettings), ResourceLocation.fromNamespaceAndPath(VerticalSlabsConstants.MOD_ID, id));
     }
     public static Block registerVerticalSlabBlock(String id, BlockBehaviour.Properties blockSettings, WeatheringCopper.WeatherState oxidationLevel) {
-        return CommonEntrypoint.platformRegister.register(BuiltInRegistries.BLOCK.key(), () -> new WeatheringCopperVerticalSlabBlock(oxidationLevel, blockSettings), new ResourceLocation(VerticalSlabsConstants.MOD_ID, id));
+        return CommonEntrypoint.platformRegister.register(BuiltInRegistries.BLOCK.key(), () -> new WeatheringCopperVerticalSlabBlock(oxidationLevel, blockSettings), ResourceLocation.fromNamespaceAndPath(VerticalSlabsConstants.MOD_ID, id));
     }
 
     public static BlockAndItem registerVerticalSlab(String id, BlockBehaviour.Properties blockProperties) {

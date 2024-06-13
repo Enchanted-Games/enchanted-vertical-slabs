@@ -97,7 +97,7 @@ public class NeoForgeCreativeTabRegistration {
             CommonEntrypoint.platformRegister.register(
                 BuiltInRegistries.CREATIVE_MODE_TAB.key(),
                 () -> TAB,
-                new ResourceLocation(VerticalSlabsConstants.MOD_ID, ModCreativeTabs.modCreativeTabs[finalI].registryName)
+                ResourceLocation.fromNamespaceAndPath(VerticalSlabsConstants.MOD_ID, ModCreativeTabs.modCreativeTabs[finalI].registryName)
             );
         }
     }
