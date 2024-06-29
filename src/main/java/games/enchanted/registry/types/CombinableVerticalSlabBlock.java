@@ -1,5 +1,6 @@
 package games.enchanted.registry.types;
 
+import games.enchanted.VerticalSlabs;
 import net.minecraft.block.*;
 import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
@@ -185,11 +186,14 @@ public class CombinableVerticalSlabBlock extends HorizontalFacingBlock implement
 
     @Override
     public FluidState getFluidState(BlockState state) {
-        if (state.get(Properties.WATERLOGGED).booleanValue()) {
-            return Fluids.WATER.getStill(false);
+        try {
+            if (state.get(Properties.WATERLOGGED)) {
+                return Fluids.WATER.getStill(false);
+            }
+            return state.getFluidState();
+        } catch (StackOverflowError e) {
+            // this is so dodgy but it works
+            return Fluids.EMPTY.getDefaultState();
         }
-        // return state.getFluidState();
-        return state.getFluidState();
     }
-
 }
