@@ -1,0 +1,6 @@
+{
+	"parent": "enchanted-vertical-slabs:block/vertical_slab_all",
+	"textures": {
+		"all": "block/cobbled_deepslate"
+	}
+}

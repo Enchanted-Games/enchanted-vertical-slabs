@@ -1,0 +1,35 @@
+{
+  "variants": {
+    "facing=north,single_slab=true": {
+      "model": "enchanted-vertical-slabs:block/vertical_granite_slab",
+      "y": 180,
+      "uvlock": true
+    },
+    "facing=north,single_slab=false": {
+      "model": "minecraft:block/granite"
+    },
+    "facing=east,single_slab=true": {
+      "model": "enchanted-vertical-slabs:block/vertical_granite_slab",
+      "y": 270,
+      "uvlock": true
+    },
+    "facing=east,single_slab=false": {
+      "model": "minecraft:block/granite"
+    },
+    "facing=south,single_slab=true": {
+      "model": "enchanted-vertical-slabs:block/vertical_granite_slab",
+      "uvlock": true
+    },
+    "facing=south,single_slab=false": {
+      "model": "minecraft:block/granite"
+    },
+    "facing=west,single_slab=true": {
+      "model": "enchanted-vertical-slabs:block/vertical_granite_slab",
+      "y": 90,
+      "uvlock": true
+    },
+    "facing=west,single_slab=false": {
+      "model": "minecraft:block/granite"
+    }
+  }
+}

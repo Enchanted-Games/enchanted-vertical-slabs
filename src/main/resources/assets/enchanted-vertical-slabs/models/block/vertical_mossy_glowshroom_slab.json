@@ -1,0 +1,6 @@
+{
+	"parent": "enchanted-vertical-slabs:block/vertical_slab_all",
+	"textures": {
+		"all": "betterend:block/mossy_glowshroom_planks"
+	}
+}

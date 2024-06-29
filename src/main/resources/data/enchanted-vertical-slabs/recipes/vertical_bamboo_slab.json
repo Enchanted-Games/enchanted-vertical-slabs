@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": ["#", "#", "#"],
+  "key": {
+    "#": {
+      "item": "minecraft:bamboo_planks"
+    }
+  },
+  "result": {
+    "item": "enchanted-vertical-slabs:vertical_bamboo_slab",
+    "count": 6
+  }
+}

@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#",
+        "#",
+        "#"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:diorite"
+        }
+    },
+    "result": {
+        "item": "enchanted-vertical-slabs:vertical_diorite_slab",
+        "count": 6
+    }
+}

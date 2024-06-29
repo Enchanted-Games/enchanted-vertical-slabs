@@ -1,0 +1,13 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": ["#", "#", "#"],
+    "key": {
+        "#": {
+            "item": "minecraft:mud_bricks"
+        }
+    },
+    "result": {
+        "item": "enchanted-vertical-slabs:vertical_mud_brick_slab",
+        "count": 6
+    }
+}
