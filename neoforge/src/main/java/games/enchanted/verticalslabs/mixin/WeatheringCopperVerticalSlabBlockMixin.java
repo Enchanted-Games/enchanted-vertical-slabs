@@ -6,10 +6,11 @@ import games.enchanted.verticalslabs.block.WeatheringCopperVerticalSlabBlock;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.ToolAction;
-import net.neoforged.neoforge.common.ToolActions;
+import net.neoforged.neoforge.common.ItemAbilities;
+import net.neoforged.neoforge.common.ItemAbility;
 import net.neoforged.neoforge.common.extensions.IBlockExtension;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -31,18 +32,18 @@ public class WeatheringCopperVerticalSlabBlockMixin extends VerticalSlabBlock im
     }
 
     @Override
-    public BlockState getToolModifiedState(@NotNull BlockState state, UseOnContext context, @NotNull ToolAction toolAction, boolean simulate) {
-        if (!context.getItemInHand().canPerformAction(toolAction)) {
+    public @Nullable BlockState getToolModifiedState(@NotNull BlockState state, UseOnContext context, @NotNull ItemAbility itemAbility, boolean simulate) {
+        if (!context.getItemInHand().canPerformAction(itemAbility)) {
             return null;
         }
-        else if (ToolActions.AXE_WAX_OFF == toolAction && SpecialBlockMaps.WAXABLE_BLOCKS != null) {
+        else if (ItemAbilities.AXE_WAX_OFF == itemAbility && SpecialBlockMaps.WAXABLE_BLOCKS != null) {
             return Optional.ofNullable(
                 SpecialBlockMaps.WAXABLE_BLOCKS.get(state.getBlock())
             ).map((blockx) ->
                 blockx.withPropertiesOf(state)
             ).orElse(null);
         }
-        else if (ToolActions.AXE_SCRAPE == toolAction) {
+        else if (ItemAbilities.AXE_SCRAPE == itemAbility) {
             return WeatheringCopper.getPrevious(state).orElse(null);
         }
 
