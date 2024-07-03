@@ -19,6 +19,9 @@
     "icon": "assets/enchanted-vertical-slabs/icon.png",
     "environment": "*",
     "entrypoints": {
+        "fabric-datagen": [
+            "games.enchanted.verticalslabs.datagen.FabricDatagenHandler"
+        ],
         "main": [
             "games.enchanted.verticalslabs.FabricModEntrypoint"
         ]
