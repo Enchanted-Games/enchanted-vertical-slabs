@@ -63,5 +63,9 @@
 
     "block.enchanted-vertical-slabs.vertical_bamboo_slab": "Vertical Bamboo Slab",
     "block.enchanted-vertical-slabs.vertical_bamboo_mosaic_slab": "Vertical Bamboo Mosaic Slab",
-    "block.enchanted-vertical-slabs.vertical_cherry_slab": "Vertical Cherry Slab"
+    "block.enchanted-vertical-slabs.vertical_cherry_slab": "Vertical Cherry Slab",
+
+    "block.enchanted-vertical-slabs.vertical_tuff_slab": "Vertical Tuff Slab",
+    "block.enchanted-vertical-slabs.vertical_polished_tuff_slab": "Vertical Polished Tuff Slab",
+    "block.enchanted-vertical-slabs.vertical_tuff_brick_slab": "Vertical Tuff Brick Slab"
 }

@@ -5,8 +5,9 @@
   "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "WallBlockMixin",
-    "IronBarsBlockMixin"
+    "CreativeModeTabsAccessor",
+    "IronBarsBlockMixin",
+    "WallBlockMixin"
   ],
   "client": [
   ],
