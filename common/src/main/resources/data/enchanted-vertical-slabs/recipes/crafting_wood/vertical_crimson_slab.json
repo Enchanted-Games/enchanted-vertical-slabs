@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "vertical_wooden_slab",
+  "pattern": [
+    "#",
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:crimson_planks"
+    }
+  },
+  "result": {
+    "item": "enchanted-vertical-slabs:vertical_crimson_slab",
+    "count": 6
+  }
+}

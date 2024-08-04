@@ -29,7 +29,6 @@ import org.jetbrains.annotations.Nullable;
 import com.mojang.serialization.MapCodec;
 
 public class VerticalSlabBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
-    public static final MapCodec<? extends VerticalSlabBlock> CODEC = simpleCodec(VerticalSlabBlock::new);
     public static final BooleanProperty SINGLE = BooleanProperty.create("single_slab");
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateManager) {
@@ -64,7 +63,7 @@ public class VerticalSlabBlock extends HorizontalDirectionalBlock implements Sim
         return true;
     }
 
-    protected boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
+    public boolean canBeReplaced(BlockState state, BlockPlaceContext context) {
         ItemStack itemStack = context.getItemInHand();
         if ( !state.getValue(SINGLE) || !(itemStack.is(this.asItem())) ) {
             return false;
@@ -127,28 +126,18 @@ public class VerticalSlabBlock extends HorizontalDirectionalBlock implements Sim
     }
 
     @Override
-    public boolean canPlaceLiquid(@Nullable Player player, @NotNull BlockGetter world, @NotNull BlockPos pos, BlockState state, @NotNull Fluid fluid) {
+    public boolean canPlaceLiquid(@NotNull BlockGetter world, @NotNull BlockPos pos, BlockState state, @NotNull Fluid fluid) {
         if ( state.getValue(SINGLE) ) {
-            return SimpleWaterloggedBlock.super.canPlaceLiquid(player, world, pos, state, fluid);
+            return SimpleWaterloggedBlock.super.canPlaceLiquid(world, pos, state, fluid);
         }
         return false;
     }
     
     @Override
-    protected @NotNull BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor world, @NotNull BlockPos pos, @NotNull BlockPos neighborPos) {
+    public @NotNull BlockState updateShape(BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor world, @NotNull BlockPos pos, @NotNull BlockPos neighborPos) {
         if (state.getValue(BlockStateProperties.WATERLOGGED)) {
             world.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
         }
         return super.updateShape(state, direction, neighborState, world, pos, neighborPos);
-    }
-    
-    @Override
-    protected boolean isPathfindable(BlockState state, @NotNull PathComputationType type) {
-        return !state.getValue(SINGLE);
-    }
-
-    @Override
-    protected @NotNull MapCodec<? extends VerticalSlabBlock> codec() {
-        return CODEC;
     }
 }

@@ -76,7 +76,6 @@ processResources {
             "group": project.group, //Else we target the task's group.
             "minecraft_version": minecraft_version,
             "minecraft_fabric_version_range": minecraft_fabric_version_range,
-            "minecraft_neoforge_version_range": minecraft_neoforge_version_range,
             "fabric_version": fabric_version,
             "fabric_loader_version": fabric_loader_version,
             "mod_name": mod_name,
@@ -84,8 +83,6 @@ processResources {
             "mod_id": mod_id,
             "license": license,
             "description": project.description,
-            "neoforge_version": neoforge_version,
-            "neoforge_loader_version_range": neoforge_loader_version_range,
             "credits": credits,
             "java_version": java_version,
             "mod_issues": mod_issues,

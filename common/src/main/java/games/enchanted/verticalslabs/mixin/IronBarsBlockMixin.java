@@ -23,11 +23,6 @@ public abstract class IronBarsBlockMixin extends CrossCollisionBlock {
         super($$0, $$1, $$2, $$3, $$4, $$5);
     }
 
-    @Override
-    public MapCodec<? extends CrossCollisionBlock> codec() {
-        return null;
-    }
-
     @Unique
     private boolean enchanted_vertical_slabs$getConnectionForDirection(BlockState state, Direction direction) {
         if(!(state.getBlock() instanceof VerticalSlabBlock)) {

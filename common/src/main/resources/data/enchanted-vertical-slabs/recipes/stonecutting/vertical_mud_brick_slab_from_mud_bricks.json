@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:mud_bricks"
+  },
+  "count": 2,
+  "result": "enchanted-vertical-slabs:vertical_mud_brick_slab"
+}

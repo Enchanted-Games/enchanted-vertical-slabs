@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:purpur_block"
+  },
+  "count": 2,
+  "result": "enchanted-vertical-slabs:vertical_purpur_slab"
+}

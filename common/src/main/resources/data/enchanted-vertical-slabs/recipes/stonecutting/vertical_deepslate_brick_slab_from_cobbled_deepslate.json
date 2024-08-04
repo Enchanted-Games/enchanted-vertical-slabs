@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:cobbled_deepslate"
+  },
+  "count": 2,
+  "result": "enchanted-vertical-slabs:vertical_deepslate_brick_slab"
+}

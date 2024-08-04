@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:cobblestone"
+  },
+  "count": 2,
+  "result": "enchanted-vertical-slabs:vertical_cobblestone_slab"
+}

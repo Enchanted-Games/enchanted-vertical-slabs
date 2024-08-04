@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:andesite"
+  },
+  "count": 2,
+  "result": "enchanted-vertical-slabs:vertical_andesite_slab"
+}

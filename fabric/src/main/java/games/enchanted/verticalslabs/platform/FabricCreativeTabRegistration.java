@@ -64,7 +64,7 @@ public class FabricCreativeTabRegistration {
             CommonEntrypoint.platformRegister.register(
                 BuiltInRegistries.CREATIVE_MODE_TAB.key(),
                 () -> TAB,
-                ResourceLocation.fromNamespaceAndPath(VerticalSlabsConstants.MOD_ID, ModCreativeTabs.modCreativeTabs[finalI].registryName)
+                new ResourceLocation(VerticalSlabsConstants.MOD_ID, ModCreativeTabs.modCreativeTabs[finalI].registryName)
             );
         }
 

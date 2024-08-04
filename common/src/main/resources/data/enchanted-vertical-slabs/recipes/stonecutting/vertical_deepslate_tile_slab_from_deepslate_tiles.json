@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:deepslate_tiles"
+  },
+  "count": 2,
+  "result": "enchanted-vertical-slabs:vertical_deepslate_tile_slab"
+}

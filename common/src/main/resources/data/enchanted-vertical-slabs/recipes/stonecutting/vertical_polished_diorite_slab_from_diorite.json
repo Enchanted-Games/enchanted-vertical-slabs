@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:diorite"
+  },
+  "count": 2,
+  "result": "enchanted-vertical-slabs:vertical_polished_diorite_slab"
+}

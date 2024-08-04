@@ -12,14 +12,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public class WeatheringCopperVerticalSlabBlock extends VerticalSlabBlock implements WeatheringCopper {
-    public static final MapCodec<WeatheringCopperVerticalSlabBlock> CODEC = RecordCodecBuilder.mapCodec((recordCodecBuilderInstance) ->
-        recordCodecBuilderInstance.group(WeatherState.CODEC.fieldOf("weathering_state").forGetter(ChangeOverTimeBlock::getAge), propertiesCodec()).apply(recordCodecBuilderInstance, WeatheringCopperVerticalSlabBlock::new)
-    );
     private final WeatherState weatherState;
-
-    public @NotNull MapCodec<WeatheringCopperVerticalSlabBlock> codec() {
-        return CODEC;
-    }
 
     @Override
     public @NotNull WeatherState getAge() {
@@ -32,7 +25,7 @@ public class WeatheringCopperVerticalSlabBlock extends VerticalSlabBlock impleme
     }
 
     public void randomTick(@NotNull BlockState state, @NotNull ServerLevel world, @NotNull BlockPos pos, @NotNull RandomSource random) {
-        this.changeOverTime(state, world, pos, random);
+        this.onRandomTick(state, world, pos, random);
     }
 
     public boolean isRandomlyTicking(BlockState state) {
