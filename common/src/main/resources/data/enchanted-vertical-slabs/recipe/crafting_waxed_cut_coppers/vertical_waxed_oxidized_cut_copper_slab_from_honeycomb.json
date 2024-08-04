@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "vertical_waxed_oxidized_cut_copper_slab",
+  "ingredients": [
+    {
+      "item": "enchanted-vertical-slabs:vertical_oxidized_cut_copper_slab"
+    },
+    {
+      "item": "minecraft:honeycomb"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "enchanted-vertical-slabs:vertical_waxed_oxidized_cut_copper_slab"
+  }
+}

@@ -1,6 +1,12 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": ["#", "#", "#"],
+  "category": "building",
+  "group": "vertical_wooden_slab",
+  "pattern": [
+    "#",
+    "#",
+    "#"
+  ],
   "key": {
     "#": {
       "item": "minecraft:bamboo_planks"
