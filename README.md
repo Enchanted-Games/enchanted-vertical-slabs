@@ -1,6 +1,8 @@
 # Enchanted Vertical Slabs
 A simple mod that adds vertical slabs to Minecraft in a vanilla-like way.
 
+The `1.20.1-backport` branch is based on v2.2 of the `1.21` branch, backported to fabric 1.20.1
+
 ## Set up in IntelliJ IDEA
 
 1. Open the template's root folder as a new project in IDEA. This is the folder that contains this README file and the gradlew executable.
