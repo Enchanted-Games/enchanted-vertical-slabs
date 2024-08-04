@@ -37,7 +37,7 @@ public class VerticalSlabBlock extends HorizontalDirectionalBlock implements Sim
         stateManager.add(BlockStateProperties.WATERLOGGED);
     }
 
-    public VerticalSlabBlock(BlockBehaviour.Properties settings) {
+    public VerticalSlabBlock(Properties settings) {
         super(settings);
         registerDefaultState(stateDefinition.any().trySetValue(SINGLE, true));
         registerDefaultState(stateDefinition.any().trySetValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH));
@@ -49,13 +49,18 @@ public class VerticalSlabBlock extends HorizontalDirectionalBlock implements Sim
         if( !state.getValue(SINGLE) ) {
             return Shapes.block();
         }
-        return switch ( state.getValue(FACING) ) {
-            case Direction.NORTH -> Shapes.create(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.5f);
-            case Direction.EAST -> Shapes.create(0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
-            case Direction.SOUTH -> Shapes.create(0.0f, 0.0f, 0.5f, 1.0f, 1.0f, 1.0f);
-            case Direction.WEST -> Shapes.create(0.0f, 0.0f, 0.0f, 0.5f, 1.0f, 1.0f);
-            default -> Shapes.block();
-        };
+        switch (state.getValue(FACING)) {
+            case NORTH:
+                return Shapes.create(0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.5f);
+            case SOUTH:
+                return Shapes.create(0.0f, 0.0f, 0.5f, 1.0f, 1.0f, 1.0f);
+            case WEST:
+                return Shapes.create(0.0f, 0.0f, 0.0f, 0.5f, 1.0f, 1.0f);
+            case EAST:
+                return Shapes.create(0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f);
+            default:
+                return Shapes.block();
+        }
     }
 
     @Override
@@ -77,13 +82,13 @@ public class VerticalSlabBlock extends HorizontalDirectionalBlock implements Sim
 
         Direction facingDirection = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
         switch (facingDirection) {
-            case Direction.NORTH:
+            case NORTH:
                 return hitposZ >= 0.5;
-            case Direction.EAST:
+            case EAST:
                 return hitposX <= 0.5;
-            case Direction.SOUTH:
+            case SOUTH:
                 return hitposZ <= 0.5;
-            case Direction.WEST:
+            case WEST:
                 return hitposX >= 0.5;
             default:
                 return false;
