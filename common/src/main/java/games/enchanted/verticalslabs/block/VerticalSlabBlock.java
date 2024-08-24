@@ -119,7 +119,7 @@ public class VerticalSlabBlock extends HorizontalDirectionalBlock implements Sim
         if (state.getValue(BlockStateProperties.WATERLOGGED)) {
             return Fluids.WATER.getSource(false);
         }
-        return state.getFluidState();
+        return super.getFluidState(state);
     }
     
     @Override
