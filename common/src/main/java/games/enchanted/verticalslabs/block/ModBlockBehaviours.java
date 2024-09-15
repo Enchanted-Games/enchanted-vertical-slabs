@@ -13,6 +13,7 @@ public class ModBlockBehaviours {
     public static final BlockBehaviour.Properties NETHER_BRICK = BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_BRICKS);
     public static final BlockBehaviour.Properties COBBLED_DEEPSLATE = BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLED_DEEPSLATE);
     public static final BlockBehaviour.Properties DEEPSLATE = BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE);
+    public static final BlockBehaviour.Properties POLISHED_DEEPSLATE = BlockBehaviour.Properties.ofFullCopy(Blocks.POLISHED_DEEPSLATE);
     public static final BlockBehaviour.Properties DEEPSLATE_BRICK = BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_BRICKS);
     public static final BlockBehaviour.Properties DEEPSLATE_TILE = BlockBehaviour.Properties.ofFullCopy(Blocks.DEEPSLATE_TILES);
     public static final BlockBehaviour.Properties BLACKSTONE = BlockBehaviour.Properties.ofFullCopy(Blocks.BLACKSTONE);
