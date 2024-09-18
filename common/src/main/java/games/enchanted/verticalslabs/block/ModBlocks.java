@@ -56,14 +56,14 @@ public class ModBlocks {
     public static final BlockAndItem VERTICAL_SMOOTH_SANDSTONE_SLAB = registerVerticalSlab("vertical_smooth_sandstone_slab", ModBlockBehaviours.STONE);
     public static final BlockAndItem VERTICAL_GRANITE_SLAB = registerVerticalSlab("vertical_granite_slab", ModBlockBehaviours.STONE);
     public static final BlockAndItem VERTICAL_ANDESITE_SLAB = registerVerticalSlab("vertical_andesite_slab", ModBlockBehaviours.STONE);
-    public static final BlockAndItem VERTICAL_RED_NETHER_BRICK_SLAB = registerVerticalSlab("vertical_red_nether_brick_slab", ModBlockBehaviours.STONE);
+    public static final BlockAndItem VERTICAL_RED_NETHER_BRICK_SLAB = registerVerticalSlab("vertical_red_nether_brick_slab", ModBlockBehaviours.NETHER_BRICK);
     public static final BlockAndItem VERTICAL_POLISHED_ANDESITE_SLAB = registerVerticalSlab("vertical_polished_andesite_slab", ModBlockBehaviours.STONE);
     public static final BlockAndItem VERTICAL_DIORITE_SLAB = registerVerticalSlab("vertical_diorite_slab", ModBlockBehaviours.STONE);
 
     public static final BlockAndItem VERTICAL_NETHER_BRICK_SLAB = registerVerticalSlab("vertical_nether_brick_slab", ModBlockBehaviours.NETHER_BRICK);
 
     public static final BlockAndItem VERTICAL_COBBLED_DEEPSLATE_SLAB = registerVerticalSlab("vertical_cobbled_deepslate_slab", ModBlockBehaviours.COBBLED_DEEPSLATE);
-    public static final BlockAndItem VERTICAL_POLISHED_DEEPSLATE_SLAB = registerVerticalSlab("vertical_polished_deepslate_slab", ModBlockBehaviours.DEEPSLATE);
+    public static final BlockAndItem VERTICAL_POLISHED_DEEPSLATE_SLAB = registerVerticalSlab("vertical_polished_deepslate_slab", ModBlockBehaviours.POLISHED_DEEPSLATE);
     public static final BlockAndItem VERTICAL_DEEPSLATE_BRICK_SLAB = registerVerticalSlab("vertical_deepslate_brick_slab", ModBlockBehaviours.DEEPSLATE_BRICK);
     public static final BlockAndItem VERTICAL_DEEPSLATE_TILE_SLAB = registerVerticalSlab("vertical_deepslate_tile_slab", ModBlockBehaviours.DEEPSLATE_TILE);
 
