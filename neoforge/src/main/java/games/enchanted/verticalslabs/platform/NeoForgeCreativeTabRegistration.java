@@ -1,8 +1,7 @@
 package games.enchanted.verticalslabs.platform;
 
-import games.enchanted.verticalslabs.CommonEntrypoint;
-import games.enchanted.verticalslabs.VerticalSlabsConstants;
-import games.enchanted.verticalslabs.block.ModBlocks;
+import games.enchanted.verticalslabs.EnchantedVerticalSlabsMod;
+import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
 import games.enchanted.verticalslabs.item.ModCreativeTab.ModCreativeTabEntry;
 import games.enchanted.verticalslabs.item.ModCreativeTab;
 import games.enchanted.verticalslabs.item.ModCreativeTabs;
@@ -42,7 +41,7 @@ public class NeoForgeCreativeTabRegistration {
                         throw new IllegalStateException("Unexpected value: '" + entry.insertionPosition + "' for creative mode tab insertionPosition");
                 }
             } catch(IllegalStateException e) {
-                VerticalSlabsConstants.LOG.warn("An exception occured running BuildCreativeModeTabContentsEvent:\n", e);
+                EnchantedVerticalSlabsConstants.LOG.warn("An exception occured running BuildCreativeModeTabContentsEvent:\n", e);
             }
         }}
     }
@@ -63,10 +62,10 @@ public class NeoForgeCreativeTabRegistration {
                 })
                 .build();
 
-            CommonEntrypoint.platformRegister.register(
+            EnchantedVerticalSlabsMod.register(
                 BuiltInRegistries.CREATIVE_MODE_TAB.key(),
                 () -> TAB,
-                ResourceLocation.fromNamespaceAndPath(VerticalSlabsConstants.MOD_ID, ModCreativeTabs.modCreativeTabs[finalI].registryName)
+                ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.MOD_ID, ModCreativeTabs.modCreativeTabs[finalI].registryName)
             );
         }
     }

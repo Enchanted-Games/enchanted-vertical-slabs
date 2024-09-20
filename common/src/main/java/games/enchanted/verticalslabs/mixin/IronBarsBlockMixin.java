@@ -1,7 +1,6 @@
 package games.enchanted.verticalslabs.mixin;
 
 import com.mojang.serialization.MapCodec;
-import games.enchanted.verticalslabs.VerticalSlabsConstants;
 import games.enchanted.verticalslabs.block.VerticalSlabBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

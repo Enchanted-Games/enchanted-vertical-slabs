@@ -1,8 +1,7 @@
 package games.enchanted.verticalslabs.platform;
 
-import games.enchanted.verticalslabs.CommonEntrypoint;
-import games.enchanted.verticalslabs.VerticalSlabsConstants;
-import games.enchanted.verticalslabs.block.ModBlocks;
+import games.enchanted.verticalslabs.EnchantedVerticalSlabsMod;
+import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
 import games.enchanted.verticalslabs.item.ModCreativeTab;
 import games.enchanted.verticalslabs.item.ModCreativeTabs;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
@@ -10,9 +9,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 
 public class FabricCreativeTabRegistration {
     /**
@@ -39,7 +36,7 @@ public class FabricCreativeTabRegistration {
                             throw new IllegalStateException("Unexpected value: '" + entry.insertionPosition + "' for creative mode tab insertionPosition");
                     }
                 } catch(IllegalStateException e) {
-                    VerticalSlabsConstants.LOG.warn("An exception occured running BuildCreativeModeTabContentsEvent:\n", e);
+                    EnchantedVerticalSlabsConstants.LOG.warn("An exception occured running BuildCreativeModeTabContentsEvent:\n", e);
                 }
             });
         }}
@@ -61,10 +58,10 @@ public class FabricCreativeTabRegistration {
                 })
                 .build();
 
-            CommonEntrypoint.platformRegister.register(
+            EnchantedVerticalSlabsMod.register(
                 BuiltInRegistries.CREATIVE_MODE_TAB.key(),
                 () -> TAB,
-                ResourceLocation.fromNamespaceAndPath(VerticalSlabsConstants.MOD_ID, ModCreativeTabs.modCreativeTabs[finalI].registryName)
+                ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.MOD_ID, ModCreativeTabs.modCreativeTabs[finalI].registryName)
             );
         }
 

@@ -1,6 +1,6 @@
 package games.enchanted.verticalslabs.item;
 
-import games.enchanted.verticalslabs.VerticalSlabsConstants;
+import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
@@ -23,7 +23,7 @@ public class ModCreativeTab {
          */
         public DummyCreativeTabData(Item groupIcon, String registryName, ModCreativeTabEntry[] groupEntries){
             this.groupIcon = groupIcon;
-            this.groupTitle = Component.translatable("itemGroup." + VerticalSlabsConstants.MOD_ID + "." + registryName);
+            this.groupTitle = Component.translatable("itemGroup." + EnchantedVerticalSlabsConstants.MOD_ID + "." + registryName);
             this.groupEntries = groupEntries;
             this.registryName = registryName;
         }

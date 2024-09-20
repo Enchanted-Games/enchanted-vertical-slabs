@@ -3,7 +3,9 @@ package games.enchanted.verticalslabs.block;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 
-public class BlockAndItem {
+import java.util.Optional;
+
+public class BlockAndItemHolder {
     private final Block block;
     private final BlockItem blockItem;
 
@@ -13,16 +15,16 @@ public class BlockAndItem {
      * @param block     the Block
      * @param blockItem the corresponding BlockItem
      */
-    public BlockAndItem(Block block, BlockItem blockItem) {
+    public BlockAndItemHolder(Block block, BlockItem blockItem) {
         this.block = block;
         this.blockItem = blockItem;
     }
 
-    public Block getBlock() {
-        return this.block;
+    public Optional<Block> getBlock() {
+        return Optional.of(this.block);
     }
 
-    public BlockItem getBlockItem() {
-        return this.blockItem;
+    public Optional<BlockItem> getBlockItem() {
+        return Optional.of(this.blockItem);
     }
 }

@@ -1,6 +1,5 @@
 package games.enchanted.verticalslabs.block;
 
-import games.enchanted.verticalslabs.VerticalSlabsConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
