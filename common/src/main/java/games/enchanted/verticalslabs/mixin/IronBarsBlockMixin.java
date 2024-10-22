@@ -4,12 +4,16 @@ import com.mojang.serialization.MapCodec;
 import games.enchanted.verticalslabs.block.VerticalSlabBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.CrossCollisionBlock;
 import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -67,14 +71,18 @@ public abstract class IronBarsBlockMixin extends CrossCollisionBlock {
 
     @Inject(
         at = @At("HEAD"),
-        method = "updateShape(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelAccessor;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/world/level/block/state/BlockState;",
+        method = "updateShape",
         cancellable = true
     )
     // attach iron bars (and similar blocks like glass panes) to vertical slabs
-    protected void updateShape(BlockState blockState, Direction direction, BlockState blockState2, LevelAccessor levelAccessor, BlockPos blockPos, BlockPos blockPos2, CallbackInfoReturnable<BlockState> cir) {
+    protected void updateShape(BlockState blockState, @NotNull LevelReader levelReader, @NotNull ScheduledTickAccess scheduledTickAccess, @NotNull BlockPos pos, @NotNull Direction direction, @NotNull BlockPos pos2, @NotNull BlockState blockState2, @NotNull RandomSource randomSource, CallbackInfoReturnable<BlockState> cir) {
         if(blockState2.getBlock() instanceof VerticalSlabBlock) {
             boolean slabAwayFromBarBlock = blockState2.getValue(VerticalSlabBlock.FACING) == direction;
-            cir.setReturnValue(direction.getAxis().isHorizontal() ? blockState.setValue(PROPERTY_BY_DIRECTION.get(direction), !slabAwayFromBarBlock) : super.updateShape(blockState, direction, blockState2, levelAccessor, blockPos, blockPos2));
+            cir.setReturnValue(
+                direction.getAxis().isHorizontal() ?
+                    blockState.setValue(PROPERTY_BY_DIRECTION.get(direction), !slabAwayFromBarBlock) :
+                    super.updateShape(blockState, levelReader, scheduledTickAccess, pos, direction, pos2, blockState2, randomSource)
+            );
         }
     }
 }
