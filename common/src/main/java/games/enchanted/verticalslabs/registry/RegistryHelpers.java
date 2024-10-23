@@ -4,7 +4,7 @@ import games.enchanted.verticalslabs.block.VerticalSlabBlock;
 import games.enchanted.verticalslabs.block.WeatheringCopperVerticalSlabBlock;
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsMod;
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
-import games.enchanted.verticalslabs.block.BlockAndItemHolder;
+import games.enchanted.verticalslabs.block.BlockAndItemContainer;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -29,17 +29,17 @@ public class RegistryHelpers {
         return EnchantedVerticalSlabsMod.register(BuiltInRegistries.BLOCK.key(), () -> new WeatheringCopperVerticalSlabBlock(oxidationLevel, blockSettings), location);
     }
 
-    public static BlockAndItemHolder registerVerticalSlab(String id, BlockBehaviour.Properties blockProperties) {
+    public static BlockAndItemContainer registerVerticalSlab(String id, BlockBehaviour.Properties blockProperties) {
         return registerVerticalSlab(id, blockProperties, null);
     }
 
-    public static BlockAndItemHolder registerVerticalSlab(String id, BlockBehaviour.Properties blockProperties, WeatheringCopper.WeatherState oxidationLevel) {
+    public static BlockAndItemContainer registerVerticalSlab(String id, BlockBehaviour.Properties blockProperties, WeatheringCopper.WeatherState oxidationLevel) {
         ResourceLocation location = ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.MOD_ID, id);
         ResourceKey<Block> blockResourceKey = ResourceKey.create(Registries.BLOCK, location);
         blockProperties.setId(blockResourceKey);
 
         final Block registeredBlock = oxidationLevel == null ? registerVerticalSlabBlock(location, blockProperties) : registerVerticalSlabBlock(location, blockProperties, oxidationLevel);
         final BlockItem registeredBlockItem = registerBlockItem(location, registeredBlock);
-        return new BlockAndItemHolder(registeredBlock, registeredBlockItem);
+        return new BlockAndItemContainer(registeredBlock, registeredBlockItem);
     }
 }
