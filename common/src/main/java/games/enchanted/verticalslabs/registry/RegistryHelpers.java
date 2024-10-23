@@ -19,7 +19,7 @@ public class RegistryHelpers {
     private static BlockItem registerBlockItem(ResourceLocation location, Block block) {
         Item.Properties settings = new Item.Properties();
         ResourceKey<Item> itemResourceKey = ResourceKey.create(Registries.ITEM, location);
-        settings.setId(itemResourceKey);
+        settings.useBlockDescriptionPrefix().setId(itemResourceKey);
         return EnchantedVerticalSlabsMod.register(BuiltInRegistries.ITEM.key(), () -> new BlockItem(block, settings), location);
     }
     private static Block registerVerticalSlabBlock(ResourceLocation location, BlockBehaviour.Properties blockSettings) {
