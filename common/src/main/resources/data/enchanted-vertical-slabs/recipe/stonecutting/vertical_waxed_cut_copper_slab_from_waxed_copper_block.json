@@ -1,8 +1,6 @@
 {
   "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "minecraft:waxed_copper_block"
-  },
+  "ingredient": "minecraft:waxed_copper_block",
   "result": {
     "count": 8,
     "id": "enchanted-vertical-slabs:vertical_waxed_cut_copper_slab"

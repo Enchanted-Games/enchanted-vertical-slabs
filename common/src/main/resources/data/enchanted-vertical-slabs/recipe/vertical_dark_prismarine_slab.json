@@ -6,9 +6,7 @@
         "#"
     ],
     "key": {
-        "#": {
-            "item": "minecraft:dark_prismarine"
-        }
+        "#": "minecraft:dark_prismarine"
     },
     "result": {
         "id": "enchanted-vertical-slabs:vertical_dark_prismarine_slab",

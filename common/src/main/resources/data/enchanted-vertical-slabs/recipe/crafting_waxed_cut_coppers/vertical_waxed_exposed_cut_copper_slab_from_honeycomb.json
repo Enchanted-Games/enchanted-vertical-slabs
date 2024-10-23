@@ -3,12 +3,8 @@
   "category": "building",
   "group": "vertical_waxed_exposed_cut_copper_slab",
   "ingredients": [
-    {
-      "item": "enchanted-vertical-slabs:vertical_exposed_cut_copper_slab"
-    },
-    {
-      "item": "minecraft:honeycomb"
-    }
+    "enchanted-vertical-slabs:vertical_exposed_cut_copper_slab",
+    "minecraft:honeycomb"
   ],
   "result": {
     "count": 1,

@@ -6,9 +6,7 @@
         "#"
     ],
     "key": {
-        "#": {
-            "item": "minecraft:polished_deepslate"
-        }
+        "#": "minecraft:polished_deepslate"
     },
     "result": {
         "id": "enchanted-vertical-slabs:vertical_polished_deepslate_slab",

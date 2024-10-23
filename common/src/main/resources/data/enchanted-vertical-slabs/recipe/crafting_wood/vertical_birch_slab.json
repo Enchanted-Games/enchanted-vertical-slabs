@@ -8,9 +8,7 @@
     "#"
   ],
   "key": {
-    "#": {
-      "item": "minecraft:birch_planks"
-    }
+    "#": "minecraft:birch_planks"
   },
   "result": {
     "id": "enchanted-vertical-slabs:vertical_birch_slab",

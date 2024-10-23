@@ -6,9 +6,7 @@
         "#"
     ],
     "key": {
-        "#": {
-            "item": "minecraft:tuff"
-        }
+        "#": "minecraft:tuff"
     },
     "result": {
         "id": "enchanted-vertical-slabs:vertical_tuff_slab",

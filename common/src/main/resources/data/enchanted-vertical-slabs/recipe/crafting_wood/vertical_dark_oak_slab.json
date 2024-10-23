@@ -8,9 +8,7 @@
     "#"
   ],
   "key": {
-    "#": {
-      "item": "minecraft:dark_oak_planks"
-    }
+    "#": "minecraft:dark_oak_planks"
   },
   "result": {
     "id": "enchanted-vertical-slabs:vertical_dark_oak_slab",

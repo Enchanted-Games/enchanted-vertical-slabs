@@ -6,9 +6,7 @@
         "#"
     ],
     "key": {
-        "#": {
-            "item": "minecraft:mossy_cobblestone"
-        }
+        "#": "minecraft:mossy_cobblestone"
     },
     "result": {
         "id": "enchanted-vertical-slabs:vertical_mossy_cobblestone_slab",

@@ -6,9 +6,7 @@
         "#"
     ],
     "key": {
-        "#": {
-            "item": "minecraft:exposed_cut_copper"
-        }
+        "#": "minecraft:exposed_cut_copper"
     },
     "result": {
         "id": "enchanted-vertical-slabs:vertical_exposed_cut_copper_slab",

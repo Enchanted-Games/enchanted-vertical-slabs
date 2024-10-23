@@ -6,9 +6,7 @@
         "#"
     ],
     "key": {
-        "#": {
-            "item": "minecraft:polished_tuff"
-        }
+        "#": "minecraft:polished_tuff"
     },
     "result": {
         "id": "enchanted-vertical-slabs:vertical_polished_tuff_slab",
