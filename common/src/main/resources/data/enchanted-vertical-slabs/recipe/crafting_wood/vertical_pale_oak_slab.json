@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "vertical_wooden_slab",
+  "pattern": [
+    "#",
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": "minecraft:pale_oak_planks"
+  },
+  "result": {
+    "id": "enchanted-vertical-slabs:vertical_pale_oak_slab",
+    "count": 6
+  }
+}

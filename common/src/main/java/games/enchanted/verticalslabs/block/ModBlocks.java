@@ -19,6 +19,7 @@ public class ModBlocks {
     public static final BlockAndItemContainer VERTICAL_WARPED_SLAB = registerVerticalSlab("vertical_warped_slab", Blocks.WARPED_SLAB.properties());
     public static final BlockAndItemContainer VERTICAL_BAMBOO_SLAB = registerVerticalSlab("vertical_bamboo_slab", Blocks.BAMBOO_SLAB.properties());
     public static final BlockAndItemContainer VERTICAL_BAMBOO_MOSAIC_SLAB = registerVerticalSlab("vertical_bamboo_mosaic_slab", Blocks.BAMBOO_MOSAIC_SLAB.properties());
+    public static final BlockAndItemContainer VERTICAL_PALE_OAK_SLAB = registerVerticalSlab("vertical_pale_oak_slab", Blocks.PALE_OAK_SLAB.properties());
 
     // copper slabs
     public static final BlockAndItemContainer VERTICAL_CUT_COPPER_SLAB = registerVerticalSlab("vertical_cut_copper_slab", Blocks.CUT_COPPER_SLAB.properties(), WeatheringCopper.WeatherState.UNAFFECTED);

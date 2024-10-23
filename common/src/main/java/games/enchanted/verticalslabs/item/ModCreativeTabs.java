@@ -23,6 +23,7 @@ public class ModCreativeTabs {
 			new ModCreativeTabEntry(ModBlocks.VERTICAL_DARK_OAK_SLAB.blockItem(), buildingBlocksTab, Items.DARK_OAK_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
 			new ModCreativeTabEntry(ModBlocks.VERTICAL_MANGROVE_SLAB.blockItem(), buildingBlocksTab, Items.MANGROVE_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
 			new ModCreativeTabEntry(ModBlocks.VERTICAL_CHERRY_SLAB.blockItem(), buildingBlocksTab, Items.CHERRY_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(ModBlocks.VERTICAL_PALE_OAK_SLAB.blockItem(), buildingBlocksTab, Items.PALE_OAK_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
 			new ModCreativeTabEntry(ModBlocks.VERTICAL_BAMBOO_SLAB.blockItem(), buildingBlocksTab, Items.BAMBOO_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
 			new ModCreativeTabEntry(ModBlocks.VERTICAL_BAMBOO_MOSAIC_SLAB.blockItem(), buildingBlocksTab, Items.BAMBOO_MOSAIC_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
 			new ModCreativeTabEntry(ModBlocks.VERTICAL_CRIMSON_SLAB.blockItem(), buildingBlocksTab, Items.CRIMSON_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
