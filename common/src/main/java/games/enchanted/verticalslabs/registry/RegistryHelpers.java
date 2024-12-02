@@ -1,10 +1,10 @@
 package games.enchanted.verticalslabs.registry;
 
+import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
+import games.enchanted.verticalslabs.EnchantedVerticalSlabsMod;
+import games.enchanted.verticalslabs.block.BlockAndItemContainer;
 import games.enchanted.verticalslabs.block.VerticalSlabBlock;
 import games.enchanted.verticalslabs.block.WeatheringCopperVerticalSlabBlock;
-import games.enchanted.verticalslabs.EnchantedVerticalSlabsMod;
-import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
-import games.enchanted.verticalslabs.block.BlockAndItemContainer;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
