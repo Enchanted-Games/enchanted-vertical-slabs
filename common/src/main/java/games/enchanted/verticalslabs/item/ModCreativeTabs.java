@@ -49,6 +49,7 @@ public class ModCreativeTabs {
 			new ModCreativeTabEntry(ModBlocks.VERTICAL_TUFF_BRICK_SLAB.blockItem(), buildingBlocksTab, Items.TUFF_BRICK_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
 			new ModCreativeTabEntry(ModBlocks.VERTICAL_BRICK_SLAB.blockItem(), buildingBlocksTab, Items.BRICK_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
 			new ModCreativeTabEntry(ModBlocks.VERTICAL_MUD_BRICK_SLAB.blockItem(), buildingBlocksTab, Items.MUD_BRICK_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(ModBlocks.VERTICAL_RESIN_BRICK_SLAB.blockItem(), buildingBlocksTab, Items.RESIN_BRICK_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
 			new ModCreativeTabEntry(ModBlocks.VERTICAL_SANDSTONE_SLAB.blockItem(), buildingBlocksTab, Items.SANDSTONE_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
 			new ModCreativeTabEntry(ModBlocks.VERTICAL_SMOOTH_SANDSTONE_SLAB.blockItem(), buildingBlocksTab, Items.SMOOTH_SANDSTONE_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
 			new ModCreativeTabEntry(ModBlocks.VERTICAL_CUT_SANDSTONE_SLAB.blockItem(), buildingBlocksTab, Items.CUT_STANDSTONE_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),

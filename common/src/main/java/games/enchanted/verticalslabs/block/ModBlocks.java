@@ -74,10 +74,12 @@ public class ModBlocks {
     public static final BlockAndItemContainer VERTICAL_POLISHED_BLACKSTONE_BRICK_SLAB = registerVerticalSlab("vertical_polished_blackstone_brick_slab", Blocks.POLISHED_BLACKSTONE_BRICK_SLAB.properties());
 
     public static final BlockAndItemContainer VERTICAL_MUD_BRICK_SLAB = registerVerticalSlab("vertical_mud_brick_slab", Blocks.MUD_BRICK_SLAB.properties());
+    public static final BlockAndItemContainer VERTICAL_RESIN_BRICK_SLAB = registerVerticalSlab("vertical_resin_brick_slab", Blocks.RESIN_BRICK_SLAB.properties());
 
     public static final BlockAndItemContainer VERTICAL_TUFF_SLAB = registerVerticalSlab("vertical_tuff_slab", Blocks.TUFF_SLAB.properties());
     public static final BlockAndItemContainer VERTICAL_POLISHED_TUFF_SLAB = registerVerticalSlab("vertical_polished_tuff_slab", Blocks.POLISHED_TUFF_SLAB.properties());
     public static final BlockAndItemContainer VERTICAL_TUFF_BRICK_SLAB = registerVerticalSlab("vertical_tuff_brick_slab", Blocks.TUFF_BRICK_SLAB.properties());
+
 
     /**
      * Calls the class to register blocks
