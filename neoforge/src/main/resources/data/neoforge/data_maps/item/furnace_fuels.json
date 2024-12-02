@@ -24,6 +24,9 @@
     "enchanted-vertical-slabs:vertical_cherry_slab": {
       "burn_time": 300
     },
+    "enchanted-vertical-slabs:vertical_pale_oak_slab": {
+      "burn_time": 300
+    },
     "enchanted-vertical-slabs:vertical_bamboo_slab": {
       "burn_time": 150
     },

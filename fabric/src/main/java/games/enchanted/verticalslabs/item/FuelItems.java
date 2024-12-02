@@ -14,6 +14,7 @@ public class FuelItems {
             builder.add(ModBlocks.VERTICAL_DARK_OAK_SLAB.block(), 300);
             builder.add(ModBlocks.VERTICAL_MANGROVE_SLAB.block(), 300);
             builder.add(ModBlocks.VERTICAL_CHERRY_SLAB.block(), 300);
+            builder.add(ModBlocks.VERTICAL_PALE_OAK_SLAB.block(), 300);
 
             builder.add(ModBlocks.VERTICAL_BAMBOO_SLAB.block(), 150);
             builder.add(ModBlocks.VERTICAL_BAMBOO_MOSAIC_SLAB.block(), 150);
