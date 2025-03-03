@@ -4,9 +4,10 @@
   "package": "games.enchanted.verticalslabs.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "CommonModLoaderMixin",
+    "HoneyCombItemMixin",
     "WeatheringCopperMixin",
-    "WeatheringCopperVerticalSlabBlockMixin",
-    "HoneyCombItemMixin"
+    "WeatheringCopperVerticalSlabBlockMixin"
   ],
   "client": [
   ],
