@@ -61,7 +61,7 @@ public class FabricCreativeTabRegistration {
             EnchantedVerticalSlabsMod.register(
                 BuiltInRegistries.CREATIVE_MODE_TAB.key(),
                 () -> TAB,
-                ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.MOD_ID, ModCreativeTabs.modCreativeTabs[finalI].registryName)
+                ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION, ModCreativeTabs.modCreativeTabs[finalI].registryName)
             );
         }
 

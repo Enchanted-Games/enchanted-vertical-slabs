@@ -6,14 +6,17 @@ import games.enchanted.verticalslabs.registry.FlammableBlocks;
 import games.enchanted.verticalslabs.registry.WeatheringBlocks;
 import net.minecraft.core.registries.Registries;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
-@Mod(EnchantedVerticalSlabsConstants.LOADER_MOD_ID)
+@Mod(EnchantedVerticalSlabsConstants.MOD_ID)
 public class NeoForgeEntrypoint {
     public final IEventBus eventBus;
+    public static ModContainer CONTAINER = null;
 
-    public NeoForgeEntrypoint(IEventBus bus) {
+    public NeoForgeEntrypoint(IEventBus bus, ModContainer container) {
         this.eventBus = bus;
         EnchantedVerticalSlabsMod.initBeforeRegistration();
 
@@ -28,6 +31,8 @@ public class NeoForgeEntrypoint {
                 NeoForgeCreativeTabRegistration.registerTabs();
             }
         });
+
+        CONTAINER = container;
 
         bus.addListener(NeoForgeCreativeTabRegistration::addItemsInExistingTabs);
     }

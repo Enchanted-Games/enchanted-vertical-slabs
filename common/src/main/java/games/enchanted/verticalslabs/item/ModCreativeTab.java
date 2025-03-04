@@ -23,7 +23,7 @@ public class ModCreativeTab {
          */
         public DummyCreativeTabData(Item groupIcon, String registryName, ModCreativeTabEntry[] groupEntries){
             this.groupIcon = groupIcon;
-            this.groupTitle = Component.translatable("itemGroup." + EnchantedVerticalSlabsConstants.MOD_ID + "." + registryName);
+            this.groupTitle = Component.translatable("itemGroup." + EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION + "." + registryName);
             this.groupEntries = groupEntries;
             this.registryName = registryName;
         }

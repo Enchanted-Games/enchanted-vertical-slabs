@@ -1,0 +1,13 @@
+{
+  "pack": {
+    "pack_format": 46,
+    "description": [
+      "",
+      {
+        "translate": "resourcePack.evs_dynamic_resources.description",
+        "fallback": "Dynamic Resources for Enchanted Vertical Slabs",
+        "color": "#808080"
+      }
+    ]
+  }
+}

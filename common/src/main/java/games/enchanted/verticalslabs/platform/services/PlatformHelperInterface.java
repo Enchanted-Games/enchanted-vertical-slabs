@@ -1,6 +1,9 @@
 package games.enchanted.verticalslabs.platform.services;
 
 import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.Nullable;
+
+import java.nio.file.Path;
 
 public interface PlatformHelperInterface {
     /**
@@ -58,4 +61,11 @@ public interface PlatformHelperInterface {
      * @param spread the change the block will catch fire
      */
     void addFlammableBlock(Block block, int burnTime, int spread);
+
+    /**
+     * Returns a Path to a resource in the current mod JAR
+     *
+     * @param strings elements of the path
+     */
+    @Nullable Path getResourcePathFromModJar(String... strings);
 }

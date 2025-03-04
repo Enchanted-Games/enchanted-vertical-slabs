@@ -4,7 +4,12 @@ import games.enchanted.verticalslabs.platform.services.PlatformHelperInterface;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.OxidizableBlocksRegistry;
 import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.Nullable;
+
+import java.nio.file.Path;
+import java.util.Optional;
 
 public class FabricPlatformHelper implements PlatformHelperInterface {
     @Override
@@ -35,5 +40,15 @@ public class FabricPlatformHelper implements PlatformHelperInterface {
     @Override
     public void addFlammableBlock(Block block, int burnTime, int spread) {
         FlammableBlockRegistry.getDefaultInstance().add(block, burnTime, spread);
+    }
+
+    @Override
+    public @Nullable Path getResourcePathFromModJar(String... strings) {
+        Optional<ModContainer> container = FabricLoader.getInstance().getModContainer("evs");
+        if(container.isPresent()) {
+            Optional<Path> path = container.get().findPath(String.join("/", strings));
+            return path.orElse(null);
+        }
+        return null;
     }
 }

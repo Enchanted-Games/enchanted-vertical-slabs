@@ -1,4 +1,5 @@
 {
+    "resourcePack.evs_dynamic_resources.description": "Dynamic Resources for Enchanted Vertical Slabs",
     "itemGroup.enchanted-vertical-slabs.vertical_slabs": "Vertical Slabs",
 
     "block.enchanted-vertical-slabs.vertical_oak_slab": "Vertical Oak Slab",
