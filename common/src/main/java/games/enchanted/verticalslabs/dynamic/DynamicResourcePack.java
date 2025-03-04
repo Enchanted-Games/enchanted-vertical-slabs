@@ -3,6 +3,7 @@ package games.enchanted.verticalslabs.dynamic;
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
 import games.enchanted.verticalslabs.dynamic.pack.AbstractDynamicPack;
 import games.enchanted.verticalslabs.dynamic.pack.ResourceType;
+import games.enchanted.verticalslabs.util.IoSupplierUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.FileToIdConverter;
 import net.minecraft.resources.ResourceLocation;
@@ -44,6 +45,6 @@ public class DynamicResourcePack extends AbstractDynamicPack {
     }
 
     public void addBlockstate(ResourceLocation location, String stringifiedModelJSON) {
-        addResource("blockstate", location, stringifiedModelJSON);
+        addResource("blockstate", location, IoSupplierUtil.stringToIoSupplier(stringifiedModelJSON));
     }
 }

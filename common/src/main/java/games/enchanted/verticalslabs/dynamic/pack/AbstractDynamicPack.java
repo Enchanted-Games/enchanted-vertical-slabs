@@ -3,7 +3,6 @@ package games.enchanted.verticalslabs.dynamic.pack;
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
 import games.enchanted.verticalslabs.platform.Services;
 import games.enchanted.verticalslabs.util.ArrayUtil;
-import games.enchanted.verticalslabs.util.IoSupplierUtil;
 import net.minecraft.FileUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -63,13 +62,13 @@ public abstract class AbstractDynamicPack implements PackResources {
         RESOURCE_TYPES.add(resourceType);
     }
 
-    public void addResource(String resourceTypeName, ResourceLocation location, String stringifiedModelJSON) {
+    public void addResource(String resourceTypeName, ResourceLocation location, IoSupplier<InputStream> resourceData) {
         int resourceTypeIndex = RESOURCE_TYPE_NAME_TO_ID.get(resourceTypeName);
         final int maxIndex = RESOURCE_TYPES.size() - 1;
         if(resourceTypeIndex > maxIndex) throw new IllegalStateException("RESOURCE_TYPE_NAME_TO_ID returned an index (" + resourceTypeIndex + ") greater than maximum allowed value (" + maxIndex + ")");
         ResourceType resourceType = RESOURCE_TYPES.get(resourceTypeIndex);
-        ResourceLocation fileLocation = resourceType.fileToIdConverter().idToFile(location);
-        resourceType.locationToStringifiedModel().put(fileLocation, stringifiedModelJSON);
+        ResourceLocation fileLocation = resourceType.fileToIdConverter.idToFile(location);
+        resourceType.locationToResourceMap.put(fileLocation, resourceData);
     }
     
     @Override
@@ -78,8 +77,8 @@ public abstract class AbstractDynamicPack implements PackResources {
             return null;
         }
         for (ResourceType type : RESOURCE_TYPES) {
-            if (type.locationToStringifiedModel().containsKey(location)) {
-                return IoSupplierUtil.stringToIoSupplier(type.locationToStringifiedModel().get(location));
+            if (type.locationToResourceMap.containsKey(location)) {
+                return type.locationToResourceMap.get(location);
             }
         }
         return null;
@@ -91,9 +90,9 @@ public abstract class AbstractDynamicPack implements PackResources {
         if (packType != PackType.CLIENT_RESOURCES) return;
 
         for (ResourceType type : RESOURCE_TYPES) {
-            if (path.equals(type.packDirectory())) {
-                for (var entry : type.locationToStringifiedModel().entrySet()) {
-                    resourceOutput.accept(entry.getKey(), IoSupplierUtil.stringToIoSupplier(entry.getValue()));
+            if (path.equals(type.directoryInPack)) {
+                for (var entry : type.locationToResourceMap.entrySet()) {
+                    resourceOutput.accept(entry.getKey(), entry.getValue());
                 }
             }
         }
