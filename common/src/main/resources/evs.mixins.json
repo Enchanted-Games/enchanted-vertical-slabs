@@ -12,6 +12,7 @@
     "WallBlockMixin"
   ],
   "client": [
+    "MinecraftMixin"
   ],
   "server": [],
   "injectors": {

@@ -28,7 +28,7 @@ public abstract class DefaultedMappedRegistryMixin<T> extends MappedRegistry<T> 
             // if something is being registered to the BLOCK registry
             if(value instanceof SlabBlock) {
                 System.out.println("Registered a SlabBlock: " + key.location());
-                DynamicVerticalSlabs.addSlabLocation(key.location());
+                DynamicVerticalSlabs.addDynamicSlab(key.location());
             }
         }
     }
