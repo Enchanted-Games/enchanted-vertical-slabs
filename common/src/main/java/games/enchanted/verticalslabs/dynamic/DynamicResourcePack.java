@@ -23,6 +23,7 @@ import java.util.Set;
 
 public class DynamicResourcePack implements PackResources {
     public static final DynamicResourcePack INSTANCE = new DynamicResourcePack();
+
     public static final String PACK_ID = EnchantedVerticalSlabsConstants.MOD_ID + "_dynamic_resources";
     private static final PackLocationInfo PACK_INFO = new PackLocationInfo(PACK_ID, Component.literal("EVS Dynamic Resources"), PackSource.BUILT_IN, Optional.empty());
     public static final PackSelectionConfig PACK_SELECTION_CONFIG = new PackSelectionConfig(true, Pack.Position.TOP, false);
@@ -59,7 +60,7 @@ public class DynamicResourcePack implements PackResources {
 
     @Override
     public @NotNull Set<String> getNamespaces(@NotNull PackType packType) {
-        if (packType == PackType.CLIENT_RESOURCES || packType == PackType.SERVER_DATA) {
+        if (packType == PackType.CLIENT_RESOURCES) {
             return Set.of(EnchantedVerticalSlabsConstants.MOD_ID);
         }
         return Set.of();
