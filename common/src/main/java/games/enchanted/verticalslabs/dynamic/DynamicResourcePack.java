@@ -1,59 +1,47 @@
 package games.enchanted.verticalslabs.dynamic;
 
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
-import games.enchanted.verticalslabs.platform.Services;
-import games.enchanted.verticalslabs.util.ArrayUtil;
+import games.enchanted.verticalslabs.dynamic.pack.AbstractDynamicPack;
 import games.enchanted.verticalslabs.util.IoSupplierUtil;
-import net.minecraft.FileUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.FileToIdConverter;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.*;
-import net.minecraft.server.packs.metadata.MetadataSectionType;
+import net.minecraft.server.packs.PackSelectionConfig;
+import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.Pack;
-import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.server.packs.resources.IoSupplier;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Path;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
-public class DynamicResourcePack implements PackResources {
-    public static final DynamicResourcePack INSTANCE = new DynamicResourcePack();
-
-    public static final String PACK_ID = EnchantedVerticalSlabsConstants.MOD_ID + "_dynamic_resources";
-    private static final PackLocationInfo PACK_INFO = new PackLocationInfo(PACK_ID, Component.literal("EVS Dynamic Resources"), PackSource.BUILT_IN, Optional.empty());
-    public static final PackSelectionConfig PACK_SELECTION_CONFIG = new PackSelectionConfig(true, Pack.Position.TOP, false);
-
+public class DynamicResourcePack extends AbstractDynamicPack {
     private static final Map<ResourceLocation, String> BLOCKSTATES = new HashMap<>();
     private static final FileToIdConverter BLOCKSTATES_LISTER = new FileToIdConverter("blockstates", ".json");
 
-    public static final Pack.ResourcesSupplier RESOURCES_SUPPLIER = new Pack.ResourcesSupplier() {
-        @Override
-        public @NotNull PackResources openPrimary(@NotNull PackLocationInfo location) {
-            return INSTANCE;
-        }
+    public static final DynamicResourcePack INSTANCE = new DynamicResourcePack(
+        PackType.CLIENT_RESOURCES,
+        EnchantedVerticalSlabsConstants.MOD_ID + "_dynamic_resources",
+        Component.literal("EVS Dynamic Resources"),
+        Set.of(EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION)
+    );
+    public static final PackSelectionConfig PACK_SELECTION_CONFIG = new PackSelectionConfig(true, Pack.Position.TOP, false);
 
-        @Override
-        public @NotNull PackResources openFull(@NotNull PackLocationInfo location, Pack.@NotNull Metadata metadata) {
-            return INSTANCE;
-        }
-    };
+    public DynamicResourcePack(PackType packType, String packId, Component packName, Set<String> providedNamespaces) {
+        super(packType, packId, packName, providedNamespaces);
+    }
+
+    @Override
+    public AbstractDynamicPack getInstance() {
+        return INSTANCE;
+    }
 
     public void addBlockstate(ResourceLocation location, String stringifiedModelJSON) {
         System.out.println("Added state model: " + location.toString());
         BLOCKSTATES.put(BLOCKSTATES_LISTER.idToFile(location), stringifiedModelJSON);
-    }
-
-    @Override
-    public @Nullable IoSupplier<InputStream> getRootResource(String @NotNull ... strings) {
-        FileUtil.validatePath(strings);
-
-        Path resourcePath = Services.PLATFORM.getResourcePathFromModJar(ArrayUtil.appendToBeginningOfArray(strings, PACK_ID));
-        return resourcePath == null ? null : IoSupplier.create(resourcePath);
     }
 
     @Override
@@ -78,25 +66,4 @@ public class DynamicResourcePack implements PackResources {
             }
         }
     }
-
-    @Override
-    public @NotNull Set<String> getNamespaces(@NotNull PackType packType) {
-        if (packType == PackType.CLIENT_RESOURCES) {
-            return Set.of(EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION);
-        }
-        return Set.of();
-    }
-
-    @Override
-    public @Nullable <T> T getMetadataSection(@NotNull MetadataSectionType<T> metadataSectionType) throws IOException {
-        return AbstractPackResources.getMetadataFromStream(metadataSectionType, Objects.requireNonNull(getRootResource("pack.mcmeta")).get());
-    }
-
-    @Override
-    public @NotNull PackLocationInfo location() {
-        return PACK_INFO;
-    }
-
-    @Override
-    public void close() {}
 }

@@ -18,6 +18,6 @@ public abstract class BuiltinPackSourceMixin {
         method = "listBundledPacks"
     )
     private void listBundledPacks(Consumer<Pack> packConsumer, CallbackInfo ci) {
-        packConsumer.accept(Pack.readMetaAndCreate(DynamicResourcePack.INSTANCE.location(), DynamicResourcePack.RESOURCES_SUPPLIER, PackType.CLIENT_RESOURCES, DynamicResourcePack.PACK_SELECTION_CONFIG));
+        packConsumer.accept(Pack.readMetaAndCreate(DynamicResourcePack.INSTANCE.location(), DynamicResourcePack.INSTANCE.getResourcesSupplier(), PackType.CLIENT_RESOURCES, DynamicResourcePack.PACK_SELECTION_CONFIG));
     }
 }
