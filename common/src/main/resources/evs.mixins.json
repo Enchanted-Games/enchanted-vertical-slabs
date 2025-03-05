@@ -9,13 +9,12 @@
     "CreativeModeTabsAccessor",
     "DefaultedMappedRegistryMixin",
     "IronBarsBlockMixin",
-    "MinecraftServerMixin",
-    "ReloadableServerResourcesMixin",
     "WallBlockMixin",
+    "WorldLoaderMixin",
     "accessor.PackAccessor"
   ],
   "client": [
-    "client.MinecraftMixin",
+    "client.MinecraftMixin"
   ],
   "server": [
   ],
