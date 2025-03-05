@@ -1,6 +1,6 @@
 package games.enchanted.verticalslabs.mixin;
 
-import games.enchanted.verticalslabs.dynamic.DynamicResourcePack;
+import games.enchanted.verticalslabs.dynamic.EVSDynamicResources;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.BuiltInPackSource;
 import net.minecraft.server.packs.repository.Pack;
@@ -18,6 +18,6 @@ public abstract class BuiltinPackSourceMixin {
         method = "listBundledPacks"
     )
     private void listBundledPacks(Consumer<Pack> packConsumer, CallbackInfo ci) {
-        packConsumer.accept(Pack.readMetaAndCreate(DynamicResourcePack.INSTANCE.location(), DynamicResourcePack.INSTANCE.getResourcesSupplier(), PackType.CLIENT_RESOURCES, DynamicResourcePack.PACK_SELECTION_CONFIG));
+        packConsumer.accept(Pack.readMetaAndCreate(EVSDynamicResources.INSTANCE.location(), EVSDynamicResources.INSTANCE.getResourcesSupplier(), PackType.SERVER_DATA, EVSDynamicResources.PACK_SELECTION_CONFIG));
     }
 }

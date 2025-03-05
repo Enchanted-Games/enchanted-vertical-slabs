@@ -14,17 +14,17 @@ import net.minecraft.server.packs.repository.Pack;
 import java.util.HashMap;
 import java.util.Set;
 
-public class DynamicResourcePack extends AbstractDynamicPack {
-    public static final DynamicResourcePack INSTANCE = new DynamicResourcePack(
-        PackType.CLIENT_RESOURCES,
+public class EVSDynamicResources extends AbstractDynamicPack {
+    public static final EVSDynamicResources INSTANCE = new EVSDynamicResources(
         EnchantedVerticalSlabsConstants.MOD_ID + "_dynamic_resources",
         Component.literal("EVS Dynamic Resources"),
+        Set.of(EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION),
         Set.of(EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION)
     );
     public static final PackSelectionConfig PACK_SELECTION_CONFIG = new PackSelectionConfig(true, Pack.Position.TOP, false);
 
-    public DynamicResourcePack(PackType packType, String packId, Component packName, Set<String> providedNamespaces) {
-        super(packType, packId, packName, providedNamespaces);
+    public EVSDynamicResources(String packId, Component packName, Set<String> clientNamespaces, Set<String> serverNamespaces) {
+        super(packId, packName, clientNamespaces, serverNamespaces);
     }
 
     @Override
@@ -40,11 +40,12 @@ public class DynamicResourcePack extends AbstractDynamicPack {
                 "blockstates",
                 new HashMap<>(),
                 new FileToIdConverter("blockstates", ".json")
-            )
+            ),
+            PackType.CLIENT_RESOURCES
         );
     }
 
     public void addBlockstate(ResourceLocation location, String stringifiedModelJSON) {
-        addResource("blockstate", location, IoSupplierUtil.stringToIoSupplier(stringifiedModelJSON));
+        addResource("blockstate", location, IoSupplierUtil.stringToIoSupplier(stringifiedModelJSON), PackType.CLIENT_RESOURCES);
     }
 }

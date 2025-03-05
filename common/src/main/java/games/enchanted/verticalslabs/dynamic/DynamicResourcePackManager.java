@@ -10,7 +10,11 @@ import java.io.IOException;
 import java.util.Optional;
 
 public class DynamicResourcePackManager {
-    public static void onAddBlockstates() {
+    public static void initialise() {
+        addBlockstates();
+    }
+
+    private static void addBlockstates() {
         Optional<Resource> resource = Minecraft.getInstance().getResourceManager().getResource(ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION, "blockstates/vertical_oak_slab.json"));
         if(resource.isPresent()) {
             try {
@@ -22,7 +26,7 @@ public class DynamicResourcePackManager {
                 System.out.println("from oninit" + file[0]);
                 for (int i = 0; i < DynamicVerticalSlabs.DYNAMIC_SLAB_BLOCKS.size(); i++) {
                     String newPath = DynamicVerticalSlabs.DYNAMIC_SLAB_BLOCKS.get(i).getNamespace() + "/vertical_" + DynamicVerticalSlabs.DYNAMIC_SLAB_BLOCKS.get(i).getPath();
-                    DynamicResourcePack.INSTANCE.addBlockstate(ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION, newPath), file[0]);
+                    EVSDynamicResources.INSTANCE.addBlockstate(ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION, newPath), file[0]);
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -30,11 +34,11 @@ public class DynamicResourcePackManager {
         }
     }
 
-    public static void onAddModels() {
+    private static void onAddModels() {
 
     }
 
-    public static void onAddItemDefinitions() {
+    private static void onAddItemDefinitions() {
 
     }
 }

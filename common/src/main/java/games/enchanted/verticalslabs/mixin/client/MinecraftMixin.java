@@ -1,4 +1,4 @@
-package games.enchanted.verticalslabs.mixin;
+package games.enchanted.verticalslabs.mixin.client;
 
 import games.enchanted.verticalslabs.dynamic.DynamicResourcePackManager;
 import net.minecraft.client.Minecraft;
@@ -19,9 +19,7 @@ public class MinecraftMixin {
         at = @At("RETURN"),
         method = "<init>"
     )
-    private void oninit(GameConfig gameConfig, CallbackInfo ci) {
-        DynamicResourcePackManager.onAddBlockstates();
-        DynamicResourcePackManager.onAddModels();
-        DynamicResourcePackManager.onAddItemDefinitions();
+    private void initialiseDynamicResourcepack(GameConfig gameConfig, CallbackInfo ci) {
+        DynamicResourcePackManager.initialise();
     }
 }
