@@ -1,4 +1,4 @@
-package games.enchanted.verticalslabs.dynamic;
+package games.enchanted.verticalslabs.dynamic.pack;
 
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
 import net.minecraft.resources.ResourceLocation;

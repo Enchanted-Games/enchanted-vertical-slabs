@@ -1,6 +1,6 @@
 package games.enchanted.verticalslabs.mixin.client;
 
-import games.enchanted.verticalslabs.dynamic.DynamicResourcePackManager;
+import games.enchanted.verticalslabs.dynamic.pack.DynamicResourcePackManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.main.GameConfig;
 import net.minecraft.server.packs.resources.ReloadableResourceManager;

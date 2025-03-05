@@ -1,8 +1,6 @@
-package games.enchanted.verticalslabs.dynamic;
+package games.enchanted.verticalslabs.dynamic.pack;
 
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
-import games.enchanted.verticalslabs.dynamic.pack.AbstractDynamicPack;
-import games.enchanted.verticalslabs.dynamic.pack.ResourceType;
 import games.enchanted.verticalslabs.util.IoSupplierUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.FileToIdConverter;

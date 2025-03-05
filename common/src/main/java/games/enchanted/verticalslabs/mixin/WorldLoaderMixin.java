@@ -1,6 +1,6 @@
 package games.enchanted.verticalslabs.mixin;
 
-import games.enchanted.verticalslabs.dynamic.DynamicDataPackManager;
+import games.enchanted.verticalslabs.dynamic.pack.DynamicDataPackManager;
 import net.minecraft.server.WorldLoader;
 import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;

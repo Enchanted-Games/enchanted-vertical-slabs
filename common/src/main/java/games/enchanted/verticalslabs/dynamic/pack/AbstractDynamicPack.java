@@ -43,8 +43,8 @@ public abstract class AbstractDynamicPack implements PackResources {
 
     public abstract AbstractDynamicPack getInstance();
 
-    public DynamicResourcesSupplier getResourcesSupplier() {
-        return new DynamicResourcesSupplier() {
+    public Pack.ResourcesSupplier getResourcesSupplier() {
+        return new Pack.ResourcesSupplier() {
             @Override
             public @NotNull PackResources openPrimary(@NotNull PackLocationInfo packLocationInfo) {
                 return getInstance();
@@ -54,20 +54,7 @@ public abstract class AbstractDynamicPack implements PackResources {
             public @NotNull PackResources openFull(@NotNull PackLocationInfo packLocationInfo, @NotNull Pack.Metadata metadata) {
                 return getInstance();
             }
-
-            @Override
-            public @NotNull AbstractDynamicPack getResources() {
-                return getInstance();
-            }
         };
-    }
-
-    public interface DynamicResourcesSupplier extends Pack.ResourcesSupplier {
-        @NotNull PackResources openPrimary(@NotNull PackLocationInfo packLocationInfo);
-
-        @NotNull PackResources openFull(@NotNull PackLocationInfo packLocationInfo, @NotNull Pack.Metadata metadata);
-
-        @NotNull AbstractDynamicPack getResources();
     }
 
     protected abstract void registerResourceTypes();

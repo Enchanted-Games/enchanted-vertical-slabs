@@ -1,6 +1,6 @@
 package games.enchanted.verticalslabs.mixin;
 
-import games.enchanted.verticalslabs.dynamic.EVSDynamicResources;
+import games.enchanted.verticalslabs.dynamic.pack.EVSDynamicResources;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.BuiltInPackSource;
 import net.minecraft.server.packs.repository.Pack;
