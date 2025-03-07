@@ -120,9 +120,6 @@ public abstract class AbstractDynamicPack implements PackResources {
     
     @Override
     public @Nullable IoSupplier<InputStream> getResource(@NotNull PackType packType, @NotNull ResourceLocation location) {
-        if(packType == PackType.SERVER_DATA) {
-            System.out.println("pack data");
-        }
         // try to get resource from a resource type
         ArrayList<ResourceType> resourcesList = packType == PackType.CLIENT_RESOURCES ? CLIENT_RESOURCE_TYPES : SERVER_RESOURCE_TYPES;
         for (ResourceType type : resourcesList) {
@@ -152,7 +149,6 @@ public abstract class AbstractDynamicPack implements PackResources {
             if (path.equals(type.directoryInPack)) {
                 for (var entry : type.locationToResourceMap.entrySet()) {
                     resourceOutput.accept(entry.getKey(), entry.getValue().get());
-                    System.out.println(entry.getKey());
                 }
             }
         }
@@ -170,7 +166,6 @@ public abstract class AbstractDynamicPack implements PackResources {
                 ResourceLocation location = ResourceLocation.fromNamespaceAndPath(namespace, PATH_JOINER.join(path, filePath + "." + fileExtension));
                 IoSupplier<InputStream> resourceFile = getResource(packType, location);
                 resourceOutput.accept(location, resourceFile);
-                System.out.println(location + ", " + resourceFile);
             }));
         }
     }
