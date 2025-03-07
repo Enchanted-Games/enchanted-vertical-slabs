@@ -1,6 +1,7 @@
 package games.enchanted.verticalslabs.dynamic.pack;
 
-import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
+import com.google.common.base.Joiner;
+import com.google.common.base.Supplier;
 import games.enchanted.verticalslabs.platform.Services;
 import games.enchanted.verticalslabs.util.ArrayUtil;
 import net.minecraft.FileUtil;
@@ -21,12 +22,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public abstract class AbstractDynamicPack implements PackResources {
+    private static final Joiner PATH_JOINER = Joiner.on("/");
+    private final Pattern RAW_RESOURCE_PATH_PATTERN = Pattern.compile("^(assets|data)\\/([a-z0-9_.-]+)\\/([a-z0-9/._-]+)");
+
     private final ArrayList<ResourceType> CLIENT_RESOURCE_TYPES = new ArrayList<>();
     private final HashMap<String, Integer> CLIENT_RESOURCE_TYPE_NAME_TO_ID = new HashMap<>();
     private final ArrayList<ResourceType> SERVER_RESOURCE_TYPES = new ArrayList<>();
     private final HashMap<String, Integer> SERVER_RESOURCE_TYPE_NAME_TO_ID = new HashMap<>();
+    private final VirtualFiles<Supplier<IoSupplier<InputStream>>> RAW_RESOURCES = new VirtualFiles<>();
 
     public final String PACK_ID;
     private final PackLocationInfo PACK_INFO;
@@ -69,7 +76,7 @@ public abstract class AbstractDynamicPack implements PackResources {
         SERVER_RESOURCE_TYPES.add(resourceType);
     }
 
-    public void addResource(String resourceTypeName, ResourceLocation location, IoSupplier<InputStream> resourceData, PackType packType) {
+    public void addResource(String resourceTypeName, ResourceLocation location, Supplier<IoSupplier<InputStream>> resourceData, PackType packType) {
         boolean isServerResources = packType == PackType.SERVER_DATA;
         int resourceTypeIndex = (isServerResources ? SERVER_RESOURCE_TYPE_NAME_TO_ID : CLIENT_RESOURCE_TYPE_NAME_TO_ID).get(resourceTypeName);
         final int maxIndex = (isServerResources ? SERVER_RESOURCE_TYPES : CLIENT_RESOURCE_TYPES).size() - 1;
@@ -79,29 +86,92 @@ public abstract class AbstractDynamicPack implements PackResources {
         ResourceLocation fileLocation = resourceType.fileToIdConverter.idToFile(location);
         resourceType.locationToResourceMap.put(fileLocation, resourceData);
     }
+
+    public void addRawResource(String path, Supplier<IoSupplier<InputStream>> resourceData) {
+        Matcher matcher = RAW_RESOURCE_PATH_PATTERN.matcher(path);
+        matcher.matches();
+
+        String packTypeFolder;
+        try {
+            packTypeFolder = matcher.group(1);
+            if(!(Objects.equals(packTypeFolder, PackType.CLIENT_RESOURCES.getDirectory()) || Objects.equals(packTypeFolder, PackType.SERVER_DATA.getDirectory()))) {
+                throw new IllegalArgumentException("Invalid root folder");
+            }
+        } catch (Exception e) {
+            throw new IllegalArgumentException("path is invalid, the root folder must be either `assets` or `data`");
+        }
+
+        String pathNamespace;
+        try {
+            pathNamespace = matcher.group(2);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("path is invalid, the namespace folder is invalid (must be [a-z0-9_.-])");
+        }
+
+        String pathResource;
+        try {
+            pathResource = matcher.group(3);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("path is invalid, the resource path is invalid (must be [a-z0-9/._-])");
+        }
+
+        RAW_RESOURCES.add(PATH_JOINER.join(packTypeFolder, pathNamespace, pathResource), resourceData);
+    }
     
     @Override
     public @Nullable IoSupplier<InputStream> getResource(@NotNull PackType packType, @NotNull ResourceLocation location) {
+        if(packType == PackType.SERVER_DATA) {
+            System.out.println("pack data");
+        }
+        // try to get resource from a resource type
         ArrayList<ResourceType> resourcesList = packType == PackType.CLIENT_RESOURCES ? CLIENT_RESOURCE_TYPES : SERVER_RESOURCE_TYPES;
         for (ResourceType type : resourcesList) {
             if (type.locationToResourceMap.containsKey(location)) {
-                return type.locationToResourceMap.get(location);
+                return type.locationToResourceMap.get(location).get();
             }
         }
-        return null;
+        // otherwise try and get resource from raw resources
+        VirtualFiles<Supplier<IoSupplier<InputStream>>> rawResource;
+        try {
+            String[] rawPath = PATH_JOINER.join(packType.getDirectory(), location.getNamespace(), location.getPath()).split("/");
+            rawResource = RAW_RESOURCES.getFile(rawPath);
+        } catch (IllegalArgumentException e) {
+            System.err.println(e.toString());
+            return null;
+        }
+        return rawResource.content != null ? rawResource.content.get() : null;
     }
 
     @Override
     public void listResources(@NotNull PackType packType, @NotNull String namespace, @NotNull String path, @NotNull ResourceOutput resourceOutput) {
-        if (!(PROVIDED_SERVER_NAMESPACES.contains(namespace) && PROVIDED_CLIENT_NAMESPACES.contains(namespace))) return;
-        ArrayList<ResourceType> resourcesList = packType == PackType.CLIENT_RESOURCES ? CLIENT_RESOURCE_TYPES : SERVER_RESOURCE_TYPES;
+        if (!(PROVIDED_SERVER_NAMESPACES.contains(namespace) || PROVIDED_CLIENT_NAMESPACES.contains(namespace))) return;
 
+        // list resource types
+        ArrayList<ResourceType> resourcesList = packType == PackType.CLIENT_RESOURCES ? CLIENT_RESOURCE_TYPES : SERVER_RESOURCE_TYPES;
         for (ResourceType type : resourcesList) {
             if (path.equals(type.directoryInPack)) {
                 for (var entry : type.locationToResourceMap.entrySet()) {
-                    resourceOutput.accept(entry.getKey(), entry.getValue());
+                    resourceOutput.accept(entry.getKey(), entry.getValue().get());
+                    System.out.println(entry.getKey());
                 }
             }
+        }
+
+        // list raw resources
+        VirtualFiles<Supplier<IoSupplier<InputStream>>> rawResourcesDirectory;
+        String rawResourcesDirectoryPath = PATH_JOINER.join(packType.getDirectory(), namespace, path);
+        try {
+            rawResourcesDirectory = RAW_RESOURCES.getDirectory(rawResourcesDirectoryPath.split("/"));
+        } catch (IllegalArgumentException ignored) {
+            rawResourcesDirectory = null;
+        }
+        if(rawResourcesDirectory != null) {
+            rawResourcesDirectory.iterateOnFiles(((file, filePath, fileExtension) -> {
+                ResourceLocation location = ResourceLocation.fromNamespaceAndPath(namespace, PATH_JOINER.join(path, filePath + "." + fileExtension));
+                IoSupplier<InputStream> resourceFile = getResource(packType, location);
+                resourceOutput.accept(location, resourceFile);
+                System.out.println(location + ", " + resourceFile);
+            }));
         }
     }
 

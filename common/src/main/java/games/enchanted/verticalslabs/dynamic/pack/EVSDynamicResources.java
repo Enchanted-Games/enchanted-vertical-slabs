@@ -51,13 +51,25 @@ public class EVSDynamicResources extends AbstractDynamicPack {
             ),
             PackType.SERVER_DATA
         );
+        registerResourceType(
+            "item_tag",
+            new ResourceType(
+                "tags/item",
+                new HashMap<>(),
+                new FileToIdConverter("tags/item", ".json")
+            ),
+            PackType.SERVER_DATA
+        );
     }
 
     protected void addBlockstate(ResourceLocation location, String stringifiedModelJSON) {
-        addResource("blockstate", location, IoSupplierUtil.stringToIoSupplier(stringifiedModelJSON), PackType.CLIENT_RESOURCES);
+        addResource("blockstate", location, () -> IoSupplierUtil.stringToIoSupplier(stringifiedModelJSON), PackType.CLIENT_RESOURCES);
     }
 
     protected void addTag(ResourceLocation location, String tagJSON) {
-        addResource("block_tag", location, IoSupplierUtil.stringToIoSupplier(tagJSON), PackType.SERVER_DATA);
+        addResource("block_tag", location, () -> IoSupplierUtil.stringToIoSupplier(tagJSON), PackType.SERVER_DATA);
+    }
+    protected void addItemTag(ResourceLocation location, String tagJSON) {
+        addResource("item_tag", location, () -> IoSupplierUtil.stringToIoSupplier(tagJSON), PackType.SERVER_DATA);
     }
 }

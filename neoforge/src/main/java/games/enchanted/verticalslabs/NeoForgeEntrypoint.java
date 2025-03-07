@@ -7,8 +7,8 @@ import games.enchanted.verticalslabs.registry.WeatheringBlocks;
 import net.minecraft.core.registries.Registries;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
 @Mod(EnchantedVerticalSlabsConstants.MOD_ID)

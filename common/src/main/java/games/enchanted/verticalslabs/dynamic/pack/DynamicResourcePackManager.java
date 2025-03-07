@@ -3,6 +3,7 @@ package games.enchanted.verticalslabs.dynamic.pack;
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
 import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabs;
 import net.minecraft.client.Minecraft;
+import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 
