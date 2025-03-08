@@ -52,4 +52,7 @@ public class RegistryHelpers {
     public static Block getBlockFromLocation(ResourceLocation location) {
         return BuiltInRegistries.BLOCK.getValue(location);
     }
+    public static ResourceLocation getLocationFromBlock(Block block) {
+        return BuiltInRegistries.BLOCK.getKey(block);
+    }
 }

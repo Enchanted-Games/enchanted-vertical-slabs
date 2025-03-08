@@ -133,7 +133,6 @@ public abstract class AbstractDynamicPack implements PackResources {
             String[] rawPath = PATH_JOINER.join(packType.getDirectory(), location.getNamespace(), location.getPath()).split("/");
             rawResource = RAW_RESOURCES.getFile(rawPath);
         } catch (IllegalArgumentException e) {
-            System.err.println(e.toString());
             return null;
         }
         return rawResource.content != null ? rawResource.content.get() : null;
