@@ -1,13 +1,12 @@
 package games.enchanted.verticalslabs.mixin;
 
 import com.mojang.serialization.MapCodec;
-import games.enchanted.verticalslabs.block.VerticalSlabBlock;
+import games.enchanted.verticalslabs.block.vertical_slab.BaseVerticalSlabBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.CrossCollisionBlock;
@@ -33,11 +32,11 @@ public abstract class IronBarsBlockMixin extends CrossCollisionBlock {
 
     @Unique
     private boolean enchanted_vertical_slabs$getConnectionForDirection(BlockState state, Direction direction) {
-        if(!(state.getBlock() instanceof VerticalSlabBlock)) {
+        if(!(state.getBlock() instanceof BaseVerticalSlabBlock)) {
             throw new IllegalArgumentException("BlockState block must contain an instance of VerticalSlabBlock");
         }
-        boolean slabAwayFromWall = state.getValue(VerticalSlabBlock.FACING) == direction;
-        return !(state.getValue(VerticalSlabBlock.SINGLE) && slabAwayFromWall);
+        boolean slabAwayFromWall = state.getValue(BaseVerticalSlabBlock.FACING) == direction;
+        return !(state.getValue(BaseVerticalSlabBlock.SINGLE) && slabAwayFromWall);
     }
 
     @Inject(
@@ -55,16 +54,16 @@ public abstract class IronBarsBlockMixin extends CrossCollisionBlock {
         BlockState southBlockState = blockGetter.getBlockState(blockPos.south());
         BlockState westBlockState = blockGetter.getBlockState(blockPos.west());
 
-        if(northBlockState.getBlock() instanceof VerticalSlabBlock) {
+        if(northBlockState.getBlock() instanceof BaseVerticalSlabBlock) {
             cir.setReturnValue(cir.getReturnValue().setValue(NORTH, enchanted_vertical_slabs$getConnectionForDirection(northBlockState, Direction.NORTH)));
         }
-        if(eastBlockState.getBlock() instanceof VerticalSlabBlock) {
+        if(eastBlockState.getBlock() instanceof BaseVerticalSlabBlock) {
             cir.setReturnValue(cir.getReturnValue().setValue(EAST, enchanted_vertical_slabs$getConnectionForDirection(eastBlockState, Direction.EAST)));
         }
-        if(southBlockState.getBlock() instanceof VerticalSlabBlock) {
+        if(southBlockState.getBlock() instanceof BaseVerticalSlabBlock) {
             cir.setReturnValue(cir.getReturnValue().setValue(SOUTH, enchanted_vertical_slabs$getConnectionForDirection(southBlockState, Direction.SOUTH)));
         }
-        if(westBlockState.getBlock() instanceof VerticalSlabBlock) {
+        if(westBlockState.getBlock() instanceof BaseVerticalSlabBlock) {
             cir.setReturnValue(cir.getReturnValue().setValue(WEST, enchanted_vertical_slabs$getConnectionForDirection(westBlockState, Direction.WEST)));
         }
     }
@@ -76,8 +75,8 @@ public abstract class IronBarsBlockMixin extends CrossCollisionBlock {
     )
     // attach iron bars (and similar blocks like glass panes) to vertical slabs
     protected void updateShape(BlockState blockState, @NotNull LevelReader levelReader, @NotNull ScheduledTickAccess scheduledTickAccess, @NotNull BlockPos pos, @NotNull Direction direction, @NotNull BlockPos pos2, @NotNull BlockState blockState2, @NotNull RandomSource randomSource, CallbackInfoReturnable<BlockState> cir) {
-        if(blockState2.getBlock() instanceof VerticalSlabBlock) {
-            boolean slabAwayFromBarBlock = blockState2.getValue(VerticalSlabBlock.FACING) == direction;
+        if(blockState2.getBlock() instanceof BaseVerticalSlabBlock) {
+            boolean slabAwayFromBarBlock = blockState2.getValue(BaseVerticalSlabBlock.FACING) == direction;
             cir.setReturnValue(
                 direction.getAxis().isHorizontal() ?
                     blockState.setValue(PROPERTY_BY_DIRECTION.get(direction), !slabAwayFromBarBlock) :

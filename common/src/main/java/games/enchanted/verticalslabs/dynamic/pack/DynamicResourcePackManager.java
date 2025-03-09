@@ -4,18 +4,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
-import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
 import games.enchanted.verticalslabs.dynamic.BlockStateFile;
-import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabs;
-import games.enchanted.verticalslabs.platform.Services;
-import games.enchanted.verticalslabs.registry.RegistryHelpers;
-import games.enchanted.verticalslabs.util.BlockRenderTypeUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
-import net.minecraft.world.level.block.state.BlockState;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -57,9 +49,6 @@ public class DynamicResourcePackManager {
                 if(!isCorrectProperty) continue;
                 System.out.println(entry.getValue().get(0));
             };
-            BlockRenderTypeUtil.copyRenderTypeFromBlock(ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION, "mo_glass/vertical_tinted_glass_slab"), ResourceLocation.fromNamespaceAndPath("minecraft", "tinted_glass"));
-            RenderType type = ItemBlockRenderTypes.getRenderType(RegistryHelpers.getBlockFromLocation(ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION, "mo_glass/vertical_tinted_glass_slab")).defaultBlockState());
-            System.out.println("");
         }
     }
 }

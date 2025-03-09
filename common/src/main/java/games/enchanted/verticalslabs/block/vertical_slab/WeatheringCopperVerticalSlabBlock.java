@@ -1,4 +1,4 @@
-package games.enchanted.verticalslabs.block;
+package games.enchanted.verticalslabs.block.vertical_slab;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public class WeatheringCopperVerticalSlabBlock extends VerticalSlabBlock implements WeatheringCopper {
+public class WeatheringCopperVerticalSlabBlock extends BaseVerticalSlabBlock implements WeatheringCopper {
     public static final MapCodec<WeatheringCopperVerticalSlabBlock> CODEC = RecordCodecBuilder.mapCodec((recordCodecBuilderInstance) ->
         recordCodecBuilderInstance.group(WeatherState.CODEC.fieldOf("weathering_state").forGetter(ChangeOverTimeBlock::getAge), propertiesCodec()).apply(recordCodecBuilderInstance, WeatheringCopperVerticalSlabBlock::new)
     );

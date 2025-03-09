@@ -5,13 +5,16 @@
   "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "BlockMixin",
     "BuiltinPackSourceMixin",
     "CreativeModeTabsAccessor",
     "DefaultedMappedRegistryMixin",
     "IronBarsBlockMixin",
     "WallBlockMixin",
     "WorldLoaderMixin",
-    "accessor.PackAccessor"
+    "accessor.PackAccessor",
+    "invoker.BlockBehaviourInvoker",
+    "invoker.BlockInvoker"
   ],
   "client": [
     "ItemBlockRenderTypesMixin",

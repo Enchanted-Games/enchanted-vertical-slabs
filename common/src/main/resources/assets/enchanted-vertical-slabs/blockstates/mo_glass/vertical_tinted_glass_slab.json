@@ -1,0 +1,39 @@
+{
+  "variants": {
+    "facing=north,single_slab=true": {
+      "model": "mo_glass:block/tinted_glass_slab",
+      "y": 180,
+      "x": 90,
+      "uvlock": false
+    },
+    "facing=north,single_slab=false": {
+      "model": "minecraft:block/tinted_glass"
+    },
+    "facing=east,single_slab=true": {
+      "model": "mo_glass:block/tinted_glass_slab",
+      "y": 270,
+      "x": 90,
+      "uvlock": false
+    },
+    "facing=east,single_slab=false": {
+      "model": "minecraft:block/tinted_glass"
+    },
+    "facing=south,single_slab=true": {
+      "model": "mo_glass:block/tinted_glass_slab",
+      "x": 90,
+      "uvlock": false
+    },
+    "facing=south,single_slab=false": {
+      "model": "minecraft:block/tinted_glass"
+    },
+    "facing=west,single_slab=true": {
+      "model": "mo_glass:block/tinted_glass_slab",
+      "y": 90,
+      "x": 90,
+      "uvlock": false
+    },
+    "facing=west,single_slab=false": {
+      "model": "minecraft:block/tinted_glass"
+    }
+  }
+}

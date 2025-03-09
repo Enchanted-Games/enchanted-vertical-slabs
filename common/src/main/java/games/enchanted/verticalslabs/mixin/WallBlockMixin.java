@@ -1,6 +1,6 @@
 package games.enchanted.verticalslabs.mixin;
 
-import games.enchanted.verticalslabs.block.VerticalSlabBlock;
+import games.enchanted.verticalslabs.block.vertical_slab.BaseVerticalSlabBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.LevelReader;
@@ -63,9 +63,9 @@ public abstract class WallBlockMixin {
     )
     // if side block is a vertical slab, connect to it unless vertical slab is "away" from the wall
     private void connectsTo(BlockState state, boolean isFaceSturdy, Direction side, CallbackInfoReturnable<Boolean> cir) {
-        if(state.getBlock() instanceof VerticalSlabBlock) {
-            boolean slabAwayFromWall = state.getValue(VerticalSlabBlock.FACING) == side.getOpposite();
-            cir.setReturnValue(!(state.getValue(VerticalSlabBlock.SINGLE) && slabAwayFromWall));
+        if(state.getBlock() instanceof BaseVerticalSlabBlock) {
+            boolean slabAwayFromWall = state.getValue(BaseVerticalSlabBlock.FACING) == side.getOpposite();
+            cir.setReturnValue(!(state.getValue(BaseVerticalSlabBlock.SINGLE) && slabAwayFromWall));
         }
     }
 
@@ -79,7 +79,7 @@ public abstract class WallBlockMixin {
         VoxelShape voxelShape = aboveState.getCollisionShape(world, pos).getFaceShape(Direction.DOWN);
         BlockState blockState = this.updateSides(state, north, east, south, west, voxelShape);
 
-        if ( aboveState.getBlock() instanceof VerticalSlabBlock && aboveState.getValue(VerticalSlabBlock.SINGLE) ) {
+        if ( aboveState.getBlock() instanceof BaseVerticalSlabBlock && aboveState.getValue(BaseVerticalSlabBlock.SINGLE) ) {
             cir.setReturnValue( state
                 .setValue(NORTH_WALL, enchanted_vertical_slabs$getWallSideForConnection(north, blockState))
                 .setValue(EAST_WALL, enchanted_vertical_slabs$getWallSideForConnection(east, blockState))

@@ -1,9 +1,8 @@
-package games.enchanted.verticalslabs.block;
+package games.enchanted.verticalslabs.block.vertical_slab;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -28,8 +27,8 @@ import org.jetbrains.annotations.Nullable;
 
 import com.mojang.serialization.MapCodec;
 
-public class VerticalSlabBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
-    public static final MapCodec<? extends VerticalSlabBlock> CODEC = simpleCodec(VerticalSlabBlock::new);
+public class BaseVerticalSlabBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
+    public static final MapCodec<? extends BaseVerticalSlabBlock> CODEC = simpleCodec(BaseVerticalSlabBlock::new);
     public static final BooleanProperty SINGLE = BooleanProperty.create("single_slab");
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateManager) {
@@ -38,11 +37,16 @@ public class VerticalSlabBlock extends HorizontalDirectionalBlock implements Sim
         stateManager.add(BlockStateProperties.WATERLOGGED);
     }
 
-    public VerticalSlabBlock(BlockBehaviour.Properties settings) {
+    public BaseVerticalSlabBlock(BlockBehaviour.Properties settings) {
         super(settings);
         registerDefaultState(stateDefinition.any().trySetValue(SINGLE, true));
         registerDefaultState(stateDefinition.any().trySetValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH));
         registerDefaultState(stateDefinition.any().trySetValue(BlockStateProperties.WATERLOGGED, false));
+    }
+
+    @Override
+    protected @NotNull MapCodec<? extends BaseVerticalSlabBlock> codec() {
+        return CODEC;
     }
 
     @Override
@@ -143,12 +147,7 @@ public class VerticalSlabBlock extends HorizontalDirectionalBlock implements Sim
     }
     
     @Override
-    protected boolean isPathfindable(BlockState state, @NotNull PathComputationType type) {
-        return !state.getValue(SINGLE);
-    }
-
-    @Override
-    protected @NotNull MapCodec<? extends VerticalSlabBlock> codec() {
-        return CODEC;
+    protected boolean isPathfindable(@NotNull BlockState state, @NotNull PathComputationType type) {
+        return false;
     }
 }

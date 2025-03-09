@@ -1,8 +1,8 @@
 package games.enchanted.verticalslabs.mixin;
 
 import games.enchanted.verticalslabs.block.SpecialBlockMaps;
-import games.enchanted.verticalslabs.block.VerticalSlabBlock;
-import games.enchanted.verticalslabs.block.WeatheringCopperVerticalSlabBlock;
+import games.enchanted.verticalslabs.block.vertical_slab.BaseVerticalSlabBlock;
+import games.enchanted.verticalslabs.block.vertical_slab.WeatheringCopperVerticalSlabBlock;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockState;
@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import java.util.Optional;
 
 @Mixin(WeatheringCopperVerticalSlabBlock.class)
-public class WeatheringCopperVerticalSlabBlockMixin extends VerticalSlabBlock implements WeatheringCopper, IBlockExtension {
+public class WeatheringCopperVerticalSlabBlockMixin extends BaseVerticalSlabBlock implements WeatheringCopper, IBlockExtension {
     @Final @Shadow
     private WeatherState weatherState;
 
