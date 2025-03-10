@@ -161,10 +161,11 @@ public abstract class AbstractDynamicPack implements PackResources {
             rawResourcesDirectory = null;
         }
         if(rawResourcesDirectory != null) {
-            rawResourcesDirectory.iterateOnFiles(((file, filePath, fileExtension) -> {
+            rawResourcesDirectory.iterateOnFiles(((VirtualFiles<?> file, String filePath, String fileExtension) -> {
                 ResourceLocation location = ResourceLocation.fromNamespaceAndPath(namespace, PATH_JOINER.join(path, filePath + "." + fileExtension));
-                IoSupplier<InputStream> resourceFile = getResource(packType, location);
-                resourceOutput.accept(location, resourceFile);
+                if (file.content != null) {
+                    resourceOutput.accept(location, getResource(packType, location));
+                };
             }));
         }
     }

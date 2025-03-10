@@ -1,7 +1,6 @@
 package games.enchanted.verticalslabs.dynamic.datagen;
 
 import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 
 import java.io.IOException;
@@ -18,9 +17,7 @@ public class DynamicDataGenerator {
     }
 
     public void run() throws IOException {
-//        CachedOutput cachedOutput = new DynamicDataOutput();
-//        this.providersToRun.forEach((provider) -> {
-//            System.out.println(provider.run(cachedOutput));
-//        });
+        CachedOutput cachedOutput = new DynamicDataOutput();
+        this.providersToRun.forEach((provider) -> provider.run(cachedOutput));
     }
 }

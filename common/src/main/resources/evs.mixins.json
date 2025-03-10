@@ -10,6 +10,7 @@
     "CreativeModeTabsAccessor",
     "DefaultedMappedRegistryMixin",
     "IronBarsBlockMixin",
+    "ToolMixin",
     "WallBlockMixin",
     "WorldLoaderMixin",
     "accessor.PackAccessor",

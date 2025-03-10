@@ -56,14 +56,14 @@ public class VirtualFiles<T> {
         for (Map.Entry<String, @Nullable VirtualFiles<T>> subFileOrDirectory : directory.filesAndDirectories.entrySet()) {
             if(subFileOrDirectory.getValue() == null) continue;
             if(subFileOrDirectory.getValue().isDirectory()) {
-                ArrayList<String> directoryPath = rootPath;
+                ArrayList<String> directoryPath = new ArrayList<>(rootPath);
                 directoryPath.add(subFileOrDirectory.getKey());
-                iterateOnFiles(consumer, directory, directoryPath);
+                iterateOnFiles(consumer, subFileOrDirectory.getValue(), directoryPath);
             } else {
                 String[] fileNameSplit = subFileOrDirectory.getKey().split(FILE_EXTENSION_SPLIT.pattern());
                 String fileName = fileNameSplit[0];
                 String fileExtension = fileNameSplit[fileNameSplit.length - 1];
-                String relativeFilePath = rootPath.isEmpty() ? fileName : PATH_JOINER.join(rootPath.toArray(new String[0]), fileName);
+                String relativeFilePath = rootPath.isEmpty() ? fileName : PATH_JOINER.join(rootPath.toArray(new String[0])) + "/" + fileName;
                 consumer.consume(subFileOrDirectory.getValue(), relativeFilePath, fileExtension);
             }
         }
