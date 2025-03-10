@@ -4,6 +4,7 @@ import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
 import games.enchanted.verticalslabs.registry.RegistryHelpers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
@@ -23,15 +24,30 @@ public class DynamicSlab {
     }
 
     private @Nullable ResourceLocation tryFindRegularBlock() {
-        String probableBlockLocation = this.getOriginalSlabLocation().getPath().replace("_slab", "");
-        String originalNamespace = this.getOriginalSlabLocation().getNamespace();
-        Block probableBlock = RegistryHelpers.getBlockFromLocation(ResourceLocation.fromNamespaceAndPath(originalNamespace, probableBlockLocation));
-        if(probableBlock.defaultBlockState().isAir()) {
-            probableBlock = RegistryHelpers.getBlockFromLocation(ResourceLocation.withDefaultNamespace(probableBlockLocation));
-        }
-        if(probableBlock.defaultBlockState().isAir()) {
-            return null;
-        }
+        ResourceLocation originalLocation = this.getOriginalSlabLocation();
+        String possibleRegularBlockLocation = originalLocation.getPath().replace("_slab", "");
+        String possibleRegularBlockPlanksLocation = originalLocation.getPath().replace("_slab", "_planks");
+        String possibleRegularBlockBrickLocation = originalLocation.getPath().replace("_slab", "_brick");
+        String originalNamespace = originalLocation.getNamespace();
+
+        // check regular block (no _slab suffix)
+        Block probableBlock = RegistryHelpers.getBlockFromLocation(ResourceLocation.fromNamespaceAndPath(originalNamespace, possibleRegularBlockLocation));
+        if(probableBlock == Blocks.AIR) probableBlock = RegistryHelpers.getBlockFromLocation(ResourceLocation.fromNamespaceAndPath(originalNamespace, possibleRegularBlockLocation + "s"));
+        if(probableBlock == Blocks.AIR) probableBlock = RegistryHelpers.getBlockFromLocation(ResourceLocation.withDefaultNamespace(possibleRegularBlockLocation));
+        if(probableBlock == Blocks.AIR) probableBlock = RegistryHelpers.getBlockFromLocation(ResourceLocation.withDefaultNamespace(possibleRegularBlockLocation + "s"));
+
+        // check plank blocks (replace _slab with _planks)
+        if(probableBlock == Blocks.AIR) probableBlock = RegistryHelpers.getBlockFromLocation(ResourceLocation.fromNamespaceAndPath(originalNamespace, possibleRegularBlockPlanksLocation));
+        if(probableBlock == Blocks.AIR) probableBlock = RegistryHelpers.getBlockFromLocation(ResourceLocation.withDefaultNamespace(possibleRegularBlockPlanksLocation));
+
+        // check brick blocks (replace _slab with _brick, and check _bricks)
+        if(probableBlock == Blocks.AIR) probableBlock = RegistryHelpers.getBlockFromLocation(ResourceLocation.fromNamespaceAndPath(originalNamespace, possibleRegularBlockBrickLocation));
+        if(probableBlock == Blocks.AIR) probableBlock = RegistryHelpers.getBlockFromLocation(ResourceLocation.fromNamespaceAndPath(originalNamespace, possibleRegularBlockBrickLocation + "s"));
+        if(probableBlock == Blocks.AIR) probableBlock = RegistryHelpers.getBlockFromLocation(ResourceLocation.withDefaultNamespace(possibleRegularBlockBrickLocation));
+        if(probableBlock == Blocks.AIR) probableBlock = RegistryHelpers.getBlockFromLocation(ResourceLocation.withDefaultNamespace(possibleRegularBlockBrickLocation + "s"));
+
+        if(probableBlock == Blocks.AIR) return null;
+
         return RegistryHelpers.getLocationFromBlock(probableBlock);
     }
 

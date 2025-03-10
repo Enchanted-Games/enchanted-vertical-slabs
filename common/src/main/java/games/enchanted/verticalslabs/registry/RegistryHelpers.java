@@ -6,6 +6,7 @@ import games.enchanted.verticalslabs.block.BlockAndItemContainer;
 import games.enchanted.verticalslabs.block.vertical_slab.BaseVerticalSlabBlock;
 import games.enchanted.verticalslabs.block.vertical_slab.DynamicVerticalSlabBlock;
 import games.enchanted.verticalslabs.block.vertical_slab.WeatheringCopperVerticalSlabBlock;
+import games.enchanted.verticalslabs.dynamic.DynamicSlab;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -53,16 +54,16 @@ public class RegistryHelpers {
     }
 
 
-    public static BlockAndItemContainer registerDynamicVerticalSlab(ResourceLocation id, BlockBehaviour.Properties blockProperties, Block regularSlabBlock) {
+    public static BlockAndItemContainer registerDynamicVerticalSlab(ResourceLocation id, BlockBehaviour.Properties blockProperties, DynamicSlab dynamicSlab) {
         ResourceKey<Block> blockResourceKey = ResourceKey.create(Registries.BLOCK, id);
         blockProperties.setId(blockResourceKey);
 
-        final Block registeredBlock = registerDynamicVerticalSlabBlock(id, blockProperties, regularSlabBlock);
+        final Block registeredBlock = registerDynamicVerticalSlabBlock(id, blockProperties, dynamicSlab);
         final BlockItem registeredBlockItem = registerBlockItem(id, registeredBlock);
         return new BlockAndItemContainer(registeredBlock, registeredBlockItem);
     }
-    private static Block registerDynamicVerticalSlabBlock(ResourceLocation location, BlockBehaviour.Properties blockSettings, Block regularSlabBlock) {
-        return EnchantedVerticalSlabsMod.register(BuiltInRegistries.BLOCK.key(), () -> new DynamicVerticalSlabBlock(blockSettings, regularSlabBlock), location);
+    private static Block registerDynamicVerticalSlabBlock(ResourceLocation location, BlockBehaviour.Properties blockSettings, DynamicSlab dynamicSlab) {
+        return EnchantedVerticalSlabsMod.register(BuiltInRegistries.BLOCK.key(), () -> new DynamicVerticalSlabBlock(blockSettings, dynamicSlab), location);
     }
 
 

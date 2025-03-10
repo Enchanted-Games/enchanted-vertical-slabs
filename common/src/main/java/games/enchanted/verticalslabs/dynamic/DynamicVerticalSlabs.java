@@ -20,7 +20,7 @@ public class DynamicVerticalSlabs {
     public static void registerDynamicSlabs() {
         for (DynamicSlab slab : DYNAMIC_SLAB_BLOCKS) {
             Block regularSlabBlock = RegistryHelpers.getBlockFromLocation(slab.getOriginalSlabLocation());
-            BlockAndItemContainer registeredBlock = RegistryHelpers.registerDynamicVerticalSlab(slab.getVerticalSlabLocation(), RegistryHelpers.getBlockFromLocation(slab.getOriginalSlabLocation()).properties(), regularSlabBlock);
+            BlockAndItemContainer registeredBlock = RegistryHelpers.registerDynamicVerticalSlab(slab.getVerticalSlabLocation(), regularSlabBlock.properties(), slab);
             VERTICAL_TO_NORMAL_SLAB_MAP.put(registeredBlock.block(), regularSlabBlock);
         }
     }

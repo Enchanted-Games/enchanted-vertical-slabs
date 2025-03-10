@@ -24,7 +24,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
  */
-package games.enchanted.verticalslabs.dynamic;
+package games.enchanted.verticalslabs.dynamic.resources;
 
 import java.util.*;
 import java.util.function.Function;
