@@ -3,6 +3,7 @@ package games.enchanted.verticalslabs.dynamic.pack;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
@@ -13,6 +14,7 @@ import games.enchanted.verticalslabs.util.DirectionUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.FileToIdConverter;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import org.jetbrains.annotations.Nullable;
 
@@ -22,15 +24,16 @@ import java.util.*;
 
 public class DynamicResourcePackManager {
     private static final FileToIdConverter BLOCKSTATE_CONVERTER = new FileToIdConverter("blockstates", ".json");
+    private static final FileToIdConverter MODEL_CONVERTER = new FileToIdConverter("models", ".json");
 
     private static boolean hasBeenInitialised = false;
     public static void initialise() {
         if(hasBeenInitialised) return;
-        addBlockstates();
+        addBlockstatesAndModels();
         hasBeenInitialised = true;
     }
 
-    private static void addBlockstates() {
+    private static void addBlockstatesAndModels() {
         for (DynamicSlab slab : DynamicVerticalSlabs.DYNAMIC_SLAB_BLOCKS) {
             String blockStateFile = generateBlockStateFileForSlab(slab);
             if(blockStateFile == null) {
@@ -90,12 +93,12 @@ public class DynamicResourcePackManager {
                 // add single slab variants
                 verticalSlabVariants.addVariant(
                     List.of(facingProperty, BlockStateFile.PropertyValue.create("single_slab", "true")),
-                    bottomHalfModels.stream().map((model -> {
+                    attemptToGenerateVerticalSlabModels(slab, bottomHalfModels.stream().map((model -> {
                         int yRot = DirectionUtil.getBlockStateYRotationForDirection(direction);
                         int xRot = model.x + 90;
                         boolean uvLock = slab.shouldUvLockModel();
                         return new BlockStateFile.Model(model.model, xRot, yRot, uvLock, model.weight);
-                    })).toList().toArray(new BlockStateFile.Model[0])
+                    })).toList().toArray(new BlockStateFile.Model[0]))
                 );
             }
 
@@ -110,5 +113,45 @@ public class DynamicResourcePackManager {
             return null;
         }
         return null;
+    }
+
+    private static BlockStateFile.Model[] attemptToGenerateVerticalSlabModels(DynamicSlab slab, BlockStateFile.Model[] models) {
+        if(slab.shouldAttemptToGenerateRealVerticalSlabModel()) {
+            return Arrays.stream(models).peek(DynamicResourcePackManager::updateModel).toList().toArray(new BlockStateFile.Model[0]);
+        }
+        return models;
+    }
+
+    private static void updateModel(BlockStateFile.Model model) {
+//        model.model = ResourceLocation.withDefaultNamespace("stone");
+        Optional<Resource> modelFileResource = Minecraft.getInstance().getResourceManager().getResource(MODEL_CONVERTER.idToFile(model.model));
+        if(modelFileResource.isEmpty()) return;
+        byte[] bytes;
+        try {
+            bytes = modelFileResource.get().open().readAllBytes();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        String modelFileString = new String(bytes, StandardCharsets.UTF_8);
+        JsonObject parsedModelFile = JsonParser.parseString(modelFileString).getAsJsonObject();
+
+        String parentModel = parsedModelFile.get("parent").getAsString();
+        ResourceLocation parentLocation = ResourceLocation.parse(parentModel);
+        // if the parent model isn't minecraft:block/slab, don't modify the model
+        if(!parentLocation.equals(ResourceLocation.withDefaultNamespace("block/slab"))) return;
+
+        ResourceLocation newParent = ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION, "block/vertical_slab_side");
+        parsedModelFile.add("parent", new JsonPrimitive(newParent.toString()));
+
+        // add new vertical slab model to dynamic resource pack
+        ResourceLocation newModelLocation = ResourceLocation.fromNamespaceAndPath(
+            EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION,
+            "block/" + model.model.getNamespace() + "/" + model.model.getPath()
+        );
+        EVSDynamicResources.INSTANCE.addModel(newModelLocation, parsedModelFile.toString());
+
+        // set blockstate model location to new model location and reset x rotation
+        model.model = newModelLocation;
+        model.x -= 90;
     }
 }

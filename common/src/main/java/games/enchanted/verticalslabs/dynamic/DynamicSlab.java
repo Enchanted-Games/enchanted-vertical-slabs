@@ -57,6 +57,11 @@ public class DynamicSlab {
 //        return !VERTICAL_SLAB_LOCATION.getPath().contains("glass");
     }
 
+    public boolean shouldAttemptToGenerateRealVerticalSlabModel() {
+        boolean glass = VERTICAL_SLAB_LOCATION.getPath().contains("glass");
+        return !glass;
+    }
+
     public ResourceLocation getOriginalSlabLocation() {
         return ORIGINAL_SLAB_LOCATION;
     }

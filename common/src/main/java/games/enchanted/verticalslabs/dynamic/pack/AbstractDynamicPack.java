@@ -146,8 +146,12 @@ public abstract class AbstractDynamicPack implements PackResources {
         ArrayList<ResourceType> resourcesList = packType == PackType.CLIENT_RESOURCES ? CLIENT_RESOURCE_TYPES : SERVER_RESOURCE_TYPES;
         for (ResourceType type : resourcesList) {
             if (path.equals(type.directoryInPack)) {
-                for (var entry : type.locationToResourceMap.entrySet()) {
-                    resourceOutput.accept(entry.getKey(), entry.getValue().get());
+                try {
+                    for (var entry : type.locationToResourceMap.entrySet()) {
+                        resourceOutput.accept(entry.getKey(), entry.getValue().get());
+                    }
+                } catch (ConcurrentModificationException ignored) {
+                    // TODO: find a better fix for this
                 }
             }
         }

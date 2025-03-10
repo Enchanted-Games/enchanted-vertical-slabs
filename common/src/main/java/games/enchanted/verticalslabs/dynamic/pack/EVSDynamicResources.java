@@ -41,9 +41,22 @@ public class EVSDynamicResources extends AbstractDynamicPack {
             ),
             PackType.CLIENT_RESOURCES
         );
+        registerResourceType(
+            "model",
+            new ResourceType(
+                "models",
+                new HashMap<>(),
+                new FileToIdConverter("models", ".json")
+            ),
+            PackType.CLIENT_RESOURCES
+        );
     }
 
-    protected void addBlockstate(ResourceLocation location, String stringifiedModelJSON) {
-        addResource("blockstate", location, () -> IoSupplierUtil.stringToIoSupplier(stringifiedModelJSON), PackType.CLIENT_RESOURCES);
+    protected void addBlockstate(ResourceLocation location, String stringifiedBlockStateJSON) {
+        addResource("blockstate", location, () -> IoSupplierUtil.stringToIoSupplier(stringifiedBlockStateJSON), PackType.CLIENT_RESOURCES);
+    }
+
+    protected void addModel(ResourceLocation location, String stringifiedModelJSON) {
+        addResource("model", location, () -> IoSupplierUtil.stringToIoSupplier(stringifiedModelJSON), PackType.CLIENT_RESOURCES);
     }
 }

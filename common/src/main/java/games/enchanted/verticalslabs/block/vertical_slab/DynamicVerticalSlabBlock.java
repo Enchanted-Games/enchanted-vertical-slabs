@@ -44,8 +44,11 @@ public class DynamicVerticalSlabBlock extends BaseVerticalSlabBlock {
 
     @Override
     protected boolean skipRendering(@NotNull BlockState state, @NotNull BlockState adjacentState, @NotNull Direction direction) {
-        // TODO: check if this can crash when called with the wrong blockstates
-        return ((BlockBehaviourInvoker) REGULAR_SLAB).evs$invoke$skipRendering(state, adjacentState, direction);
+        // TODO: make this not crash when called with unexpected blockstates
+        if(REGULAR_BLOCK == null) {
+            return super.skipRendering(state, adjacentState, direction);
+        }
+        return ((BlockBehaviourInvoker) REGULAR_BLOCK).evs$invoke$skipRendering(state, adjacentState, direction);
     }
 
     @Override

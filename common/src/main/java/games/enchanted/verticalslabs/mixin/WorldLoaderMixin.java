@@ -10,10 +10,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Debug(export = true)
 @Mixin(MinecraftServer.class)
 public class WorldLoaderMixin {
-
     @Inject(
         at = @At("TAIL"),
         method = "configurePackRepository"
