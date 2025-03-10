@@ -2,19 +2,13 @@ package games.enchanted.verticalslabs.block.vertical_slab;
 
 import games.enchanted.verticalslabs.mixin.invoker.BlockBehaviourInvoker;
 import games.enchanted.verticalslabs.mixin.invoker.BlockInvoker;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.HalfTransparentBlock;
-import net.minecraft.world.level.block.SlabBlock;
-import net.minecraft.world.level.block.TransparentBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.SlabType;
 import org.jetbrains.annotations.NotNull;
 
 public class DynamicVerticalSlabBlock extends BaseVerticalSlabBlock {
@@ -34,7 +28,7 @@ public class DynamicVerticalSlabBlock extends BaseVerticalSlabBlock {
     }
 
     public boolean shouldRenderOtherBlockFace(BlockState verticalSlabState, BlockState otherBlockState, Direction direction) {
-        // TODO: improve culling against regular slab (especially for translucent vertical slabs)
+        // TODO: improve culling against regular slab (especially for translucent vertical slabs), and make solid slabs cull other blocks properly
         if(isStateThisOrRegularSlab(verticalSlabState) && isStateThisOrRegularSlab(otherBlockState)) return false;
         return true;
     }
@@ -51,7 +45,7 @@ public class DynamicVerticalSlabBlock extends BaseVerticalSlabBlock {
 
     @Override
     protected boolean skipRendering(@NotNull BlockState state, @NotNull BlockState adjacentState, @NotNull Direction direction) {
-//        return true;
+        // TODO: check if this can crash when called with the wrong blockstates
         return ((BlockBehaviourInvoker) REGULAR_SLAB).evs$invoke$skipRendering(state, adjacentState, direction);
     }
 }
