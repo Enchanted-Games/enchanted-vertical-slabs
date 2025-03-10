@@ -51,6 +51,12 @@ public class DynamicSlab {
         return RegistryHelpers.getLocationFromBlock(probableBlock);
     }
 
+    public boolean shouldUvLockModel() {
+        boolean glass = VERTICAL_SLAB_LOCATION.getPath().contains("glass");
+        return !glass;
+//        return !VERTICAL_SLAB_LOCATION.getPath().contains("glass");
+    }
+
     public ResourceLocation getOriginalSlabLocation() {
         return ORIGINAL_SLAB_LOCATION;
     }

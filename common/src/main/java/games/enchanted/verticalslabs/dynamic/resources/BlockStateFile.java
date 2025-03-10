@@ -417,15 +417,15 @@ public record BlockStateFile(Optional<Variants> variants, Optional<Multipart> mu
 	
 	/**
 	 * Component representing a rotated model object in variant and multipart definitions.
-	 * 
-	 * @param model Model id, e.g. minecraft:block/dirt
-	 * @param x Model x-rotation. Must be 0, 90, 180, or 270.
-	 * @param y Model y-rotation. Must be 0, 90, 180, or 270.
-	 * @param uvLock Whether to lock UVs when rotating model.
-	 * @param weight Weight of model part when used in a list of model parts. Must be positive.
 	 */
-	public static record Model(ResourceLocation model, int x, int y, boolean uvLock, int weight)
+	public static class Model
 	{
+		public ResourceLocation model;
+		public int x;
+		public int y;
+		public boolean uvLock;
+		public int weight;
+
 		/** codec **/
 		public static final Codec<Model> CODEC = RecordCodecBuilder.<Model>create(instance -> instance.group(
 				ResourceLocation.CODEC.fieldOf("model").forGetter(Model::model),
@@ -434,7 +434,7 @@ public record BlockStateFile(Optional<Variants> variants, Optional<Multipart> mu
 				Codec.BOOL.optionalFieldOf("uvlock",false).forGetter(Model::uvLock),
 				Codec.INT.optionalFieldOf("weight",1).forGetter(Model::weight)
 			).apply(instance, Model::new));
-		
+
 		/**
 		 * Component representing a rotated model object in variant and multipart definitions.
 		 * 
@@ -444,12 +444,33 @@ public record BlockStateFile(Optional<Variants> variants, Optional<Multipart> mu
 		 * @param uvLock Whether to lock UVs when rotating model.
 		 * @param weight Weight of model part when used in a list of model parts. Must be positive.
 		 */
-		public Model
-		{
+		public Model(ResourceLocation model, int x, int y, boolean uvLock, int weight) {
 			if (BlockModelRotation.by(x, y) == null)
 				throw new IllegalArgumentException(String.format("Invalid blockstate model part rotation: x=%s, y=%s (must be 0, 90, 180, or 270)", x, y));
 			if (weight < 1)
 				throw new IllegalArgumentException(String.format("Invalid blockstate model part weight %s: weight must be positive", weight));
+
+			this.model = model;
+			this.x = x;
+			this.y = y;
+			this.uvLock = uvLock;
+			this.weight = weight;
+		}
+
+		private ResourceLocation model() {
+			return this.model;
+		}
+		private int x() {
+			return this.x;
+		}
+		private int y() {
+			return this.y;
+		}
+		private boolean uvLock() {
+			return this.uvLock;
+		}
+		private int weight() {
+			return this.weight;
 		}
 		
 		/**
