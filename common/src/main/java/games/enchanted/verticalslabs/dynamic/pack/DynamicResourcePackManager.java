@@ -29,6 +29,7 @@ public class DynamicResourcePackManager {
     private static boolean hasBeenInitialised = false;
     public static void initialise() {
         if(hasBeenInitialised) return;
+        System.out.println("init client resources");
         addBlockstatesAndModels();
         hasBeenInitialised = true;
     }

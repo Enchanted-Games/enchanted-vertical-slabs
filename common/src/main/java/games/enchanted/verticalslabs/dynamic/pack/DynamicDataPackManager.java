@@ -14,6 +14,7 @@ public class DynamicDataPackManager {
     private static final DynamicDataGenerator dataGenerator = new DynamicDataGenerator();
 
     public static void initialise() {
+        System.out.println("init data called");
         if(hasBeenInitialised) return;
         dataGenerator.addProvider(DynamicBlockLoot.getProvider(new PackOutput(Path.of("")), CompletableFuture.completedFuture(VanillaRegistries.createLookup())));
 

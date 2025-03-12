@@ -6,16 +6,15 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "BlockMixin",
-    "BuiltinPackSourceMixin",
     "CreativeModeTabsAccessor",
     "DefaultedMappedRegistryMixin",
     "IronBarsBlockMixin",
     "ToolMixin",
     "WallBlockMixin",
-    "WorldLoaderMixin",
-    "accessor.PackAccessor",
+    "MinecraftServerMixin",
     "invoker.BlockBehaviourInvoker",
-    "invoker.BlockInvoker"
+    "invoker.BlockInvoker",
+    "resource.BuiltinPackSourceMixin"
   ],
   "client": [
     "ItemBlockRenderTypesMixin",

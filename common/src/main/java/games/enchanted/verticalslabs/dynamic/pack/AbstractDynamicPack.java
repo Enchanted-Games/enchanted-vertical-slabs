@@ -140,6 +140,7 @@ public abstract class AbstractDynamicPack implements PackResources {
 
     @Override
     public void listResources(@NotNull PackType packType, @NotNull String namespace, @NotNull String path, @NotNull ResourceOutput resourceOutput) {
+        System.out.println("list resources called: " + packType + "  " + namespace + "  " + path);
         if (!(PROVIDED_SERVER_NAMESPACES.contains(namespace) || PROVIDED_CLIENT_NAMESPACES.contains(namespace))) return;
 
         // list resource types
