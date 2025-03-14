@@ -7,6 +7,7 @@ import com.google.gson.JsonPrimitive;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
+import games.enchanted.verticalslabs.EnchantedVerticalSlabsLogging;
 import games.enchanted.verticalslabs.dynamic.DynamicSlab;
 import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabs;
 import games.enchanted.verticalslabs.dynamic.pack.EVSDynamicResources;
@@ -35,7 +36,7 @@ public class DynamicResourcePackManager implements PackManager {
 
     public void initialise() {
         if(hasBeenInitialised) return;
-        System.out.println("init client resources");
+        EnchantedVerticalSlabsLogging.info("Initialising Dynamic Resource Pack");
         addBlockstatesAndModels();
         hasBeenInitialised = true;
     }
@@ -50,14 +51,14 @@ public class DynamicResourcePackManager implements PackManager {
     public void triggeredReload() {
         needsReloadToApply = false;
         // TODO: add proper message
-        EnchantedVerticalSlabsConstants.LOG.info("Reloaded Resources <add better message here>");
+        EnchantedVerticalSlabsLogging.info("Reloaded Resources <add better message here>");
     }
 
     private static void addBlockstatesAndModels() {
         for (DynamicSlab slab : DynamicVerticalSlabs.DYNAMIC_SLAB_BLOCKS) {
             String blockStateFile = generateBlockStateFileForSlab(slab);
             if(blockStateFile == null) {
-                EnchantedVerticalSlabsConstants.LOG.error("Failed to generate blockstate definition file for: {}", slab.getVerticalSlabLocation());
+                EnchantedVerticalSlabsLogging.error("Failed to generate blockstate definition file for: {}", slab.getVerticalSlabLocation());
                 continue;
             };
             EVSDynamicResources.INSTANCE.addBlockstate(slab.getVerticalSlabLocation(), blockStateFile);
@@ -125,7 +126,6 @@ public class DynamicResourcePackManager implements PackManager {
             // encode and return blockstate file
             BlockStateFile verticalSlabFile = new BlockStateFile(Optional.of(verticalSlabVariants), Optional.empty());
             DataResult<JsonElement> verticalSlabBlockStateJSON = BlockStateFile.CODEC.encode(verticalSlabFile, JsonOps.INSTANCE, new JsonObject());
-//            System.out.println(verticalSlabBlockStateJSON.getOrThrow().toString());
             return verticalSlabBlockStateJSON.getOrThrow().toString();
 
         } else if(slabBlockStateFile.multipart().isPresent()) {

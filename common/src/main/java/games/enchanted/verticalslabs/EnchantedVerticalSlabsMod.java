@@ -11,7 +11,7 @@ import java.util.function.Supplier;
 
 public class EnchantedVerticalSlabsMod {
     public static void initBeforeRegistration() {
-        EnchantedVerticalSlabsConstants.LOG.info("{} is loading in a {} environment!", EnchantedVerticalSlabsConstants.MOD_NAME, Services.PLATFORM.getPlatformName());
+        EnchantedVerticalSlabsLogging.info("Mod is loading in a {} environment!", Services.PLATFORM.getPlatformName());
     }
 
     @SuppressWarnings("unchecked")

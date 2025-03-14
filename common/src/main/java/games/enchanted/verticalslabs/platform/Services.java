@@ -1,6 +1,7 @@
 package games.enchanted.verticalslabs.platform;
 
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
+import games.enchanted.verticalslabs.EnchantedVerticalSlabsLogging;
 import games.enchanted.verticalslabs.platform.services.PlatformHelperInterface;
 
 import java.util.ServiceLoader;
@@ -24,7 +25,7 @@ public class Services {
         final T loadedService = ServiceLoader.load(clazz)
                 .findFirst()
                 .orElseThrow(() -> new NullPointerException("Failed to load service for " + clazz.getName()));
-        EnchantedVerticalSlabsConstants.LOG.debug("Loaded {} for service {}", loadedService, clazz);
+        EnchantedVerticalSlabsLogging.debug("Loaded {} for service {}", loadedService, clazz);
         return loadedService;
     }
 }

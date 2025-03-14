@@ -1,5 +1,6 @@
 package games.enchanted.verticalslabs.platform;
 
+import games.enchanted.verticalslabs.EnchantedVerticalSlabsLogging;
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsMod;
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
 import games.enchanted.verticalslabs.item.ModCreativeTab;
@@ -36,7 +37,7 @@ public class FabricCreativeTabRegistration {
                             throw new IllegalStateException("Unexpected value: '" + entry.insertionPosition + "' for creative mode tab insertionPosition");
                     }
                 } catch(IllegalStateException e) {
-                    EnchantedVerticalSlabsConstants.LOG.warn("An exception occured running BuildCreativeModeTabContentsEvent:\n", e);
+                    EnchantedVerticalSlabsLogging.warn("An exception occured running BuildCreativeModeTabContentsEvent:\n", e);
                 }
             });
         }}
