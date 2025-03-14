@@ -43,7 +43,7 @@ public class DynamicResourcePackManager implements PackManager {
     @Override
     public boolean requiresReloadToApply() {
         // TODO: only return true here if not loading pack from disk
-        return true;
+        return needsReloadToApply;
     }
 
     @Override
