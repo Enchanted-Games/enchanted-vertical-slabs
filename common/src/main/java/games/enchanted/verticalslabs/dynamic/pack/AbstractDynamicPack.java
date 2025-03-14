@@ -140,19 +140,14 @@ public abstract class AbstractDynamicPack implements PackResources {
 
     @Override
     public void listResources(@NotNull PackType packType, @NotNull String namespace, @NotNull String path, @NotNull ResourceOutput resourceOutput) {
-        System.out.println("list resources called: " + packType + "  " + namespace + "  " + path);
         if (!(PROVIDED_SERVER_NAMESPACES.contains(namespace) || PROVIDED_CLIENT_NAMESPACES.contains(namespace))) return;
 
         // list resource types
         ArrayList<ResourceType> resourcesList = packType == PackType.CLIENT_RESOURCES ? CLIENT_RESOURCE_TYPES : SERVER_RESOURCE_TYPES;
         for (ResourceType type : resourcesList) {
             if (path.equals(type.directoryInPack)) {
-                try {
-                    for (var entry : type.locationToResourceMap.entrySet()) {
-                        resourceOutput.accept(entry.getKey(), entry.getValue().get());
-                    }
-                } catch (ConcurrentModificationException ignored) {
-                    // TODO: find a better fix for this
+                for (var entry : type.locationToResourceMap.entrySet()) {
+                    resourceOutput.accept(entry.getKey(), entry.getValue().get());
                 }
             }
         }

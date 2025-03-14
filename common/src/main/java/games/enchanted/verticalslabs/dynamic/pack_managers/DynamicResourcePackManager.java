@@ -1,4 +1,4 @@
-package games.enchanted.verticalslabs.dynamic.pack;
+package games.enchanted.verticalslabs.dynamic.pack_managers;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -9,6 +9,7 @@ import com.mojang.serialization.JsonOps;
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
 import games.enchanted.verticalslabs.dynamic.DynamicSlab;
 import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabs;
+import games.enchanted.verticalslabs.dynamic.pack.EVSDynamicResources;
 import games.enchanted.verticalslabs.dynamic.resources.BlockStateFile;
 import games.enchanted.verticalslabs.util.DirectionUtil;
 import net.minecraft.client.Minecraft;
@@ -22,16 +23,34 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
-public class DynamicResourcePackManager {
+public class DynamicResourcePackManager implements PackManager {
+    public static DynamicResourcePackManager INSTANCE = new DynamicResourcePackManager();
+    private static boolean hasBeenInitialised = false;
+    private static boolean needsReloadToApply = true;
+
     private static final FileToIdConverter BLOCKSTATE_CONVERTER = new FileToIdConverter("blockstates", ".json");
     private static final FileToIdConverter MODEL_CONVERTER = new FileToIdConverter("models", ".json");
 
-    private static boolean hasBeenInitialised = false;
-    public static void initialise() {
+    private DynamicResourcePackManager() {}
+
+    public void initialise() {
         if(hasBeenInitialised) return;
         System.out.println("init client resources");
         addBlockstatesAndModels();
         hasBeenInitialised = true;
+    }
+
+    @Override
+    public boolean requiresReloadToApply() {
+        // TODO: only return true here if not loading pack from disk
+        return true;
+    }
+
+    @Override
+    public void triggeredReload() {
+        needsReloadToApply = false;
+        // TODO: add proper message
+        EnchantedVerticalSlabsConstants.LOG.info("Reloaded Resources <add better message here>");
     }
 
     private static void addBlockstatesAndModels() {

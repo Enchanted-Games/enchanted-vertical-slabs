@@ -11,14 +11,16 @@
     "IronBarsBlockMixin",
     "ToolMixin",
     "WallBlockMixin",
-    "MinecraftServerMixin",
     "invoker.BlockBehaviourInvoker",
     "invoker.BlockInvoker",
-    "resource.BuiltinPackSourceMixin"
+    "resource.BuiltinPackSourceMixin",
+    "resource.CommonServersMixin",
+    "resource.WorldLoaderMixin"
   ],
   "client": [
     "ItemBlockRenderTypesMixin",
-    "client.MinecraftMixin"
+    "client.MinecraftMixin",
+    "resource.ClientServersMixin"
   ],
   "server": [
   ],

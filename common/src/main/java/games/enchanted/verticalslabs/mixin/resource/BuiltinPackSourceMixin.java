@@ -19,14 +19,14 @@ public abstract class BuiltinPackSourceMixin {
         at = @At("TAIL"),
         method = "listBundledPacks"
     )
-    private void listBundledPacks(Consumer<Pack> packConsumer, CallbackInfo ci) {
-        packConsumer.accept(enchanted_vertical_slabs$createDynamicPack(PackType.CLIENT_RESOURCES));
-        packConsumer.accept(enchanted_vertical_slabs$createDynamicPack(PackType.SERVER_DATA));
+    private void evs$listDynamicPacks(Consumer<Pack> packConsumer, CallbackInfo ci) {
+        packConsumer.accept(evs$createDynamicPack(PackType.CLIENT_RESOURCES));
+        packConsumer.accept(evs$createDynamicPack(PackType.SERVER_DATA));
     }
 
     @Unique
     @Nullable
-    private Pack enchanted_vertical_slabs$createDynamicPack(PackType type) {
+    private Pack evs$createDynamicPack(PackType type) {
         return Pack.readMetaAndCreate(EVSDynamicResources.INSTANCE.location(), EVSDynamicResources.INSTANCE.getResourcesSupplier(), type, EVSDynamicResources.PACK_SELECTION_CONFIG);
     }
 }
