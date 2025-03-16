@@ -10,11 +10,14 @@ import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsLogging;
 import games.enchanted.verticalslabs.dynamic.DynamicSlab;
 import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabs;
+import games.enchanted.verticalslabs.dynamic.datagen.DynamicDataGenerator;
+import games.enchanted.verticalslabs.dynamic.datagen.provider.DynamicItemDefinitionProvider;
 import games.enchanted.verticalslabs.dynamic.pack.EVSDynamicResources;
 import games.enchanted.verticalslabs.dynamic.resources.BlockStateFile;
 import games.enchanted.verticalslabs.util.DirectionUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.FileToIdConverter;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
@@ -22,6 +25,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 import java.util.*;
 
 public class DynamicResourcePackManager implements PackManager {
@@ -32,12 +36,24 @@ public class DynamicResourcePackManager implements PackManager {
     private static final FileToIdConverter BLOCKSTATE_CONVERTER = new FileToIdConverter("blockstates", ".json");
     private static final FileToIdConverter MODEL_CONVERTER = new FileToIdConverter("models", ".json");
 
+    private static final HashMap<ResourceLocation, VerticalSlabModelLocation> verticalSlabToBlockModel = new HashMap<>();
+
+    private static final DynamicDataGenerator dataGenerator = new DynamicDataGenerator();
+
     private DynamicResourcePackManager() {}
 
     public void initialise() {
         if(hasBeenInitialised) return;
         EnchantedVerticalSlabsLogging.info("Initialising Dynamic Resource Pack");
         addBlockstatesAndModels();
+        addItemDefinitions();
+
+        try {
+            dataGenerator.run();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         hasBeenInitialised = true;
     }
 
@@ -52,6 +68,10 @@ public class DynamicResourcePackManager implements PackManager {
         needsReloadToApply = false;
         // TODO: add proper message
         EnchantedVerticalSlabsLogging.info("Reloaded Resources <add better message here>");
+    }
+
+    private static void addItemDefinitions() {
+        dataGenerator.addProvider(new DynamicItemDefinitionProvider(new PackOutput(Path.of("")), verticalSlabToBlockModel));
     }
 
     private static void addBlockstatesAndModels() {
@@ -137,12 +157,14 @@ public class DynamicResourcePackManager implements PackManager {
 
     private static BlockStateFile.Model[] attemptToGenerateVerticalSlabModels(DynamicSlab slab, BlockStateFile.Model[] models) {
         if(slab.shouldAttemptToGenerateRealVerticalSlabModel()) {
-            return Arrays.stream(models).peek(DynamicResourcePackManager::updateModel).toList().toArray(new BlockStateFile.Model[0]);
+            return Arrays.stream(models).peek((model) -> updateModel(model, slab.getVerticalSlabLocation())).toList().toArray(new BlockStateFile.Model[0]);
         }
+        // add model to item definitions map
+        verticalSlabToBlockModel.putIfAbsent(slab.getVerticalSlabLocation(), new VerticalSlabModelLocation(models[0].model, true));
         return models;
     }
 
-    private static void updateModel(BlockStateFile.Model model) {
+    private static void updateModel(BlockStateFile.Model model, ResourceLocation verticalSlabLocation) {
 //        model.model = ResourceLocation.withDefaultNamespace("stone");
         Optional<Resource> modelFileResource = Minecraft.getInstance().getResourceManager().getResource(MODEL_CONVERTER.idToFile(model.model));
         if(modelFileResource.isEmpty()) return;
@@ -157,8 +179,11 @@ public class DynamicResourcePackManager implements PackManager {
 
         String parentModel = parsedModelFile.get("parent").getAsString();
         ResourceLocation parentLocation = ResourceLocation.parse(parentModel);
-        // if the parent model isn't minecraft:block/slab, don't modify the model
-        if(!parentLocation.equals(ResourceLocation.withDefaultNamespace("block/slab"))) return;
+        // if the parent model isn't minecraft:block/slab, don't modify the model and add model to item definitions map
+        if(!parentLocation.equals(ResourceLocation.withDefaultNamespace("block/slab"))) {
+            verticalSlabToBlockModel.putIfAbsent(verticalSlabLocation, new VerticalSlabModelLocation(model.model, false));
+            return;
+        };
 
         ResourceLocation newParent = ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION, "block/vertical_slab_side");
         parsedModelFile.add("parent", new JsonPrimitive(newParent.toString()));
@@ -166,12 +191,16 @@ public class DynamicResourcePackManager implements PackManager {
         // add new vertical slab model to dynamic resource pack
         ResourceLocation newModelLocation = ResourceLocation.fromNamespaceAndPath(
             EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION,
-            "block/" + model.model.getNamespace() + "/" + model.model.getPath()
+            "block/" + model.model.getNamespace() + "/" + model.model.getPath().replaceFirst("^block\\/", "")
         );
         EVSDynamicResources.INSTANCE.addModel(newModelLocation, parsedModelFile.toString());
+        // add model to item definitions map
+        verticalSlabToBlockModel.putIfAbsent(verticalSlabLocation, new VerticalSlabModelLocation(newModelLocation, false));
 
         // set blockstate model location to new model location and reset x rotation
         model.model = newModelLocation;
         model.x -= 90;
     }
+
+    public record VerticalSlabModelLocation(ResourceLocation location, boolean usesRegularSlabModel) {};
 }
