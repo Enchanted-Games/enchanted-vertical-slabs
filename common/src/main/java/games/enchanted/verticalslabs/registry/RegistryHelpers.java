@@ -7,6 +7,7 @@ import games.enchanted.verticalslabs.block.vertical_slab.BaseVerticalSlabBlock;
 import games.enchanted.verticalslabs.block.vertical_slab.DynamicVerticalSlabBlock;
 import games.enchanted.verticalslabs.block.vertical_slab.WeatheringCopperVerticalSlabBlock;
 import games.enchanted.verticalslabs.dynamic.DynamicSlab;
+import games.enchanted.verticalslabs.item.DynamicBlockItem;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -59,11 +60,17 @@ public class RegistryHelpers {
         blockProperties.setId(blockResourceKey);
 
         final Block registeredBlock = registerDynamicVerticalSlabBlock(id, blockProperties, dynamicSlab);
-        final BlockItem registeredBlockItem = registerBlockItem(id, registeredBlock);
+        final BlockItem registeredBlockItem = registerDynamicBlockItem(id, registeredBlock, dynamicSlab);
         return new BlockAndItemContainer(registeredBlock, registeredBlockItem);
     }
     private static Block registerDynamicVerticalSlabBlock(ResourceLocation location, BlockBehaviour.Properties blockSettings, DynamicSlab dynamicSlab) {
         return EnchantedVerticalSlabsMod.register(BuiltInRegistries.BLOCK.key(), () -> new DynamicVerticalSlabBlock(blockSettings, dynamicSlab), location);
+    }
+    private static BlockItem registerDynamicBlockItem(ResourceLocation location, Block block, DynamicSlab dynamicSlab) {
+        Item.Properties settings = new Item.Properties();
+        ResourceKey<Item> itemResourceKey = ResourceKey.create(Registries.ITEM, location);
+        settings.useBlockDescriptionPrefix().setId(itemResourceKey);
+        return EnchantedVerticalSlabsMod.register(BuiltInRegistries.ITEM.key(), () -> new DynamicBlockItem(block, settings, dynamicSlab), location);
     }
 
 
@@ -72,5 +79,12 @@ public class RegistryHelpers {
     }
     public static ResourceLocation getLocationFromBlock(Block block) {
         return BuiltInRegistries.BLOCK.getKey(block);
+    }
+
+    public static Item getItemFromLocation(ResourceLocation location) {
+        return BuiltInRegistries.ITEM.getValue(location);
+    }
+    public static ResourceLocation getLocationFromItem(Item item) {
+        return BuiltInRegistries.ITEM.getKey(item);
     }
 }

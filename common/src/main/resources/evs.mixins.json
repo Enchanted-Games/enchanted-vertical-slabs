@@ -6,11 +6,12 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "BlockMixin",
-    "CreativeModeTabsAccessor",
     "DefaultedMappedRegistryMixin",
+    "FuelValuesMixin",
     "IronBarsBlockMixin",
     "ToolMixin",
     "WallBlockMixin",
+    "accessor.CreativeModeTabsAccessor",
     "invoker.BlockBehaviourInvoker",
     "invoker.BlockInvoker",
     "resource.BuiltinPackSourceMixin",

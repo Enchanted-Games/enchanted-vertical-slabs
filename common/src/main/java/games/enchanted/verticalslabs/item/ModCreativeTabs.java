@@ -3,7 +3,7 @@ package games.enchanted.verticalslabs.item;
 import games.enchanted.verticalslabs.block.ModBlocks;
 import games.enchanted.verticalslabs.item.ModCreativeTab.ModCreativeTabEntry;
 import games.enchanted.verticalslabs.item.ModCreativeTab.DummyCreativeTabData;
-import games.enchanted.verticalslabs.mixin.CreativeModeTabsAccessor;
+import games.enchanted.verticalslabs.mixin.accessor.CreativeModeTabsAccessor;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Items;

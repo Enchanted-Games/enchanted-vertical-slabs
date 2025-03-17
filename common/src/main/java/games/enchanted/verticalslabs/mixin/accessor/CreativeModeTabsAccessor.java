@@ -1,4 +1,4 @@
-package games.enchanted.verticalslabs.mixin;
+package games.enchanted.verticalslabs.mixin.accessor;
 
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
