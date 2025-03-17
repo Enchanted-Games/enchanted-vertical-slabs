@@ -1,26 +1,84 @@
 package games.enchanted.verticalslabs.dynamic.datagen.provider;
 
+import com.google.common.hash.Hashing;
+import com.google.common.hash.HashingOutputStream;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.stream.JsonWriter;
+import games.enchanted.verticalslabs.EnchantedVerticalSlabsLogging;
 import games.enchanted.verticalslabs.dynamic.pack_managers.DynamicResourcePackManager;
 import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.renderer.item.ClientItem;
+import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public class DynamicItemDefinitionProvider implements DataProvider {
+    static final String modelTemplateString = """
+    {
+        "display": {
+            "thirdperson_righthand": {
+                "rotation": [-15.65, -0.34, 45.21],
+                "translation": [0, 2.5, 0],
+                "scale": [0.375, 0.375, 0.375]
+            },
+            "firstperson_righthand": {
+                "rotation": [-90.03, -2.03, 46.84],
+                "scale": [0.4, 0.4, 0.4]
+            },
+            "ground": {
+                "rotation": [90, 0, 0],
+                "translation": [0, 3, 1],
+                "scale": [0.25, 0.25, 0.25]
+            },
+            "gui": {
+                "rotation": [30, -45, -90],
+                "translation": [1.75, -0.75, 0],
+                "scale": [0.625, 0.625, 0.625]
+            },
+            "head": {
+                "rotation": [-167, 0, 0],
+                "translation": [0, 0.25, 0]
+            },
+            "fixed": {
+                "rotation": [-90, 0, 0],
+                "translation": [0, 0, -0.5],
+                "scale": [0.5, 0.5, 0.5]
+            }
+        }
+    }
+    """;
+
     final HashMap<ResourceLocation, ClientItem> generatedItemDefinitions = new HashMap<>();
+    final HashMap<ResourceLocation, JsonObject> generatedItemModels = new HashMap<>();
+
     final HashMap<ResourceLocation, DynamicResourcePackManager.VerticalSlabModelLocation> verticalSlabToBlockModel;
+
     final PackOutput.PathProvider itemDefinitionPathProvider;
+    final PackOutput.PathProvider modelPathProvider;
+
+    final JsonObject itemModelTemplate;
 
     public DynamicItemDefinitionProvider(PackOutput packOutput, HashMap<ResourceLocation, DynamicResourcePackManager.VerticalSlabModelLocation> verticalSlabToBlockModel) {
         this.verticalSlabToBlockModel = verticalSlabToBlockModel;
         this.itemDefinitionPathProvider = packOutput.createPathProvider(PackOutput.Target.RESOURCE_PACK, "items");
+        this.modelPathProvider = packOutput.createPathProvider(PackOutput.Target.RESOURCE_PACK, "models");
+
+        this.itemModelTemplate = JsonParser.parseString(modelTemplateString).getAsJsonObject();
     }
 
     @Override
@@ -31,17 +89,62 @@ public class DynamicItemDefinitionProvider implements DataProvider {
     @Override
     public @NotNull CompletableFuture<?> run(@NotNull CachedOutput output) {
         generateDynamicItemDefinitions();
-        return save(output, this.itemDefinitionPathProvider);
+        return CompletableFuture.allOf(saveItemDefinitions(output, this.itemDefinitionPathProvider), CompletableFuture.runAsync(() -> saveItemModels(output, this.modelPathProvider)));
     }
 
     private void generateDynamicItemDefinitions() {
         for (Map.Entry<ResourceLocation, DynamicResourcePackManager.VerticalSlabModelLocation> entry : verticalSlabToBlockModel.entrySet()) {
-            ClientItem itemDefinition = new ClientItem(ItemModelUtils.plainModel(entry.getValue().location()), ClientItem.Properties.DEFAULT);
+            ClientItem itemDefinition;
+            if(entry.getValue().usesRegularSlabModel()) {
+                // handling for vertical slabs that use the normal slab model but rotated
+                ResourceLocation model = createRotatedSlabItemModel(entry.getKey(), entry.getValue().location());
+                ItemModel.Unbaked unbakedModel = ItemModelUtils.plainModel(model);
+                itemDefinition = new ClientItem(unbakedModel, ClientItem.Properties.DEFAULT);
+            } else {
+                // handling for vertical slabs that have a proper vertical slab model
+                itemDefinition = new ClientItem(ItemModelUtils.plainModel(entry.getValue().location()), ClientItem.Properties.DEFAULT);
+            }
             generatedItemDefinitions.put(entry.getKey(), itemDefinition);
         }
     }
 
-    public CompletableFuture<?> save(CachedOutput output, PackOutput.PathProvider pathProvider) {
-        return DataProvider.saveAll(output, ClientItem.CODEC, itemLocation -> pathProvider.json(itemLocation), this.generatedItemDefinitions);
+    private ResourceLocation createRotatedSlabItemModel(ResourceLocation verticalSlabLocation, ResourceLocation verticalSlabBlockModelLocation) {
+        JsonObject modelJson = this.itemModelTemplate.deepCopy();
+        modelJson.add("parent", new JsonPrimitive(verticalSlabBlockModelLocation.toString()));
+        ResourceLocation newModelLocation = ResourceLocation.fromNamespaceAndPath(verticalSlabLocation.getNamespace(), "item/" + verticalSlabLocation.getPath());
+        this.generatedItemModels.put(
+            newModelLocation,
+            modelJson
+        );
+        return newModelLocation;
+    }
+
+    public CompletableFuture<?> saveItemDefinitions(CachedOutput output, PackOutput.PathProvider pathProvider) {
+        return DataProvider.saveAll(output, ClientItem.CODEC, pathProvider::json, this.generatedItemDefinitions);
+    }
+
+    public void saveItemModels(CachedOutput output, PackOutput.PathProvider pathProvider) {
+        for(Map.Entry<ResourceLocation, JsonObject> entry : generatedItemModels.entrySet()) {
+            Path path = pathProvider.json(entry.getKey());
+            try {
+                ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();
+                HashingOutputStream hashingoutputstream = new HashingOutputStream(Hashing.sha256(), bytearrayoutputstream);
+
+                try (JsonWriter jsonwriter = new JsonWriter(new OutputStreamWriter(hashingoutputstream, StandardCharsets.UTF_8))) {
+                    jsonwriter.setSerializeNulls(false);
+                    jsonwriter.setIndent("  ");
+                    GsonHelper.writeValue(jsonwriter, entry.getValue(), KEY_COMPARATOR);
+                }
+
+                output.writeIfNeeded(
+                    path,
+                    bytearrayoutputstream.toByteArray(),
+                    hashingoutputstream.hash()
+                );
+                EnchantedVerticalSlabsLogging.info("Added new item model: {}, content: {}", path, entry.getValue());
+            } catch (IOException ioexception) {
+                EnchantedVerticalSlabsLogging.error("Failed to save file to {}", path, ioexception);
+            }
+        }
     }
 }

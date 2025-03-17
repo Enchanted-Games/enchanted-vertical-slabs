@@ -177,13 +177,19 @@ public class DynamicResourcePackManager implements PackManager {
         String modelFileString = new String(bytes, StandardCharsets.UTF_8);
         JsonObject parsedModelFile = JsonParser.parseString(modelFileString).getAsJsonObject();
 
-        String parentModel = parsedModelFile.get("parent").getAsString();
+        JsonElement parentModelJson = parsedModelFile.get("parent");
+        // if the model doesn't have parent, return and add model to item definitions map
+        if(parentModelJson == null) {
+            verticalSlabToBlockModel.putIfAbsent(verticalSlabLocation, new VerticalSlabModelLocation(model.model, false));
+            return;
+        }
+        String parentModel = parentModelJson.getAsString();
         ResourceLocation parentLocation = ResourceLocation.parse(parentModel);
         // if the parent model isn't minecraft:block/slab, don't modify the model and add model to item definitions map
         if(!parentLocation.equals(ResourceLocation.withDefaultNamespace("block/slab"))) {
             verticalSlabToBlockModel.putIfAbsent(verticalSlabLocation, new VerticalSlabModelLocation(model.model, false));
             return;
-        };
+        }
 
         ResourceLocation newParent = ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION, "block/vertical_slab_side");
         parsedModelFile.add("parent", new JsonPrimitive(newParent.toString()));

@@ -1,7 +1,6 @@
 package games.enchanted.verticalslabs.dynamic.pack;
 
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
-import games.enchanted.verticalslabs.EnchantedVerticalSlabsLogging;
 import games.enchanted.verticalslabs.util.IoSupplierUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.FileToIdConverter;
@@ -58,7 +57,6 @@ public class EVSDynamicResources extends AbstractDynamicPack {
     }
 
     public void addModel(ResourceLocation location, String stringifiedModelJSON) {
-        EnchantedVerticalSlabsLogging.info("added model {}", location);
         addResource("model", location, () -> IoSupplierUtil.stringToIoSupplier(stringifiedModelJSON), PackType.CLIENT_RESOURCES);
     }
 }
