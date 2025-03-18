@@ -13,10 +13,10 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
-@Mixin(value = FuelValues.class, priority = 950)
+@Mixin(FuelValues.class)
 public class FuelValuesMixin {
     @WrapOperation(
-        at = @At(value = "INVOKE", target = "Lit/unimi/dsi/fastutil/objects/Object2IntSortedMap;containsKey(Ljava/lang/Object;)Z"),
+        at = @At(value = "INVOKE", target = "Lit/unimi/dsi/fastutil/objects/Object2IntSortedMap;containsKey(Ljava/lang/Object;)Z", remap = false),
         method = "isFuel"
     )
     public boolean evs$redirectIsFuelCallForVerticalSlabItems(Object2IntSortedMap<Item> instance, Object object, Operation<Boolean> original) {
@@ -27,7 +27,7 @@ public class FuelValuesMixin {
     }
 
     @WrapOperation(
-        at = @At(value = "INVOKE", target = "Lit/unimi/dsi/fastutil/objects/Object2IntSortedMap;getInt(Ljava/lang/Object;)I"),
+        at = @At(value = "INVOKE", target = "Lit/unimi/dsi/fastutil/objects/Object2IntSortedMap;getInt(Ljava/lang/Object;)I", remap = false),
         method = "burnDuration"
     )
     public int evs$redirectBurnDurationCallForVerticalSlabItems(Object2IntSortedMap<Item> instance, Object object, Operation<Integer> original) {

@@ -1,12 +1,8 @@
 package games.enchanted.verticalslabs.dynamic.datagen.provider;
 
-import com.google.common.hash.Hashing;
-import com.google.common.hash.HashingOutputStream;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
-import com.google.gson.stream.JsonWriter;
-import games.enchanted.verticalslabs.EnchantedVerticalSlabsLogging;
 import games.enchanted.verticalslabs.dynamic.pack_managers.DynamicResourcePackManager;
 import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.renderer.item.ClientItem;
@@ -15,13 +11,8 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
@@ -89,7 +80,8 @@ public class DynamicItemDefinitionProvider implements DataProvider {
     @Override
     public @NotNull CompletableFuture<?> run(@NotNull CachedOutput output) {
         generateDynamicItemDefinitions();
-        return CompletableFuture.allOf(saveItemDefinitions(output, this.itemDefinitionPathProvider), CompletableFuture.runAsync(() -> saveItemModels(output, this.modelPathProvider)));
+        // TODO: fix potential race condition between saving and resources being listed
+        return CompletableFuture.allOf(saveItemDefinitions(output, this.itemDefinitionPathProvider), saveItemModels(output, this.modelPathProvider));
     }
 
     private void generateDynamicItemDefinitions() {
@@ -123,28 +115,10 @@ public class DynamicItemDefinitionProvider implements DataProvider {
         return DataProvider.saveAll(output, ClientItem.CODEC, pathProvider::json, this.generatedItemDefinitions);
     }
 
-    public void saveItemModels(CachedOutput output, PackOutput.PathProvider pathProvider) {
-        for(Map.Entry<ResourceLocation, JsonObject> entry : generatedItemModels.entrySet()) {
+    public CompletableFuture<?> saveItemModels(CachedOutput output, PackOutput.PathProvider pathProvider) {
+        return CompletableFuture.allOf(generatedItemModels.entrySet().stream().map((entry) -> {
             Path path = pathProvider.json(entry.getKey());
-            try {
-                ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream();
-                HashingOutputStream hashingoutputstream = new HashingOutputStream(Hashing.sha256(), bytearrayoutputstream);
-
-                try (JsonWriter jsonwriter = new JsonWriter(new OutputStreamWriter(hashingoutputstream, StandardCharsets.UTF_8))) {
-                    jsonwriter.setSerializeNulls(false);
-                    jsonwriter.setIndent("  ");
-                    GsonHelper.writeValue(jsonwriter, entry.getValue(), KEY_COMPARATOR);
-                }
-
-                output.writeIfNeeded(
-                    path,
-                    bytearrayoutputstream.toByteArray(),
-                    hashingoutputstream.hash()
-                );
-                EnchantedVerticalSlabsLogging.info("Added new item model: {}, content: {}", path, entry.getValue());
-            } catch (IOException ioexception) {
-                EnchantedVerticalSlabsLogging.error("Failed to save file to {}", path, ioexception);
-            }
-        }
+            return DataProvider.saveStable(output, entry.getValue(), path);
+        }).toArray((x$0) -> new CompletableFuture[0]));
     }
 }
