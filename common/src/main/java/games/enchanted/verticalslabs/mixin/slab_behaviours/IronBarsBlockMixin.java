@@ -1,4 +1,4 @@
-package games.enchanted.verticalslabs.mixin;
+package games.enchanted.verticalslabs.mixin.slab_behaviours;
 
 import com.mojang.serialization.MapCodec;
 import games.enchanted.verticalslabs.block.vertical_slab.BaseVerticalSlabBlock;

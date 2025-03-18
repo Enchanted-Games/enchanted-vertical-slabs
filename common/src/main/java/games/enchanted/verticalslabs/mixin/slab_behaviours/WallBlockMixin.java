@@ -1,4 +1,4 @@
-package games.enchanted.verticalslabs.mixin;
+package games.enchanted.verticalslabs.mixin.slab_behaviours;
 
 import games.enchanted.verticalslabs.block.vertical_slab.BaseVerticalSlabBlock;
 import net.minecraft.core.BlockPos;

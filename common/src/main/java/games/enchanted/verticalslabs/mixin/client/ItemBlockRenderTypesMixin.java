@@ -1,4 +1,4 @@
-package games.enchanted.verticalslabs.mixin;
+package games.enchanted.verticalslabs.mixin.client;
 
 import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabs;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;

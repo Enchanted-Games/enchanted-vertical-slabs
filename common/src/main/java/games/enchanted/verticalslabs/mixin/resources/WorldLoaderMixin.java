@@ -1,4 +1,4 @@
-package games.enchanted.verticalslabs.mixin.resource;
+package games.enchanted.verticalslabs.mixin.resources;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import games.enchanted.verticalslabs.dynamic.pack_managers.DynamicDataPackManager;
