@@ -17,7 +17,7 @@ public abstract class ItemBlockRenderTypesMixin {
         method = "getChunkRenderType",
         cancellable = true
     )
-    private static void overrideRenderTypeForDynamicVerticalSlab(BlockState blockState, CallbackInfoReturnable<RenderType> cir) {
+    private static void evs$overrideRenderTypeForDynamicVerticalSlab(BlockState blockState, CallbackInfoReturnable<RenderType> cir) {
         Block originalBlock = blockState.getBlock();
         Block blockToGetRenderTypeOf = DynamicVerticalSlabs.VERTICAL_TO_NORMAL_SLAB_MAP.get(originalBlock);
         if(blockToGetRenderTypeOf == null) return;

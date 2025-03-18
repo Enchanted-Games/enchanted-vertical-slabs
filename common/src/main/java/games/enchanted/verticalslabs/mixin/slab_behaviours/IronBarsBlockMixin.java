@@ -1,6 +1,5 @@
 package games.enchanted.verticalslabs.mixin.slab_behaviours;
 
-import com.mojang.serialization.MapCodec;
 import games.enchanted.verticalslabs.block.vertical_slab.BaseVerticalSlabBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -25,13 +24,8 @@ public abstract class IronBarsBlockMixin extends CrossCollisionBlock {
         super($$0, $$1, $$2, $$3, $$4, $$5);
     }
 
-    @Override
-    public MapCodec<? extends CrossCollisionBlock> codec() {
-        return null;
-    }
-
     @Unique
-    private boolean enchanted_vertical_slabs$getConnectionForDirection(BlockState state, Direction direction) {
+    private boolean evs$getConnectionForDirection(BlockState state, Direction direction) {
         if(!(state.getBlock() instanceof BaseVerticalSlabBlock)) {
             throw new IllegalArgumentException("BlockState block must contain an instance of VerticalSlabBlock");
         }
@@ -45,7 +39,7 @@ public abstract class IronBarsBlockMixin extends CrossCollisionBlock {
         cancellable = true
     )
     // attach iron bars (and similar blocks like glass panes) to vertical slabs when placed
-    public void getStateForPlacement(BlockPlaceContext blockPlaceContext, CallbackInfoReturnable<BlockState> cir) {
+    public void evs$overridePlacementStateWhenNextToVerticalSlab(BlockPlaceContext blockPlaceContext, CallbackInfoReturnable<BlockState> cir) {
         BlockPos blockPos = blockPlaceContext.getClickedPos();
         BlockGetter blockGetter = blockPlaceContext.getLevel();
 
@@ -55,16 +49,16 @@ public abstract class IronBarsBlockMixin extends CrossCollisionBlock {
         BlockState westBlockState = blockGetter.getBlockState(blockPos.west());
 
         if(northBlockState.getBlock() instanceof BaseVerticalSlabBlock) {
-            cir.setReturnValue(cir.getReturnValue().setValue(NORTH, enchanted_vertical_slabs$getConnectionForDirection(northBlockState, Direction.NORTH)));
+            cir.setReturnValue(cir.getReturnValue().setValue(NORTH, evs$getConnectionForDirection(northBlockState, Direction.NORTH)));
         }
         if(eastBlockState.getBlock() instanceof BaseVerticalSlabBlock) {
-            cir.setReturnValue(cir.getReturnValue().setValue(EAST, enchanted_vertical_slabs$getConnectionForDirection(eastBlockState, Direction.EAST)));
+            cir.setReturnValue(cir.getReturnValue().setValue(EAST, evs$getConnectionForDirection(eastBlockState, Direction.EAST)));
         }
         if(southBlockState.getBlock() instanceof BaseVerticalSlabBlock) {
-            cir.setReturnValue(cir.getReturnValue().setValue(SOUTH, enchanted_vertical_slabs$getConnectionForDirection(southBlockState, Direction.SOUTH)));
+            cir.setReturnValue(cir.getReturnValue().setValue(SOUTH, evs$getConnectionForDirection(southBlockState, Direction.SOUTH)));
         }
         if(westBlockState.getBlock() instanceof BaseVerticalSlabBlock) {
-            cir.setReturnValue(cir.getReturnValue().setValue(WEST, enchanted_vertical_slabs$getConnectionForDirection(westBlockState, Direction.WEST)));
+            cir.setReturnValue(cir.getReturnValue().setValue(WEST, evs$getConnectionForDirection(westBlockState, Direction.WEST)));
         }
     }
 
@@ -74,7 +68,7 @@ public abstract class IronBarsBlockMixin extends CrossCollisionBlock {
         cancellable = true
     )
     // attach iron bars (and similar blocks like glass panes) to vertical slabs
-    protected void updateShape(BlockState blockState, @NotNull LevelReader levelReader, @NotNull ScheduledTickAccess scheduledTickAccess, @NotNull BlockPos pos, @NotNull Direction direction, @NotNull BlockPos pos2, @NotNull BlockState blockState2, @NotNull RandomSource randomSource, CallbackInfoReturnable<BlockState> cir) {
+    protected void evs$attachToVerticalSlabsNextToThisBlock(BlockState blockState, @NotNull LevelReader levelReader, @NotNull ScheduledTickAccess scheduledTickAccess, @NotNull BlockPos pos, @NotNull Direction direction, @NotNull BlockPos pos2, @NotNull BlockState blockState2, @NotNull RandomSource randomSource, CallbackInfoReturnable<BlockState> cir) {
         if(blockState2.getBlock() instanceof BaseVerticalSlabBlock) {
             boolean slabAwayFromBarBlock = blockState2.getValue(BaseVerticalSlabBlock.FACING) == direction;
             cir.setReturnValue(

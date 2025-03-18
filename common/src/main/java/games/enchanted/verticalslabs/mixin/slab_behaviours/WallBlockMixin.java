@@ -35,7 +35,7 @@ public abstract class WallBlockMixin {
     public static EnumProperty<WallSide> WEST_WALL;
 
     @Unique
-    private boolean enchanted_vertical_slabs$isWallHorizontallyConnected(BlockState state) {
+    private boolean evs$isWallHorizontallyConnected(BlockState state) {
         return ((
             state.getValue(NORTH_WALL) != WallSide.NONE && state.getValue(SOUTH_WALL) != WallSide.NONE &&
             state.getValue(EAST_WALL) == WallSide.NONE && state.getValue(WEST_WALL) == WallSide.NONE
@@ -47,10 +47,10 @@ public abstract class WallBlockMixin {
     }
 
     @Unique
-    private WallSide enchanted_vertical_slabs$getWallSideForConnection(boolean connected, BlockState state) {
-        if (connected && !enchanted_vertical_slabs$isWallHorizontallyConnected(state)) {
+    private WallSide evs$getWallSideForConnection(boolean connected, BlockState state) {
+        if (connected && !evs$isWallHorizontallyConnected(state)) {
             return WallSide.LOW;
-        } else if (connected && enchanted_vertical_slabs$isWallHorizontallyConnected(state)) {
+        } else if (connected && evs$isWallHorizontallyConnected(state)) {
             return WallSide.TALL;
         }
         return WallSide.NONE;
@@ -62,7 +62,7 @@ public abstract class WallBlockMixin {
         cancellable = true
     )
     // if side block is a vertical slab, connect to it unless vertical slab is "away" from the wall
-    private void connectsTo(BlockState state, boolean isFaceSturdy, Direction side, CallbackInfoReturnable<Boolean> cir) {
+    private void evs$connectWallToVerticalSlabsNextToIt(BlockState state, boolean isFaceSturdy, Direction side, CallbackInfoReturnable<Boolean> cir) {
         if(state.getBlock() instanceof BaseVerticalSlabBlock) {
             boolean slabAwayFromWall = state.getValue(BaseVerticalSlabBlock.FACING) == side.getOpposite();
             cir.setReturnValue(!(state.getValue(BaseVerticalSlabBlock.SINGLE) && slabAwayFromWall));
@@ -75,17 +75,17 @@ public abstract class WallBlockMixin {
         method = "updateShape(Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;ZZZZ)Lnet/minecraft/world/level/block/state/BlockState;"
     )
     // connect walls up to vertical slabs above them
-    private void updateShape(LevelReader world, BlockState state, BlockPos pos, BlockState aboveState, boolean north, boolean east, boolean south, boolean west, CallbackInfoReturnable<BlockState> cir) {
+    private void evs$connectWallUpToVerticalSlabAbove(LevelReader world, BlockState state, BlockPos pos, BlockState aboveState, boolean north, boolean east, boolean south, boolean west, CallbackInfoReturnable<BlockState> cir) {
         VoxelShape voxelShape = aboveState.getCollisionShape(world, pos).getFaceShape(Direction.DOWN);
         BlockState blockState = this.updateSides(state, north, east, south, west, voxelShape);
 
         if ( aboveState.getBlock() instanceof BaseVerticalSlabBlock && aboveState.getValue(BaseVerticalSlabBlock.SINGLE) ) {
             cir.setReturnValue( state
-                .setValue(NORTH_WALL, enchanted_vertical_slabs$getWallSideForConnection(north, blockState))
-                .setValue(EAST_WALL, enchanted_vertical_slabs$getWallSideForConnection(east, blockState))
-                .setValue(SOUTH_WALL, enchanted_vertical_slabs$getWallSideForConnection(south, blockState))
-                .setValue(WEST_WALL, enchanted_vertical_slabs$getWallSideForConnection(west, blockState))
-                .setValue(UP, !enchanted_vertical_slabs$isWallHorizontallyConnected(blockState))
+                .setValue(NORTH_WALL, evs$getWallSideForConnection(north, blockState))
+                .setValue(EAST_WALL, evs$getWallSideForConnection(east, blockState))
+                .setValue(SOUTH_WALL, evs$getWallSideForConnection(south, blockState))
+                .setValue(WEST_WALL, evs$getWallSideForConnection(west, blockState))
+                .setValue(UP, !evs$isWallHorizontallyConnected(blockState))
             );
         }
 

@@ -9,7 +9,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Items;
 
 public class ModCreativeTabs {
-	private static final ResourceKey<CreativeModeTab> buildingBlocksTab = CreativeModeTabsAccessor.getBuildingBlocksTab();
+	private static final ResourceKey<CreativeModeTab> buildingBlocksTab = CreativeModeTabsAccessor.evs$getBuildingBlocksTab();
 
     private static final DummyCreativeTabData VERTICAL_SLABS_TAB = new DummyCreativeTabData(
         ModBlocks.VERTICAL_OAK_SLAB.blockItem(),

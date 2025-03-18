@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(CreativeModeTabs.class)
 public interface CreativeModeTabsAccessor {
     @Accessor("BUILDING_BLOCKS")
-    static ResourceKey<CreativeModeTab> getBuildingBlocksTab() {
+    static ResourceKey<CreativeModeTab> evs$getBuildingBlocksTab() {
         throw new AssertionError();
     }
 }
