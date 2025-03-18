@@ -4,12 +4,13 @@
   "package": "games.enchanted.verticalslabs.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "NeoForgeGameDataMixin",
     "HoneyCombItemMixin",
+    "NeoForgeGameDataMixin",
     "WeatheringCopperMixin",
     "WeatheringCopperVerticalSlabBlockMixin"
   ],
   "client": [
+    "NeoForgeModelManagerMixin"
   ],
   "server": [],
   "injectors": {

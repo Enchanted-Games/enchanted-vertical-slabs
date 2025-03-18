@@ -17,6 +17,7 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class DynamicItemDefinitionProvider implements DataProvider {
     static final String modelTemplateString = """
@@ -80,8 +81,17 @@ public class DynamicItemDefinitionProvider implements DataProvider {
     @Override
     public @NotNull CompletableFuture<?> run(@NotNull CachedOutput output) {
         generateDynamicItemDefinitions();
-        // TODO: fix potential race condition between saving and resources being listed
-        return CompletableFuture.allOf(saveItemDefinitions(output, this.itemDefinitionPathProvider), saveItemModels(output, this.modelPathProvider));
+        try {
+            saveItemDefinitions(output, this.itemDefinitionPathProvider).get();
+        } catch (InterruptedException | ExecutionException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            saveItemModels(output, this.modelPathProvider).get();
+        } catch (InterruptedException | ExecutionException e) {
+            throw new RuntimeException(e);
+        }
+        return CompletableFuture.allOf();
     }
 
     private void generateDynamicItemDefinitions() {

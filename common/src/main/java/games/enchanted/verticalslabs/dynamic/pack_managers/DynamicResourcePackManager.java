@@ -54,6 +54,13 @@ public class DynamicResourcePackManager implements PackManager {
             throw new RuntimeException(e);
         }
 
+        try {
+            // TODO: get rid if this absolute hack
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         hasBeenInitialised = true;
     }
 
@@ -209,4 +216,8 @@ public class DynamicResourcePackManager implements PackManager {
     }
 
     public record VerticalSlabModelLocation(ResourceLocation location, boolean usesRegularSlabModel) {};
+
+    public static boolean hasBeenInitialised() {
+        return hasBeenInitialised;
+    }
 }

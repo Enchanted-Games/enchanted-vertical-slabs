@@ -7,17 +7,17 @@
   "mixins": [
     "BlockMixin",
     "DefaultedMappedRegistryMixin",
-    "slab_behaviours.FireBlockMixin",
-    "slab_behaviours.FuelValuesMixin",
-    "slab_behaviours.IronBarsBlockMixin",
-    "slab_behaviours.ToolMixin",
-    "slab_behaviours.WallBlockMixin",
     "accessor.CreativeModeTabsAccessor",
     "invoker.BlockBehaviourInvoker",
     "invoker.BlockInvoker",
     "resources.BuiltinPackSourceMixin",
     "resources.CommonServersMixin",
-    "resources.WorldLoaderMixin"
+    "resources.WorldLoaderMixin",
+    "slab_behaviours.FireBlockMixin",
+    "slab_behaviours.FuelValuesMixin",
+    "slab_behaviours.IronBarsBlockMixin",
+    "slab_behaviours.ToolMixin",
+    "slab_behaviours.WallBlockMixin"
   ],
   "client": [
     "client.ItemBlockRenderTypesMixin",
