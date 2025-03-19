@@ -58,6 +58,7 @@ public class DynamicResourcePackManager extends PackManager {
         asyncTasks.thenRun(() -> {
             complete(true, () -> {
                 EnchantedVerticalSlabsLogging.info("[Dynamic Resourcepack]: Async datagenerators completed successfully");
+                EnchantedVerticalSlabsLogging.info("[Dynamic Resourcepack]: Reloading resourcepacks to apply changes");
             });
         })
         .exceptionally((exception) -> {

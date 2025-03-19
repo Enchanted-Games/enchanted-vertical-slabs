@@ -32,10 +32,12 @@ public class DynamicDataPackManager extends PackManager {
         asyncTasks.thenRun(() -> {
             complete(true, () -> {
                 EnchantedVerticalSlabsLogging.info("[Dynamic Datapack]: Async datagenerators completed successfully");
+                EnchantedVerticalSlabsLogging.info("[Dynamic Datapack]: Reloading datapacks to apply changes");
             });
         })
         .exceptionally((exception) -> {
             EnchantedVerticalSlabsLogging.info("[Dynamic Datapack]: Errors occurred while running datagenerators");
+            exception.printStackTrace();
             throw new RuntimeException(exception);
         });
     }

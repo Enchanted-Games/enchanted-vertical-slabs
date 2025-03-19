@@ -44,10 +44,7 @@ public abstract class PackManager {
             functionOnComplete.run();
         }
         if(requiresReload) {
-            reloadCallbacks.forEach((runnable -> {
-                runnable.run();
-                EnchantedVerticalSlabsLogging.info("[Pack Manager]: triggered reload callback");
-            } ));
+            reloadCallbacks.forEach(Runnable::run);
         }
     }
 

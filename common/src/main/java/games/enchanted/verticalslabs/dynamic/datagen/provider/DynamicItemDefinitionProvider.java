@@ -118,6 +118,6 @@ public class DynamicItemDefinitionProvider implements DataProvider {
         return CompletableFuture.allOf(generatedItemModels.entrySet().stream().map((entry) -> {
             Path path = pathProvider.json(entry.getKey());
             return DataProvider.saveStable(output, entry.getValue(), path);
-        }).toArray((x$0) -> new CompletableFuture[0]));
+        }).toArray(CompletableFuture[]::new));
     }
 }
