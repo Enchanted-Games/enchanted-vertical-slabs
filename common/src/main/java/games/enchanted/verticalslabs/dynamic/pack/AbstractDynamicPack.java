@@ -78,7 +78,7 @@ public abstract class AbstractDynamicPack implements PackResources {
         SERVER_RESOURCE_TYPES.add(resourceType);
     }
 
-    public void addResource(String resourceTypeName, ResourceLocation location, Supplier<IoSupplier<InputStream>> resourceData, PackType packType) {
+    public synchronized void addResource(String resourceTypeName, ResourceLocation location, Supplier<IoSupplier<InputStream>> resourceData, PackType packType) {
         boolean isServerResources = packType == PackType.SERVER_DATA;
         int resourceTypeIndex = (isServerResources ? SERVER_RESOURCE_TYPE_NAME_TO_ID : CLIENT_RESOURCE_TYPE_NAME_TO_ID).get(resourceTypeName);
         final int maxIndex = (isServerResources ? SERVER_RESOURCE_TYPES : CLIENT_RESOURCE_TYPES).size() - 1;
@@ -89,7 +89,7 @@ public abstract class AbstractDynamicPack implements PackResources {
         resourceType.locationToResourceMap.put(fileLocation, resourceData);
     }
 
-    public void addRawResource(String path, Supplier<IoSupplier<InputStream>> resourceData) {
+    public synchronized void addRawResource(String path, Supplier<IoSupplier<InputStream>> resourceData) {
         Matcher matcher = RAW_RESOURCE_PATH_PATTERN.matcher(path);
         matcher.matches();
 
@@ -167,7 +167,7 @@ public abstract class AbstractDynamicPack implements PackResources {
                 ResourceLocation location = ResourceLocation.fromNamespaceAndPath(namespace, PATH_JOINER.join(path, filePath + "." + fileExtension));
                 if (file.content != null) {
                     resourceOutput.accept(location, getResource(packType, location));
-                };
+                }
             }));
         }
     }

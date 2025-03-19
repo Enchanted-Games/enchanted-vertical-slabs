@@ -7,16 +7,16 @@ import org.apache.logging.log4j.core.util.ArrayUtils;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
 public class VirtualFiles<T> {
     private static final Pattern FILE_EXTENSION_SPLIT = Pattern.compile("\\.(?=[^.]*$)");
     private static final Joiner PATH_JOINER = Joiner.on("/");
 
-    private final Hashtable<String, @Nullable VirtualFiles<T>> filesAndDirectories = new Hashtable<>();
+    private final Map<String, @Nullable VirtualFiles<T>> filesAndDirectories = new ConcurrentHashMap<>();
     @Nullable final T content;
 
     public VirtualFiles(@Nullable T content) {
