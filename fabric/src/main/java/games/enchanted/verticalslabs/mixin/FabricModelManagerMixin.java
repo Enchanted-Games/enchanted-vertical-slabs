@@ -22,7 +22,7 @@ public abstract class FabricModelManagerMixin {
             original.call(instance, logMessage, object);
             return;
         }
-        if(!DynamicResourcePackManager.hasBeenInitialised() && modelLocation.id().getNamespace().equals(EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION)) {
+        if(!DynamicResourcePackManager.INSTANCE.hasBeenInitialised() && modelLocation.id().getNamespace().equals(EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION)) {
             return;
         }
         original.call(instance, logMessage, object);

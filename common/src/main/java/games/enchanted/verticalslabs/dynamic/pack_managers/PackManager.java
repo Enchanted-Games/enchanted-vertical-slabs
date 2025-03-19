@@ -1,7 +1,62 @@
 package games.enchanted.verticalslabs.dynamic.pack_managers;
 
-public interface PackManager {
-    void initialise();
-    boolean requiresReloadToApply();
-    void triggeredReload();
+import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class PackManager {
+    boolean hasBeenInitialised = false;
+    boolean isInitialising = false;
+    List<Runnable> reloadCallbacks = new ArrayList<>();
+
+    public void initialiseInternal() {
+        if(hasBeenInitialised) return;
+        if(isInitialising) throw new IllegalStateException("Cannot initialise dynamic pack: it is already being initialised");
+        isInitialising = true;
+        initialiseResources();
+    }
+
+    /**
+     * Generate all resources here
+     */
+    abstract void initialiseResources();
+
+    /**
+     * Call this when all the resources have been generated
+     *
+     * @param requiresReload if the resource manager should be reloaded on completion
+     */
+    protected void complete(boolean requiresReload) {
+        complete(requiresReload, null);
+    }
+    /**
+     * Call this when all the resources have been generated
+     *
+     * @param requiresReload if the resource manager should be reloaded on completion
+     * @param functionOnComplete a runnable to run on completion (called before resources are reloaded)
+     */
+    protected void complete(boolean requiresReload, @Nullable Runnable functionOnComplete) {
+        hasBeenInitialised = true;
+        isInitialising = false;
+        if(functionOnComplete != null) {
+            functionOnComplete.run();
+        }
+        if(requiresReload) {
+            reloadCallbacks.forEach(Runnable::run);
+        }
+    }
+
+    public boolean hasBeenInitialised() {
+        return hasBeenInitialised;
+    }
+
+    /**
+     * Add a runnable that should reload the relevant resources for this pack manager
+     *
+     * @param reloadCallback the reload callback
+     */
+    public void addReloadCallback(Runnable reloadCallback) {
+        reloadCallbacks.add(reloadCallback);
+    }
 }

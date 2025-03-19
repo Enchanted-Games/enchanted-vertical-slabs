@@ -17,7 +17,7 @@ public abstract class WorldLoaderMixin {
         method = "load"
     )
     private static CompletableFuture<?> evs$initialiseDynamicDatapack(CompletableFuture<?> original) {
-        original.thenRun(() -> DynamicDataPackManager.INSTANCE.initialise());
+        original.thenRun(() -> DynamicDataPackManager.INSTANCE.initialiseInternal());
         return original;
     }
 }

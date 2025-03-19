@@ -27,11 +27,10 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 
-public class DynamicResourcePackManager implements PackManager {
+public class DynamicResourcePackManager extends PackManager {
     public static DynamicResourcePackManager INSTANCE = new DynamicResourcePackManager();
-    private static boolean hasBeenInitialised = false;
-    private static boolean needsReloadToApply = true;
 
     private static final FileToIdConverter BLOCKSTATE_CONVERTER = new FileToIdConverter("blockstates", ".json");
     private static final FileToIdConverter MODEL_CONVERTER = new FileToIdConverter("models", ".json");
@@ -42,39 +41,30 @@ public class DynamicResourcePackManager implements PackManager {
 
     private DynamicResourcePackManager() {}
 
-    public void initialise() {
-        if(hasBeenInitialised) return;
+    @Override
+    public void initialiseResources() {
         EnchantedVerticalSlabsLogging.info("Initialising Dynamic Resource Pack");
+
         addBlockstatesAndModels();
         addItemDefinitions();
 
+        CompletableFuture<?> asyncTasks;
         try {
-            dataGenerator.run();
+            asyncTasks = dataGenerator.run();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        try {
-            // TODO: get rid if this absolute hack
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        hasBeenInitialised = true;
-    }
-
-    @Override
-    public boolean requiresReloadToApply() {
-        // TODO: only return true here if not loading pack from disk
-        return needsReloadToApply;
-    }
-
-    @Override
-    public void triggeredReload() {
-        needsReloadToApply = false;
-        // TODO: add proper message
-        EnchantedVerticalSlabsLogging.info("Reloaded Resources <add better message here>");
+        asyncTasks.thenRun(() -> {
+            complete(true, () -> {
+                EnchantedVerticalSlabsLogging.info("[Dynamic Resourcepack]: Async datagenerators completed successfully");
+            });
+        })
+        .exceptionally((exception) -> {
+            EnchantedVerticalSlabsLogging.info("[Dynamic Resourcepack]: Errors occurred while running datagenerators");
+            exception.printStackTrace();
+            throw new RuntimeException(exception);
+        });
     }
 
     private static void addItemDefinitions() {
@@ -174,7 +164,10 @@ public class DynamicResourcePackManager implements PackManager {
     private static void updateModel(BlockStateFile.Model model, ResourceLocation verticalSlabLocation) {
 //        model.model = ResourceLocation.withDefaultNamespace("stone");
         Optional<Resource> modelFileResource = Minecraft.getInstance().getResourceManager().getResource(MODEL_CONVERTER.idToFile(model.model));
-        if(modelFileResource.isEmpty()) return;
+        if(modelFileResource.isEmpty()) {
+            EnchantedVerticalSlabsLogging.debug("MODEL FILE: {} IS EMPTY", model.model);
+            return;
+        };
         byte[] bytes;
         try {
             bytes = modelFileResource.get().open().readAllBytes();
@@ -188,6 +181,7 @@ public class DynamicResourcePackManager implements PackManager {
         // if the model doesn't have parent, return and add model to item definitions map
         if(parentModelJson == null) {
             verticalSlabToBlockModel.putIfAbsent(verticalSlabLocation, new VerticalSlabModelLocation(model.model, false));
+            EnchantedVerticalSlabsLogging.debug("MODEL FILE: {} DOESNT HAVE PARENT", model.model);
             return;
         }
         String parentModel = parentModelJson.getAsString();
@@ -195,6 +189,7 @@ public class DynamicResourcePackManager implements PackManager {
         // if the parent model isn't minecraft:block/slab, don't modify the model and add model to item definitions map
         if(!parentLocation.equals(ResourceLocation.withDefaultNamespace("block/slab"))) {
             verticalSlabToBlockModel.putIfAbsent(verticalSlabLocation, new VerticalSlabModelLocation(model.model, false));
+            EnchantedVerticalSlabsLogging.debug("MODEL FILE: {} DOESNT HAVE VALID PARENT", model.model);
             return;
         }
 
@@ -206,6 +201,7 @@ public class DynamicResourcePackManager implements PackManager {
             EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION,
             "block/" + model.model.getNamespace() + "/" + model.model.getPath().replaceFirst("^block\\/", "")
         );
+        EnchantedVerticalSlabsLogging.debug("ADDED MODEL: {}", newModelLocation);
         EVSDynamicResources.INSTANCE.addModel(newModelLocation, parsedModelFile.toString());
         // add model to item definitions map
         verticalSlabToBlockModel.putIfAbsent(verticalSlabLocation, new VerticalSlabModelLocation(newModelLocation, false));
@@ -216,8 +212,4 @@ public class DynamicResourcePackManager implements PackManager {
     }
 
     public record VerticalSlabModelLocation(ResourceLocation location, boolean usesRegularSlabModel) {};
-
-    public static boolean hasBeenInitialised() {
-        return hasBeenInitialised;
-    }
 }

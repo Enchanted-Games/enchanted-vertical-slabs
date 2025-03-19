@@ -26,13 +26,10 @@ public abstract class ClientServersMixin extends MinecraftServer implements Serv
     }
 
     @Inject(
-        at = @At("TAIL"),
+        at = @At("HEAD"),
         method = "initServer"
     )
     public void evs$checkAndReloadIfDynamicDataPackRequiresIt(CallbackInfoReturnable<Boolean> cir) {
-        if(DynamicDataPackManager.INSTANCE.requiresReloadToApply()) {
-            reloadResources(getPackRepository().getSelectedIds());
-            DynamicDataPackManager.INSTANCE.triggeredReload();
-        }
+        DynamicDataPackManager.INSTANCE.addReloadCallback(() -> reloadResources(getPackRepository().getSelectedIds()));
     }
 }

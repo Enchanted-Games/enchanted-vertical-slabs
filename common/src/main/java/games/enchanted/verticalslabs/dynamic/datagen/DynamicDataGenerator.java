@@ -5,6 +5,8 @@ import net.minecraft.data.DataProvider;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class DynamicDataGenerator {
     final ArrayList<DataProvider> providersToRun = new ArrayList<>();
@@ -16,8 +18,10 @@ public class DynamicDataGenerator {
         providersToRun.add(provider);
     }
 
-    public void run() throws IOException {
+    public CompletableFuture<?> run() throws IOException {
         CachedOutput cachedOutput = new DynamicDataOutput();
-        this.providersToRun.forEach((provider) -> provider.run(cachedOutput));
+        List<CompletableFuture<?>> tasks = new ArrayList<>();
+        this.providersToRun.forEach((provider) -> tasks.add(provider.run(cachedOutput)));
+        return CompletableFuture.allOf(tasks.toArray(new CompletableFuture[0]));
     }
 }

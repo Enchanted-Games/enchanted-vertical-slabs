@@ -16,10 +16,7 @@ public class MinecraftMixin {
         method = "onGameLoadFinished"
     )
     private void evs$initialiseDynamicResourcepack(CallbackInfo ci) {
-        DynamicResourcePackManager.INSTANCE.initialise();
-        if(DynamicResourcePackManager.INSTANCE.requiresReloadToApply()) {
-            Minecraft.getInstance().reloadResourcePacks();
-            DynamicResourcePackManager.INSTANCE.triggeredReload();
-        }
+        DynamicResourcePackManager.INSTANCE.addReloadCallback(() -> Minecraft.getInstance().reloadResourcePacks());
+        DynamicResourcePackManager.INSTANCE.initialiseInternal();
     }
 }

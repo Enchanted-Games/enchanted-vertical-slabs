@@ -2,6 +2,7 @@ package games.enchanted.verticalslabs.dynamic.pack;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Supplier;
+import games.enchanted.verticalslabs.EnchantedVerticalSlabsLogging;
 import games.enchanted.verticalslabs.platform.Services;
 import games.enchanted.verticalslabs.util.ArrayUtil;
 import net.minecraft.FileUtil;
@@ -20,6 +21,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.regex.Matcher;

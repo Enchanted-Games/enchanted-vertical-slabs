@@ -1,6 +1,5 @@
 package games.enchanted.verticalslabs.dynamic.pack_managers;
 
-import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsLogging;
 import games.enchanted.verticalslabs.dynamic.datagen.DynamicDataGenerator;
 import games.enchanted.verticalslabs.dynamic.datagen.provider.DynamicBlockLoot;
@@ -11,39 +10,33 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.concurrent.CompletableFuture;
 
-public class DynamicDataPackManager implements PackManager {
+public class DynamicDataPackManager extends PackManager {
     public static DynamicDataPackManager INSTANCE = new DynamicDataPackManager();
-    private static boolean hasBeenInitialised = false;
-    private static boolean needsReloadToApply = true;
 
     private static final DynamicDataGenerator dataGenerator = new DynamicDataGenerator();
 
     private DynamicDataPackManager() {}
 
-    public void initialise() {
-        if(hasBeenInitialised) return;
+    @Override
+    void initialiseResources() {
         EnchantedVerticalSlabsLogging.info("Initialising Dynamic Data Pack");
         dataGenerator.addProvider(DynamicBlockLoot.getProvider(new PackOutput(Path.of("")), CompletableFuture.completedFuture(VanillaRegistries.createLookup())));
 
+        CompletableFuture<?> asyncTasks;
         try {
-            dataGenerator.run();
+            asyncTasks = dataGenerator.run();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        hasBeenInitialised = true;
-    }
-
-    @Override
-    public boolean requiresReloadToApply() {
-        // TODO: only return true here if not loading pack from disk
-        return needsReloadToApply;
-    }
-
-    @Override
-    public void triggeredReload() {
-        needsReloadToApply = false;
-        // TODO: add proper message
-        EnchantedVerticalSlabsLogging.info("Reloaded Data <add better message here>");
+        asyncTasks.thenRun(() -> {
+            complete(true, () -> {
+                EnchantedVerticalSlabsLogging.info("[Dynamic Datapack]: Async datagenerators completed successfully");
+            });
+        })
+        .exceptionally((exception) -> {
+            EnchantedVerticalSlabsLogging.info("[Dynamic Datapack]: Errors occurred while running datagenerators");
+            throw new RuntimeException(exception);
+        });
     }
 }
