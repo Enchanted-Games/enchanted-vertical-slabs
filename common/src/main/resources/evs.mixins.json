@@ -12,7 +12,6 @@
     "invoker.BlockInvoker",
     "resources.BuiltinPackSourceMixin",
     "resources.CommonServersMixin",
-    "resources.WorldLoaderMixin",
     "slab_behaviours.FireBlockMixin",
     "slab_behaviours.FuelValuesMixin",
     "slab_behaviours.IronBarsBlockMixin",

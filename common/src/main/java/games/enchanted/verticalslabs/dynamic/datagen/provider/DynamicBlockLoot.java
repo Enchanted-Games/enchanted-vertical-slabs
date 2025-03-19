@@ -1,12 +1,10 @@
 package games.enchanted.verticalslabs.dynamic.datagen.provider;
 
-import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
 import games.enchanted.verticalslabs.block.vertical_slab.BaseVerticalSlabBlock;
 import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabs;
 import games.enchanted.verticalslabs.registry.RegistryHelpers;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate.Builder;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.data.loot.LootTableProvider;

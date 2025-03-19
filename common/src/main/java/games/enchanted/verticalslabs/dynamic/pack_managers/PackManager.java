@@ -1,5 +1,6 @@
 package games.enchanted.verticalslabs.dynamic.pack_managers;
 
+import games.enchanted.verticalslabs.EnchantedVerticalSlabsLogging;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -43,7 +44,10 @@ public abstract class PackManager {
             functionOnComplete.run();
         }
         if(requiresReload) {
-            reloadCallbacks.forEach(Runnable::run);
+            reloadCallbacks.forEach((runnable -> {
+                runnable.run();
+                EnchantedVerticalSlabsLogging.info("[Pack Manager]: triggered reload callback");
+            } ));
         }
     }
 
