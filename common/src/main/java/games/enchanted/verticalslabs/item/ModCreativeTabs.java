@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Items;
 
+@Deprecated
 public class ModCreativeTabs {
 	private static final ResourceKey<CreativeModeTab> buildingBlocksTab = CreativeModeTabsAccessor.evs$getBuildingBlocksTab();
 

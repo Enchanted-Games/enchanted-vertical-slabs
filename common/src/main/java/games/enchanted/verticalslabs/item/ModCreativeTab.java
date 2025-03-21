@@ -7,6 +7,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
+@Deprecated
 public class ModCreativeTab {
     public static class DummyCreativeTabData {
         public final Item groupIcon;
