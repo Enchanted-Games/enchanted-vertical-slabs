@@ -16,9 +16,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 
-import java.util.ArrayList;
-import java.util.Map;
-
 public class FabricModEntrypoint implements ModInitializer {
     @Override
     public void onInitialize() {

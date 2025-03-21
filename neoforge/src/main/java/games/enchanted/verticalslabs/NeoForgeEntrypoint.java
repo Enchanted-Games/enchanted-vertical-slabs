@@ -7,7 +7,6 @@ import games.enchanted.verticalslabs.item.creative_tab.NeoForgeCreativeTabModifi
 import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabModifier;
 import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabModifierRunner;
 import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabModifiers;
-import games.enchanted.verticalslabs.platform.NeoForgeCreativeTabRegistration;
 import games.enchanted.verticalslabs.registry.FlammableBlocks;
 import games.enchanted.verticalslabs.registry.WeatheringBlocks;
 import net.minecraft.core.registries.Registries;
