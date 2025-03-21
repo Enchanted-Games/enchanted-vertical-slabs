@@ -5,13 +5,19 @@ import games.enchanted.verticalslabs.item.FuelItems;
 import games.enchanted.verticalslabs.item.creative_tab.FabricCreativeTabModifierRunner;
 import games.enchanted.verticalslabs.item.creative_tab.ModCreativeTab;
 import games.enchanted.verticalslabs.item.creative_tab.ModCreativeTabs;
+import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabModifier;
 import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabModifierRunner;
 import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabModifiers;
 import games.enchanted.verticalslabs.registry.FlammableBlocks;
 import games.enchanted.verticalslabs.registry.WeatheringBlocks;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 public class FabricModEntrypoint implements ModInitializer {
     @Override
@@ -37,13 +43,17 @@ public class FabricModEntrypoint implements ModInitializer {
                 .displayItems((params, output) -> {
                     modCreativeTab.forAllItems(output::accept);
                 })
-                .build(),
+            .build(),
             modCreativeTab.getLocation()
         );
     }
 
     private static void registerCreativeTabModifiers() {
-        CreativeTabModifierRunner runner = new FabricCreativeTabModifierRunner(CreativeTabModifiers.TEST_MODIFIER.getCreativeTab());
-        CreativeTabModifiers.TEST_MODIFIER.run(runner);
+        for(ResourceKey<CreativeModeTab> creativeTab : CreativeTabModifiers.CREATIVE_TAB_TO_MODIFIER_LIST_MAP.keySet()) {
+            CreativeTabModifierRunner runner = new FabricCreativeTabModifierRunner(creativeTab);
+            for(CreativeTabModifier modifier : CreativeTabModifiers.CREATIVE_TAB_TO_MODIFIER_LIST_MAP.get(creativeTab)) {
+                modifier.run(runner);
+            }
+        }
     }
 }

@@ -4,6 +4,7 @@ import games.enchanted.verticalslabs.block.ModBlocks;
 import games.enchanted.verticalslabs.item.creative_tab.ModCreativeTab;
 import games.enchanted.verticalslabs.item.creative_tab.ModCreativeTabs;
 import games.enchanted.verticalslabs.item.creative_tab.NeoForgeCreativeTabModifierRunner;
+import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabModifier;
 import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabModifierRunner;
 import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabModifiers;
 import games.enchanted.verticalslabs.platform.NeoForgeCreativeTabRegistration;
@@ -53,15 +54,17 @@ public class NeoForgeEntrypoint {
                 .displayItems((params, output) -> {
                     modCreativeTab.forAllItems(output::accept);
                 })
-                .build(),
+            .build(),
             modCreativeTab.getLocation()
         );
     }
 
     private static void registerCreativeTabModifiers(BuildCreativeModeTabContentsEvent creativeTabEvent) {
-        if(creativeTabEvent.getTabKey() == CreativeTabModifiers.TEST_MODIFIER.getCreativeTab()) {
-            CreativeTabModifierRunner runner = new NeoForgeCreativeTabModifierRunner(creativeTabEvent);
-            CreativeTabModifiers.TEST_MODIFIER.run(runner);
+        if(CreativeTabModifiers.CREATIVE_TAB_TO_MODIFIER_LIST_MAP.get(creativeTabEvent.getTabKey()) == null) return;
+
+        CreativeTabModifierRunner runner = new NeoForgeCreativeTabModifierRunner(creativeTabEvent);
+        for(CreativeTabModifier modifier : CreativeTabModifiers.CREATIVE_TAB_TO_MODIFIER_LIST_MAP.get(creativeTabEvent.getTabKey())) {
+            modifier.run(runner);
         }
     }
 }
