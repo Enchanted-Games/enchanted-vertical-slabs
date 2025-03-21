@@ -16,10 +16,10 @@ public abstract class ToolMixin {
         at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/core/HolderSet;)Z"),
         method = {"isCorrectForDrops", "getMiningSpeed"}
     )
-    public boolean evs$overrideBlockCheckForVerticalSlabs(BlockState instance, HolderSet<Block> holderSet, Operation<Boolean> original) {
+    public boolean evs$overrideBlockCheckForVerticalSlabs(BlockState instance, HolderSet<Block> tag, Operation<Boolean> original) {
         if(instance.getBlock() instanceof DynamicVerticalSlabBlock dynamicSlabBlock) {
-            return dynamicSlabBlock.getRegularSlabBlock().defaultBlockState().is(holderSet);
+            return original.call(instance, tag) || original.call(dynamicSlabBlock.getRegularSlabBlock().defaultBlockState(), tag);
         }
-        return original.call(instance, holderSet);
+        return original.call(instance, tag);
     }
 }
