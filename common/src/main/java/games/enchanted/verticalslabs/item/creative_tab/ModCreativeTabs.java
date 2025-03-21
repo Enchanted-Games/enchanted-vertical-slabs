@@ -15,7 +15,8 @@ public class ModCreativeTabs {
     public static ModCreativeTab VERTICAL_SLABS_TAB = new ModCreativeTab(
         ModBlocks.VERTICAL_OAK_SLAB.blockItem(),
         ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION, "vertical_slabs"),
-        new ArrayList<>(List.of(ModBlocks.VERTICAL_OAK_SLAB.blockItem(),
+        new ArrayList<>(List.of(
+            ModBlocks.VERTICAL_OAK_SLAB.blockItem(),
             ModBlocks.VERTICAL_SPRUCE_SLAB.blockItem(),
             ModBlocks.VERTICAL_BIRCH_SLAB.blockItem(),
             ModBlocks.VERTICAL_JUNGLE_SLAB.blockItem(),

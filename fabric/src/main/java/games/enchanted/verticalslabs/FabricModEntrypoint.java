@@ -2,8 +2,11 @@ package games.enchanted.verticalslabs;
 
 import games.enchanted.verticalslabs.block.ModBlocks;
 import games.enchanted.verticalslabs.item.FuelItems;
+import games.enchanted.verticalslabs.item.creative_tab.FabricCreativeTabModifierRunner;
 import games.enchanted.verticalslabs.item.creative_tab.ModCreativeTab;
 import games.enchanted.verticalslabs.item.creative_tab.ModCreativeTabs;
+import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabModifierRunner;
+import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabModifiers;
 import games.enchanted.verticalslabs.registry.FlammableBlocks;
 import games.enchanted.verticalslabs.registry.WeatheringBlocks;
 import net.fabricmc.api.ModInitializer;
@@ -22,9 +25,11 @@ public class FabricModEntrypoint implements ModInitializer {
         FuelItems.registerFuelItems();
 
         ModCreativeTabs.buildTabs(FabricModEntrypoint::tabBuilder);
+        registerCreativeTabModifiers();
     }
 
     private static ModCreativeTab.FinalisedTab tabBuilder(ModCreativeTab modCreativeTab) {
+        modCreativeTab.setFinalised();
         return new ModCreativeTab.FinalisedTab(
             FabricItemGroup.builder()
                 .title(modCreativeTab.getTitle())
@@ -35,5 +40,10 @@ public class FabricModEntrypoint implements ModInitializer {
                 .build(),
             modCreativeTab.getLocation()
         );
+    }
+
+    private static void registerCreativeTabModifiers() {
+        CreativeTabModifierRunner runner = new FabricCreativeTabModifierRunner(CreativeTabModifiers.TEST_MODIFIER.getCreativeTab());
+        CreativeTabModifiers.TEST_MODIFIER.run(runner);
     }
 }

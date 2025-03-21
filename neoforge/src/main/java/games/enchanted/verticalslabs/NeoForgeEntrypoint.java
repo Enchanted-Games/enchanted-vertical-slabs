@@ -3,6 +3,9 @@ package games.enchanted.verticalslabs;
 import games.enchanted.verticalslabs.block.ModBlocks;
 import games.enchanted.verticalslabs.item.creative_tab.ModCreativeTab;
 import games.enchanted.verticalslabs.item.creative_tab.ModCreativeTabs;
+import games.enchanted.verticalslabs.item.creative_tab.NeoForgeCreativeTabModifierRunner;
+import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabModifierRunner;
+import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabModifiers;
 import games.enchanted.verticalslabs.platform.NeoForgeCreativeTabRegistration;
 import games.enchanted.verticalslabs.registry.FlammableBlocks;
 import games.enchanted.verticalslabs.registry.WeatheringBlocks;
@@ -12,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
 @Mod(EnchantedVerticalSlabsConstants.MOD_ID)
@@ -37,10 +41,11 @@ public class NeoForgeEntrypoint {
 
         CONTAINER = container;
 
-        bus.addListener(NeoForgeCreativeTabRegistration::addItemsInExistingTabs);
+        bus.addListener(NeoForgeEntrypoint::registerCreativeTabModifiers);
     }
 
     private static ModCreativeTab.FinalisedTab tabBuilder(ModCreativeTab modCreativeTab) {
+        modCreativeTab.setFinalised();
         return new ModCreativeTab.FinalisedTab(
             CreativeModeTab.builder()
                 .title(modCreativeTab.getTitle())
@@ -51,5 +56,12 @@ public class NeoForgeEntrypoint {
                 .build(),
             modCreativeTab.getLocation()
         );
+    }
+
+    private static void registerCreativeTabModifiers(BuildCreativeModeTabContentsEvent creativeTabEvent) {
+        if(creativeTabEvent.getTabKey() == CreativeTabModifiers.TEST_MODIFIER.getCreativeTab()) {
+            CreativeTabModifierRunner runner = new NeoForgeCreativeTabModifierRunner(creativeTabEvent);
+            CreativeTabModifiers.TEST_MODIFIER.run(runner);
+        }
     }
 }

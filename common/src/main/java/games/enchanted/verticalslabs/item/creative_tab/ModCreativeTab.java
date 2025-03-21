@@ -9,10 +9,11 @@ import java.util.ArrayList;
 import java.util.function.Consumer;
 
 public class ModCreativeTab {
-    protected final ItemLike icon;
-    protected final ResourceLocation location;
-    protected final ArrayList<ItemLike> items;
-    protected final Component title;
+    private final ItemLike icon;
+    private final ResourceLocation location;
+    private final ArrayList<ItemLike> items;
+    private final Component title;
+    private boolean finalised = false;
 
     public ModCreativeTab(ItemLike icon, ResourceLocation location, ArrayList<ItemLike> items) {
         this(
@@ -30,6 +31,7 @@ public class ModCreativeTab {
     }
 
     public void addItem(ItemLike item) {
+        if(finalised) throw new IllegalStateException("Cannot add an item to a creative tab that has already been finalised");
         items.add(item);
     }
 
@@ -51,6 +53,10 @@ public class ModCreativeTab {
 
     public ItemLike getIcon() {
         return icon;
+    }
+
+    public void setFinalised() {
+        finalised = true;
     }
 
     public record FinalisedTab (CreativeModeTab creativeTab, ResourceLocation location) {}
