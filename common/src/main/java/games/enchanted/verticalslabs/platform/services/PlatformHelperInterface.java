@@ -68,4 +68,9 @@ public interface PlatformHelperInterface {
      * @param strings elements of the path
      */
     @Nullable Path getResourcePathFromModJar(String... strings);
+
+    /**
+     * This is used to get Enchanted Vertical Slabs' creative tabs to register after other mods on Fabric. No-op on NeoForge
+     */
+    void buildCreativeTabs();
 }

@@ -1,5 +1,6 @@
 package games.enchanted.verticalslabs.platform;
 
+import games.enchanted.verticalslabs.FabricModEntrypoint;
 import games.enchanted.verticalslabs.platform.services.PlatformHelperInterface;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.fabricmc.fabric.api.registry.OxidizableBlocksRegistry;
@@ -50,5 +51,10 @@ public class FabricPlatformHelper implements PlatformHelperInterface {
             return path.orElse(null);
         }
         return null;
+    }
+
+    @Override
+    public void buildCreativeTabs() {
+        FabricModEntrypoint.registerCreativeTabModifiers();
     }
 }

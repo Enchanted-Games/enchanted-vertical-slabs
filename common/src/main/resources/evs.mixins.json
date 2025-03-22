@@ -10,6 +10,7 @@
     "accessor.CreativeModeTabsAccessor",
     "invoker.BlockBehaviourInvoker",
     "invoker.BlockInvoker",
+    "item.CreativeModeTabMixin",
     "resources.BuiltinPackSourceMixin",
     "resources.CommonServersMixin",
     "slab_behaviours.FireBlockMixin",

@@ -80,8 +80,16 @@ public class ModCreativeTabs {
         ))
     );
 
+    public static ModCreativeTab MODDED_VERTICAL_SLABS_TAB = new ModCreativeTab(
+        ModBlocks.VERTICAL_BRICK_SLAB.blockItem(),
+        ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION, "modded_vertical_slabs"),
+        new ArrayList<>()
+    );
+
     public static void buildTabs(Function<ModCreativeTab, ModCreativeTab.FinalisedTab> tabBuilder) {
-        Stream<ModCreativeTab.FinalisedTab> finalisedTabs = Stream.of(VERTICAL_SLABS_TAB).map(tabBuilder);
+        Stream<ModCreativeTab.FinalisedTab> finalisedTabs = Stream.of(
+            VERTICAL_SLABS_TAB, MODDED_VERTICAL_SLABS_TAB
+        ).map(tabBuilder);
         finalisedTabs.forEach(creativeModeTab -> {
             EnchantedVerticalSlabsMod.register(BuiltInRegistries.CREATIVE_MODE_TAB.key(), creativeModeTab::creativeTab, creativeModeTab.location());
         });

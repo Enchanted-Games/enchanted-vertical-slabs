@@ -56,4 +56,9 @@ public class NeoForgePlatformHelper implements PlatformHelperInterface {
     public @Nullable Path getResourcePathFromModJar(String... strings) {
         return NeoForgeEntrypoint.CONTAINER.getModInfo().getOwningFile().getFile().findResource(strings);
     }
+
+    @Override
+    public void buildCreativeTabs() {
+        // no op
+    }
 }

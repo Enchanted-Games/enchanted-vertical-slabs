@@ -13,6 +13,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.WeatheringCopper;
@@ -86,5 +87,12 @@ public class RegistryHelpers {
     }
     public static ResourceLocation getLocationFromItem(Item item) {
         return BuiltInRegistries.ITEM.getKey(item);
+    }
+
+    public static CreativeModeTab getCreativeTabFromLocation(ResourceLocation location) {
+        return BuiltInRegistries.CREATIVE_MODE_TAB.getValue(location);
+    }
+    public static ResourceLocation getLocationFromCreativeTab(CreativeModeTab creativeModeTab) {
+        return BuiltInRegistries.CREATIVE_MODE_TAB.getKey(creativeModeTab);
     }
 }

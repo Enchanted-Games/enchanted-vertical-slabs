@@ -2,6 +2,7 @@ package games.enchanted.verticalslabs.item.creative_tab;
 
 import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabModifierEntry;
 import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabModifierRunner;
+import games.enchanted.verticalslabs.registry.RegistryHelpers;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
@@ -16,7 +17,11 @@ public class FabricCreativeTabModifierRunner implements CreativeTabModifierRunne
 
     @Override
     public void runModifierEntry(CreativeTabModifierEntry modifierEntry, ResourceKey<CreativeModeTab> creativeTab) {
-        ItemGroupEvents.modifyEntriesEvent(tabToRunFor).register(event -> {
+        ItemGroupEvents.modifyEntriesEvent(creativeTab).register(event -> {
+            CreativeModeTab tab = RegistryHelpers.getCreativeTabFromLocation(creativeTab.location());
+            if(modifierEntry.getInsertionPosition().requiresExistingItem && !((CreativeTabAccess) tab).evs$containsItem(modifierEntry.getExistingItem())) {
+                return;
+            }
             switch (modifierEntry.getInsertionPosition()) {
                 case FIRST -> event.prepend(modifierEntry.getItemToAdd());
                 case LAST -> event.accept(modifierEntry.getItemToAdd());

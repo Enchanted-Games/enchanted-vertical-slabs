@@ -12,4 +12,12 @@ public interface CreativeModeTabsAccessor {
     static ResourceKey<CreativeModeTab> evs$getBuildingBlocksTab() {
         throw new AssertionError();
     }
+    @Accessor("SEARCH")
+    static ResourceKey<CreativeModeTab> evs$getSearchTab() {
+        throw new AssertionError();
+    }
+    @Accessor("COLORED_BLOCKS")
+    static ResourceKey<CreativeModeTab> evs$getColoredBlocksTab() {
+        throw new AssertionError();
+    }
 }

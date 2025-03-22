@@ -4,6 +4,7 @@ import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
 import games.enchanted.verticalslabs.registry.RegistryHelpers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
@@ -25,6 +26,7 @@ public class DynamicSlab {
         REGULAR_BLOCK_LOCATION = tryFindRegularBlock();
 
         Item regularItem = RegistryHelpers.getBlockFromLocation(originalSlabLocation).asItem();
+        if(regularItem == Items.AIR) regularItem = RegistryHelpers.getItemFromLocation(ORIGINAL_SLAB_LOCATION);
         REGULAR_ITEM_LOCATION = RegistryHelpers.getLocationFromItem(regularItem);
     }
 
@@ -57,12 +59,13 @@ public class DynamicSlab {
     }
 
     public boolean shouldUvLockModel() {
+        // TODO: convert these to config options
         boolean glass = VERTICAL_SLAB_LOCATION.getPath().contains("glass");
         return !glass;
-//        return !VERTICAL_SLAB_LOCATION.getPath().contains("glass");
     }
 
     public boolean shouldAttemptToGenerateRealVerticalSlabModel() {
+        // TODO: convert these to config options
         boolean glass = VERTICAL_SLAB_LOCATION.getPath().contains("glass");
         return !glass;
     }

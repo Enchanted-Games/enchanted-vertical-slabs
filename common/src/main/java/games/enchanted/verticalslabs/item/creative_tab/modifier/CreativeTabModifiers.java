@@ -1,8 +1,11 @@
 package games.enchanted.verticalslabs.item.creative_tab.modifier;
 
+import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
 import games.enchanted.verticalslabs.block.ModBlocks;
 import games.enchanted.verticalslabs.mixin.accessor.CreativeModeTabsAccessor;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.Nullable;
@@ -81,6 +84,12 @@ public class CreativeTabModifiers {
         ))
     );
 
+
+    public static CreativeTabModifier ADD_TO_MODDED_VERTICAL_SLABS_TAB = new CreativeTabModifier(
+        ResourceKey.create(BuiltInRegistries.CREATIVE_MODE_TAB.key(), ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION, "modded_vertical_slabs")),
+        new ArrayList<>()
+    );
+
     public static void addModifier(CreativeTabModifier modifier) {
         ResourceKey<CreativeModeTab> creativeTab = modifier.getCreativeTab();
         @Nullable ArrayList<CreativeTabModifier> tabModifiers = CREATIVE_TAB_TO_MODIFIER_LIST_MAP.get(creativeTab);
@@ -93,5 +102,6 @@ public class CreativeTabModifiers {
 
     static {
         addModifier(VANILLA_SLABS_MODIFIER);
+        addModifier(ADD_TO_MODDED_VERTICAL_SLABS_TAB);
     }
 }

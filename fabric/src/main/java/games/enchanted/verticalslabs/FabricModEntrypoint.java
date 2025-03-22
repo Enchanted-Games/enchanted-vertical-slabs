@@ -28,7 +28,6 @@ public class FabricModEntrypoint implements ModInitializer {
         FuelItems.registerFuelItems();
 
         ModCreativeTabs.buildTabs(FabricModEntrypoint::tabBuilder);
-        registerCreativeTabModifiers();
     }
 
     private static ModCreativeTab.FinalisedTab tabBuilder(ModCreativeTab modCreativeTab) {
@@ -45,7 +44,8 @@ public class FabricModEntrypoint implements ModInitializer {
         );
     }
 
-    private static void registerCreativeTabModifiers() {
+    public static void registerCreativeTabModifiers() {
+        // TODO: get this to run after other mods
         for(ResourceKey<CreativeModeTab> creativeTab : CreativeTabModifiers.CREATIVE_TAB_TO_MODIFIER_LIST_MAP.keySet()) {
             CreativeTabModifierRunner runner = new FabricCreativeTabModifierRunner(creativeTab);
             for(CreativeTabModifier modifier : CreativeTabModifiers.CREATIVE_TAB_TO_MODIFIER_LIST_MAP.get(creativeTab)) {
