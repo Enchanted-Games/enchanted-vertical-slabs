@@ -81,7 +81,7 @@ public class ModCreativeTabs {
     );
 
     public static ModCreativeTab MODDED_VERTICAL_SLABS_TAB = new ModCreativeTab(
-        ModBlocks.VERTICAL_BRICK_SLAB.blockItem(),
+        ModBlocks.VERTICAL_PURPUR_SLAB.blockItem(),
         ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION, "modded_vertical_slabs"),
         new ArrayList<>()
     );
