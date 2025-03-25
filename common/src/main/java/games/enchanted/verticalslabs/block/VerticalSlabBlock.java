@@ -3,6 +3,7 @@ package games.enchanted.verticalslabs.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -129,9 +130,9 @@ public class VerticalSlabBlock extends HorizontalDirectionalBlock implements Sim
     }
 
     @Override
-    public boolean canPlaceLiquid(@Nullable Player player, @NotNull BlockGetter world, @NotNull BlockPos pos, BlockState state, @NotNull Fluid fluid) {
-        if ( state.getValue(SINGLE) ) {
-            return SimpleWaterloggedBlock.super.canPlaceLiquid(player, world, pos, state, fluid);
+    public boolean canPlaceLiquid(@Nullable LivingEntity p_393688_, BlockGetter p_56301_, BlockPos blockPos, BlockState blockState, Fluid fluid) {
+        if (blockState.getValue(SINGLE) ) {
+            return SimpleWaterloggedBlock.super.canPlaceLiquid(p_393688_, p_56301_, blockPos, blockState, fluid);
         }
         return false;
     }

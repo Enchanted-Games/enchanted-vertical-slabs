@@ -26,23 +26,23 @@ public abstract class WallBlockMixin {
     @Final @Shadow
     public static BooleanProperty UP;
     @Final @Shadow
-    public static EnumProperty<WallSide> EAST_WALL;
-    @Final  @Shadow
-    public static EnumProperty<WallSide> NORTH_WALL;
+    public static EnumProperty<WallSide> EAST;
     @Final @Shadow
-    public static EnumProperty<WallSide> SOUTH_WALL;
+    public static EnumProperty<WallSide> NORTH;
     @Final @Shadow
-    public static EnumProperty<WallSide> WEST_WALL;
+    public static EnumProperty<WallSide> SOUTH;
+    @Final @Shadow
+    public static EnumProperty<WallSide> WEST;
 
     @Unique
     private boolean enchanted_vertical_slabs$isWallHorizontallyConnected(BlockState state) {
         return ((
-            state.getValue(NORTH_WALL) != WallSide.NONE && state.getValue(SOUTH_WALL) != WallSide.NONE &&
-            state.getValue(EAST_WALL) == WallSide.NONE && state.getValue(WEST_WALL) == WallSide.NONE
+            state.getValue(NORTH) != WallSide.NONE && state.getValue(SOUTH) != WallSide.NONE &&
+            state.getValue(EAST) == WallSide.NONE && state.getValue(WEST) == WallSide.NONE
         ) ||
         (
-            state.getValue(NORTH_WALL) == WallSide.NONE && state.getValue(SOUTH_WALL) == WallSide.NONE &&
-            state.getValue(EAST_WALL) != WallSide.NONE && state.getValue(WEST_WALL) != WallSide.NONE
+            state.getValue(NORTH) == WallSide.NONE && state.getValue(SOUTH) == WallSide.NONE &&
+            state.getValue(EAST) != WallSide.NONE && state.getValue(WEST) != WallSide.NONE
         ));
     }
 
@@ -81,10 +81,10 @@ public abstract class WallBlockMixin {
 
         if ( aboveState.getBlock() instanceof VerticalSlabBlock && aboveState.getValue(VerticalSlabBlock.SINGLE) ) {
             cir.setReturnValue( state
-                .setValue(NORTH_WALL, enchanted_vertical_slabs$getWallSideForConnection(north, blockState))
-                .setValue(EAST_WALL, enchanted_vertical_slabs$getWallSideForConnection(east, blockState))
-                .setValue(SOUTH_WALL, enchanted_vertical_slabs$getWallSideForConnection(south, blockState))
-                .setValue(WEST_WALL, enchanted_vertical_slabs$getWallSideForConnection(west, blockState))
+                .setValue(NORTH, enchanted_vertical_slabs$getWallSideForConnection(north, blockState))
+                .setValue(EAST, enchanted_vertical_slabs$getWallSideForConnection(east, blockState))
+                .setValue(SOUTH, enchanted_vertical_slabs$getWallSideForConnection(south, blockState))
+                .setValue(WEST, enchanted_vertical_slabs$getWallSideForConnection(west, blockState))
                 .setValue(UP, !enchanted_vertical_slabs$isWallHorizontallyConnected(blockState))
             );
         }
