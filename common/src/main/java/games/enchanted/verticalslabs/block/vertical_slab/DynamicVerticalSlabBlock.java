@@ -1,6 +1,7 @@
 package games.enchanted.verticalslabs.block.vertical_slab;
 
 import games.enchanted.verticalslabs.dynamic.DynamicSlab;
+import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabs;
 import games.enchanted.verticalslabs.mixin.invoker.BlockBehaviourInvoker;
 import games.enchanted.verticalslabs.mixin.invoker.BlockInvoker;
 import games.enchanted.verticalslabs.registry.RegistryHelpers;
@@ -16,6 +17,9 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.TintedGlassBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.SlabType;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -37,23 +41,29 @@ public class DynamicVerticalSlabBlock extends BaseVerticalSlabBlock {
         return REGULAR_SLAB;
     }
 
-    public boolean isStateThisOrRegularSlab(BlockState state) {
-        return state.is(this) || state.is(REGULAR_SLAB);
+    /**
+     * If false is returned, the face will always render.
+     * If true is returned, the normal culling is used for that face.
+     *
+     * @param verticalSlabState the vertical slab state
+     * @param otherState        the other state
+     * @param direction         the direction
+     */
+    public boolean shouldCullOtherBlock(@NotNull BlockState verticalSlabState, @NotNull BlockState otherState, @NotNull Direction direction) {
+        if(verticalSlabState.getValue(BaseVerticalSlabBlock.SINGLE)) {
+            return false;
+        }
+
+        if(otherState.getBlock() == this) {
+            return true;
+        }
+        return false;
     }
 
     @Override
-    protected boolean skipRendering(@NotNull BlockState state, @NotNull BlockState adjacentState, @NotNull Direction direction) {
-        if(adjacentState.getBlock() == REGULAR_BLOCK) return true;
-
-        if(adjacentState.getBlock() == this) return true;
-
-        if(adjacentState.getBlock() == REGULAR_SLAB) return true;
-
-        return super.skipRendering(state, adjacentState, direction);
-    }
-
-    protected boolean shouldCullOtherSlab(@NotNull BlockState state, @NotNull BlockState adjacentState, @NotNull Direction direction) {
-        return false;
+    protected VoxelShape getVisualShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+        // TODO: implement returning an empty shape for glass-like blocks
+        return super.getVisualShape(blockState, blockGetter, blockPos, collisionContext);
     }
 
     @Override

@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "HoneyCombItemMixin",
+    "NeoForgeBlockMixin",
     "NeoForgeGameDataMixin",
     "WeatheringCopperMixin",
     "WeatheringCopperVerticalSlabBlockMixin"
