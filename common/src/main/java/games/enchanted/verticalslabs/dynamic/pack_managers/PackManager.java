@@ -1,6 +1,5 @@
 package games.enchanted.verticalslabs.dynamic.pack_managers;
 
-import games.enchanted.verticalslabs.EnchantedVerticalSlabsLogging;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;

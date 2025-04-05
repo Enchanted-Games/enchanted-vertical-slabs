@@ -1,6 +1,7 @@
 package games.enchanted.verticalslabs.dynamic.pack_managers;
 
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsLogging;
+import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabs;
 import games.enchanted.verticalslabs.dynamic.datagen.DynamicDataGenerator;
 import games.enchanted.verticalslabs.dynamic.datagen.provider.DynamicBlockLoot;
 import net.minecraft.data.PackOutput;
@@ -19,6 +20,10 @@ public class DynamicDataPackManager extends PackManager {
 
     @Override
     void initialiseResources() {
+        if(DynamicVerticalSlabs.DYNAMIC_SLAB_BLOCKS.isEmpty()) {
+            complete(false);
+            return;
+        };
         EnchantedVerticalSlabsLogging.info("Initialising Dynamic Data Pack");
         dataGenerator.addProvider(DynamicBlockLoot.getProvider(new PackOutput(Path.of("")), CompletableFuture.completedFuture(VanillaRegistries.createLookup())));
 

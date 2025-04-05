@@ -43,6 +43,10 @@ public class DynamicResourcePackManager extends PackManager {
 
     @Override
     public void initialiseResources() {
+        if(DynamicVerticalSlabs.DYNAMIC_SLAB_BLOCKS.isEmpty()) {
+            complete(false);
+            return;
+        };
         EnchantedVerticalSlabsLogging.info("Initialising Dynamic Resource Pack");
 
         addBlockstatesAndModels();
