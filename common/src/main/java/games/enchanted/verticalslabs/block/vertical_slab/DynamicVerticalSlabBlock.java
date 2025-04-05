@@ -1,5 +1,6 @@
 package games.enchanted.verticalslabs.block.vertical_slab;
 
+import games.enchanted.verticalslabs.block.CullMode;
 import games.enchanted.verticalslabs.dynamic.DynamicSlab;
 import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabs;
 import games.enchanted.verticalslabs.mixin.invoker.BlockBehaviourInvoker;
@@ -42,22 +43,52 @@ public class DynamicVerticalSlabBlock extends BaseVerticalSlabBlock {
     }
 
     /**
-     * If false is returned, the face will always render.
-     * If true is returned, the normal culling is used for that face.
-     *
-     * @param verticalSlabState the vertical slab state
+     * @param verticalSlabState the vertical slab state, guaranteed to be an instance of this
      * @param otherState        the other state
      * @param direction         the direction
      */
-    public boolean shouldCullOtherBlock(@NotNull BlockState verticalSlabState, @NotNull BlockState otherState, @NotNull Direction direction) {
-        if(verticalSlabState.getValue(BaseVerticalSlabBlock.SINGLE)) {
-            return false;
-        }
-
+    public CullMode shouldCullOtherBlock(@NotNull BlockState verticalSlabState, @NotNull BlockState otherState, @NotNull Direction direction) {
         if(otherState.getBlock() == this) {
-            return true;
+            // both states are this same block
+            if(!otherState.getValue(SINGLE) && !verticalSlabState.getValue(SINGLE)) return CullMode.CULL;
+            if(verticalSlabState.getValue(SINGLE) && verticalSlabState.getValue(FACING) == direction) return CullMode.CULL;
+            if(otherState.getValue(SINGLE) && otherState.getValue(FACING) == direction.getOpposite()) return CullMode.CULL;
+            if(verticalSlabState.getValue(FACING) == otherState.getValue(FACING) && verticalSlabState.getValue(SINGLE)) return CullMode.CULL;
+        } else if (otherState.getBlock() == REGULAR_SLAB) {
+            // other state is regular slab
+            if(otherState.getValue(SlabBlock.TYPE) == SlabType.DOUBLE && verticalSlabState.getValue(FACING) == direction) return CullMode.CULL;
+        } else if (otherState.getBlock() == REGULAR_BLOCK) {
+            // other state is regular block
         }
-        return false;
+        return CullMode.NO_CULL;
+
+//        if(verticalSlabState.getBlock() == this && otherState.getBlock() == this) {
+//            if(verticalSlabState.getValue(BaseVerticalSlabBlock.FACING) == direction && verticalSlabState.getValue(SINGLE)) {
+//                return CullMode.CULL;
+//            }
+//        }
+//        if(otherState.getBlock() == this && otherState.getValue(BaseVerticalSlabBlock.FACING) == direction) {
+//            return CullMode.CULL;
+//        }
+//        if(verticalSlabState.getValue(BaseVerticalSlabBlock.SINGLE)) {
+//            return CullMode.NO_CULL;
+//        }
+//        if(otherState.getBlock() == REGULAR_BLOCK) {
+//            return CullMode.CULL;
+//        }
+//        if(otherState.is(REGULAR_SLAB)) {
+//            switch (otherState.getValue(SlabBlock.TYPE)) {
+//                case DOUBLE -> {
+//                    return CullMode.CULL;
+//                }
+//                case TOP -> {
+//                    return direction == Direction.UP ? CullMode.NO_CULL : CullMode.VANILLA_CULL;
+//                }
+//                case BOTTOM -> {
+//                    return direction == Direction.DOWN ? CullMode.NO_CULL : CullMode.VANILLA_CULL;
+//                }
+//            }
+//        }
     }
 
     @Override

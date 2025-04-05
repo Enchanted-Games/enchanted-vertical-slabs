@@ -1,5 +1,6 @@
 package games.enchanted.verticalslabs.mixin;
 
+import games.enchanted.verticalslabs.block.CullMode;
 import games.enchanted.verticalslabs.block.vertical_slab.DynamicVerticalSlabBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Block;
@@ -18,12 +19,12 @@ public class BlockMixin {
     )
     private static void renderFace(BlockState currentFace, BlockState neighboringFace, Direction face, CallbackInfoReturnable<Boolean> cir) {
         if(neighboringFace.getBlock() instanceof DynamicVerticalSlabBlock dynamicBlock) {
-            boolean shouldCull = dynamicBlock.shouldCullOtherBlock(neighboringFace, currentFace, face.getOpposite());
-            if(!shouldCull) cir.setReturnValue(true);
+            CullMode cullMode = dynamicBlock.shouldCullOtherBlock(neighboringFace, currentFace, face.getOpposite());
+            if(cullMode.forceReturnValue) cir.setReturnValue(cullMode.cull);
         }
         if(currentFace.getBlock() instanceof DynamicVerticalSlabBlock dynamicBlock) {
-            boolean shouldCull = dynamicBlock.shouldCullOtherBlock(currentFace, neighboringFace, face);
-            if(!shouldCull) cir.setReturnValue(true);
+            CullMode cullMode = dynamicBlock.shouldCullOtherBlock(currentFace, neighboringFace, face);
+            if(cullMode.forceReturnValue) cir.setReturnValue(cullMode.cull);
         }
     }
 }
