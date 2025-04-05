@@ -15,6 +15,7 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +33,7 @@ public class DynamicVerticalSlabs {
     public static void registerDynamicSlabs() {
         for (DynamicSlab slab : DYNAMIC_SLAB_BLOCKS) {
             Block regularSlabBlock = RegistryHelpers.getBlockFromLocation(slab.getOriginalSlabLocation());
-            BlockAndItemContainer registeredBlock = RegistryHelpers.registerDynamicVerticalSlab(slab.getVerticalSlabLocation(), regularSlabBlock.properties(), slab);
+            BlockAndItemContainer registeredBlock = RegistryHelpers.registerDynamicVerticalSlab(slab.getVerticalSlabLocation(), BlockBehaviour.Properties.ofFullCopy(regularSlabBlock), slab);
             VERTICAL_TO_NORMAL_SLAB_MAP.put(registeredBlock.block(), regularSlabBlock);
 
             CreativeTabModifiers.ADD_TO_MODDED_VERTICAL_SLABS_TAB.addModifierEntry(

@@ -25,8 +25,7 @@ public class DynamicSlab {
         );
         REGULAR_BLOCK_LOCATION = tryFindRegularBlock();
 
-        Item regularItem = RegistryHelpers.getBlockFromLocation(originalSlabLocation).asItem();
-        if(regularItem == Items.AIR) regularItem = RegistryHelpers.getItemFromLocation(ORIGINAL_SLAB_LOCATION);
+        Item regularItem = RegistryHelpers.getItemFromLocation(ORIGINAL_SLAB_LOCATION);
         REGULAR_ITEM_LOCATION = RegistryHelpers.getLocationFromItem(regularItem);
     }
 

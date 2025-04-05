@@ -8,9 +8,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.TintedGlassBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.SlabType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -36,19 +41,19 @@ public class DynamicVerticalSlabBlock extends BaseVerticalSlabBlock {
         return state.is(this) || state.is(REGULAR_SLAB);
     }
 
-    public boolean shouldRenderOtherBlockFace(BlockState verticalSlabState, BlockState otherBlockState, Direction direction) {
-        // TODO: improve culling against regular slab (especially for translucent vertical slabs), and make solid slabs cull other blocks properly
-        if(isStateThisOrRegularSlab(verticalSlabState) && isStateThisOrRegularSlab(otherBlockState)) return false;
-        return true;
-    }
-
     @Override
     protected boolean skipRendering(@NotNull BlockState state, @NotNull BlockState adjacentState, @NotNull Direction direction) {
-        // TODO: make this not crash when called with unexpected blockstates
-        if(REGULAR_BLOCK == null) {
-            return super.skipRendering(state, adjacentState, direction);
-        }
-        return ((BlockBehaviourInvoker) REGULAR_BLOCK).evs$invoke$skipRendering(state, adjacentState, direction);
+        if(adjacentState.getBlock() == REGULAR_BLOCK) return true;
+
+        if(adjacentState.getBlock() == this) return true;
+
+        if(adjacentState.getBlock() == REGULAR_SLAB) return true;
+
+        return super.skipRendering(state, adjacentState, direction);
+    }
+
+    protected boolean shouldCullOtherSlab(@NotNull BlockState state, @NotNull BlockState adjacentState, @NotNull Direction direction) {
+        return false;
     }
 
     @Override
@@ -72,5 +77,17 @@ public class DynamicVerticalSlabBlock extends BaseVerticalSlabBlock {
             return super.getLightBlock(state);
         }
         return super.getLightBlock(REGULAR_BLOCK.defaultBlockState());
+    }
+
+    @Override
+    protected boolean propagatesSkylightDown(@NotNull BlockState state) {
+        if(state.getValue(BaseVerticalSlabBlock.SINGLE)) return true;
+        return REGULAR_SLAB.defaultBlockState().setValue(SlabBlock.TYPE, SlabType.DOUBLE).propagatesSkylightDown();
+    }
+
+    @Override
+    protected float getShadeBrightness(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
+        if(state.getValue(BaseVerticalSlabBlock.SINGLE)) return 1.0f;
+        return REGULAR_SLAB.defaultBlockState().setValue(SlabBlock.TYPE, SlabType.DOUBLE).getShadeBrightness(level, pos);
     }
 }
