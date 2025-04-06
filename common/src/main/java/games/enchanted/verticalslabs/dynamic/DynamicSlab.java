@@ -4,7 +4,6 @@ import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
 import games.enchanted.verticalslabs.registry.RegistryHelpers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
@@ -20,7 +19,7 @@ public class DynamicSlab {
     DynamicSlab(ResourceLocation originalSlabLocation) {
         ORIGINAL_SLAB_LOCATION = originalSlabLocation;
         VERTICAL_SLAB_LOCATION = ResourceLocation.fromNamespaceAndPath(
-            EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION,
+            EnchantedVerticalSlabsConstants.LEGACY_NAMESPACE,
             originalSlabLocation.getNamespace() + "/vertical_" + originalSlabLocation.getPath()
         );
         REGULAR_BLOCK_LOCATION = tryFindRegularBlock();

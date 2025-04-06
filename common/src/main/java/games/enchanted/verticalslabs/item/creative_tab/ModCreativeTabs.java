@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 public class ModCreativeTabs {
     public static ModCreativeTab VERTICAL_SLABS_TAB = new ModCreativeTab(
         ModBlocks.VERTICAL_OAK_SLAB.blockItem(),
-        ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION, "vertical_slabs"),
+        ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_NAMESPACE, "vertical_slabs"),
         new ArrayList<>(List.of(
             ModBlocks.VERTICAL_OAK_SLAB.blockItem(),
             ModBlocks.VERTICAL_SPRUCE_SLAB.blockItem(),
@@ -82,7 +82,7 @@ public class ModCreativeTabs {
 
     public static ModCreativeTab MODDED_VERTICAL_SLABS_TAB = new ModCreativeTab(
         ModBlocks.VERTICAL_PURPUR_SLAB.blockItem(),
-        ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION, "modded_vertical_slabs"),
+        ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_NAMESPACE, "modded_vertical_slabs"),
         new ArrayList<>()
     );
 

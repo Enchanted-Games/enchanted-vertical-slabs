@@ -198,12 +198,12 @@ public class DynamicResourcePackManager extends PackManager {
             return;
         }
 
-        ResourceLocation newParent = ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION, "block/vertical_slab_side");
+        ResourceLocation newParent = ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_NAMESPACE, "block/vertical_slab_side");
         parsedModelFile.add("parent", new JsonPrimitive(newParent.toString()));
 
         // add new vertical slab model to dynamic resource pack
         ResourceLocation newModelLocation = ResourceLocation.fromNamespaceAndPath(
-            EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION,
+            EnchantedVerticalSlabsConstants.LEGACY_NAMESPACE,
             "block/" + model.model.getNamespace() + "/" + model.model.getPath().replaceFirst("^block\\/", "")
         );
         EnchantedVerticalSlabsLogging.debug("ADDED MODEL: {}", newModelLocation);

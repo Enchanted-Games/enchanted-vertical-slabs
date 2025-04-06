@@ -86,7 +86,7 @@ public class CreativeTabModifiers {
 
 
     public static CreativeTabModifier ADD_TO_MODDED_VERTICAL_SLABS_TAB = new CreativeTabModifier(
-        ResourceKey.create(BuiltInRegistries.CREATIVE_MODE_TAB.key(), ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION, "modded_vertical_slabs")),
+        ResourceKey.create(BuiltInRegistries.CREATIVE_MODE_TAB.key(), ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_NAMESPACE, "modded_vertical_slabs")),
         new ArrayList<>()
     );
 

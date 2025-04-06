@@ -28,7 +28,7 @@ public class RegistryHelpers {
         return registerVerticalSlab(id, blockProperties, null);
     }
     public static BlockAndItemContainer registerVerticalSlab(String id, BlockBehaviour.Properties blockProperties, @Nullable WeatheringCopper.WeatherState oxidationLevel) {
-        ResourceLocation location = ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION, id);
+        ResourceLocation location = ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_NAMESPACE, id);
         return registerVerticalSlab(location, blockProperties, oxidationLevel);
     }
 

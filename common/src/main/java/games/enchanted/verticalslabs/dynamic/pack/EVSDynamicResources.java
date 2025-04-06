@@ -16,8 +16,8 @@ public class EVSDynamicResources extends AbstractDynamicPack {
     public static final EVSDynamicResources INSTANCE = new EVSDynamicResources(
         EnchantedVerticalSlabsConstants.MOD_ID + "_dynamic_resources",
         Component.literal("EVS Dynamic Resources"),
-        Set.of(EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION),
-        Set.of(EnchantedVerticalSlabsConstants.LEGACY_RESOURCE_LOCATION)
+        Set.of(EnchantedVerticalSlabsConstants.LEGACY_NAMESPACE),
+        Set.of(EnchantedVerticalSlabsConstants.LEGACY_NAMESPACE)
     );
     public static final PackSelectionConfig PACK_SELECTION_CONFIG = new PackSelectionConfig(true, Pack.Position.TOP, false);
 
