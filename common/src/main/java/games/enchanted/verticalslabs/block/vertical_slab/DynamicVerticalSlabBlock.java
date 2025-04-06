@@ -48,12 +48,16 @@ public class DynamicVerticalSlabBlock extends BaseVerticalSlabBlock {
      * @param direction         the direction
      */
     public CullMode shouldCullOtherBlock(@NotNull BlockState verticalSlabState, @NotNull BlockState otherState, @NotNull Direction direction) {
+        // this code is so bad ... but it works
         if(otherState.getBlock() == this) {
             // both states are this same block
             if(!otherState.getValue(SINGLE) && !verticalSlabState.getValue(SINGLE)) return CullMode.CULL;
-            if(verticalSlabState.getValue(SINGLE) && verticalSlabState.getValue(FACING) == direction) return CullMode.CULL;
             if(otherState.getValue(SINGLE) && otherState.getValue(FACING) == direction.getOpposite()) return CullMode.CULL;
-            if(verticalSlabState.getValue(FACING) == otherState.getValue(FACING) && verticalSlabState.getValue(SINGLE)) return CullMode.CULL;
+            if(verticalSlabState.getValue(SINGLE) && !otherState.getValue(SINGLE)) return CullMode.CULL;
+            if(verticalSlabState.getValue(FACING) == otherState.getValue(FACING) && verticalSlabState.getValue(SINGLE) && otherState.getValue(SINGLE) && direction != verticalSlabState.getValue(FACING)) return CullMode.CULL;
+            if(direction == Direction.UP || direction == Direction.DOWN) {
+                if(verticalSlabState.getValue(SINGLE) && !otherState.getValue(SINGLE)) return CullMode.CULL;
+            }
         } else if (otherState.getBlock() == REGULAR_SLAB) {
             // other state is regular slab
             if(otherState.getValue(SlabBlock.TYPE) == SlabType.DOUBLE && verticalSlabState.getValue(FACING) == direction) return CullMode.CULL;
