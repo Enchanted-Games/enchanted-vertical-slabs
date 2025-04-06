@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -35,6 +36,10 @@ public class DynamicVerticalSlabBlock extends BaseVerticalSlabBlock {
 
     public Block getRegularSlabBlock() {
         return REGULAR_SLAB;
+    }
+
+    public BlockState getRegularSlabDoubleState() {
+        return REGULAR_SLAB.defaultBlockState().setValue(SlabBlock.TYPE, SlabType.DOUBLE);
     }
 
     /**
@@ -68,8 +73,10 @@ public class DynamicVerticalSlabBlock extends BaseVerticalSlabBlock {
     }
 
     @Override
-    protected VoxelShape getVisualShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
-        // TODO: implement returning an empty shape for glass-like blocks
+    protected @NotNull VoxelShape getVisualShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext) {
+        if(getRegularSlabDoubleState().getVisualShape(blockGetter, blockPos, collisionContext).isEmpty()) {
+            return Shapes.empty();
+        }
         return super.getVisualShape(blockState, blockGetter, blockPos, collisionContext);
     }
 
@@ -99,12 +106,12 @@ public class DynamicVerticalSlabBlock extends BaseVerticalSlabBlock {
     @Override
     protected boolean propagatesSkylightDown(@NotNull BlockState state) {
         if(state.getValue(BaseVerticalSlabBlock.SINGLE)) return true;
-        return REGULAR_SLAB.defaultBlockState().setValue(SlabBlock.TYPE, SlabType.DOUBLE).propagatesSkylightDown();
+        return getRegularSlabDoubleState().propagatesSkylightDown();
     }
 
     @Override
     protected float getShadeBrightness(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
         if(state.getValue(BaseVerticalSlabBlock.SINGLE)) return 1.0f;
-        return REGULAR_SLAB.defaultBlockState().setValue(SlabBlock.TYPE, SlabType.DOUBLE).getShadeBrightness(level, pos);
+        return getRegularSlabDoubleState().getShadeBrightness(level, pos);
     }
 }
