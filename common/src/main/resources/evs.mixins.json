@@ -8,6 +8,7 @@
     "BlockMixin",
     "DefaultedMappedRegistryMixin",
     "accessor.CreativeModeTabsAccessor",
+    "accessor.ItemPropertiesAccessor",
     "invoker.BlockBehaviourInvoker",
     "invoker.BlockInvoker",
     "invoker.SingleItemRecipeInvoker",

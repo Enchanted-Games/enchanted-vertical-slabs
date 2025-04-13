@@ -28,7 +28,7 @@ public class DynamicBlockRecipeProvider extends RecipeProvider {
     protected void itemIntoOtherItem(@NotNull ItemLike input, @NotNull ItemLike result, int amount) {
         this.shapeless(RecipeCategory.BUILDING_BLOCKS, result, amount)
             .requires(input)
-            .group("bark")
+            .group(RegistryHelpers.getLocationFromItem(result.asItem()).toString())
             .unlockedBy(RecipeProvider.getHasName(input), this.has(input))
             .save(this.output);
     }
@@ -38,7 +38,7 @@ public class DynamicBlockRecipeProvider extends RecipeProvider {
             super(packOutput, completableFuture);
         }
 
-        protected @NotNull RecipeProvider createRecipeProvider(HolderLookup.@NotNull Provider lookup, @NotNull RecipeOutput recipeOutput) {
+        protected @NotNull RecipeProvider createRecipeProvider(@NotNull HolderLookup.Provider lookup, @NotNull RecipeOutput recipeOutput) {
             return new DynamicBlockRecipeProvider(lookup, recipeOutput);
         }
 

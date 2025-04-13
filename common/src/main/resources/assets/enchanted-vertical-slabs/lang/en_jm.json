@@ -3,6 +3,8 @@
     "itemGroup.enchanted-vertical-slabs.vertical_slabs": "Vertical Slabs",
     "itemGroup.enchanted-vertical-slabs.modded_vertical_slabs": "Modded Vertical Slabs",
 
+    "block.enchanted-vertical-slabs.dynamic_slab": "Vertical %s",
+
     "block.enchanted-vertical-slabs.vertical_oak_slab": "Vertical Oak Slab",
     "block.enchanted-vertical-slabs.vertical_spruce_slab": "Vertical Spruce Slab",
     "block.enchanted-vertical-slabs.vertical_birch_slab": "Vertical Birch Slab",
