@@ -1,6 +1,9 @@
 package games.enchanted.verticalslabs.dynamic;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import games.enchanted.verticalslabs.block.BlockAndItemContainer;
+import games.enchanted.verticalslabs.block.vertical_slab.DynamicVerticalSlabBlock;
 import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabInsertionPosition;
 import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabModifier;
 import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabModifierEntry;
@@ -24,7 +27,8 @@ import java.util.Map;
 
 public class DynamicVerticalSlabs {
     public static final ArrayList<DynamicSlab> DYNAMIC_SLAB_BLOCKS = new ArrayList<>();
-    public static Map<Block, Block> VERTICAL_TO_NORMAL_SLAB_MAP = new HashMap<>();
+    public static BiMap<DynamicVerticalSlabBlock, Block> VERTICAL_TO_NORMAL_SLAB_MAP = HashBiMap.create();
+    public static Map<Block, DynamicVerticalSlabBlock> NORMAL_TO_VERTICAL_SLAB_MAP = new HashMap<>();
 
     public static void addDynamicSlab(ResourceLocation regularSlabLocation) {
         DYNAMIC_SLAB_BLOCKS.add(new DynamicSlab(regularSlabLocation));
@@ -34,7 +38,7 @@ public class DynamicVerticalSlabs {
         for (DynamicSlab slab : DYNAMIC_SLAB_BLOCKS) {
             Block regularSlabBlock = RegistryHelpers.getBlockFromLocation(slab.getOriginalSlabLocation());
             BlockAndItemContainer registeredBlock = RegistryHelpers.registerDynamicVerticalSlab(slab.getVerticalSlabLocation(), BlockBehaviour.Properties.ofFullCopy(regularSlabBlock), slab);
-            VERTICAL_TO_NORMAL_SLAB_MAP.put(registeredBlock.block(), regularSlabBlock);
+            VERTICAL_TO_NORMAL_SLAB_MAP.put((DynamicVerticalSlabBlock) registeredBlock.block(), regularSlabBlock);
 
             CreativeTabModifiers.ADD_TO_MODDED_VERTICAL_SLABS_TAB.addModifierEntry(
                 new CreativeTabModifierEntry(registeredBlock.blockItem(), CreativeTabInsertionPosition.LAST, null)
@@ -48,6 +52,7 @@ public class DynamicVerticalSlabs {
                 addSlabToCreativeInventory(new CreativeTabModifierEntry(registeredBlock.blockItem(), CreativeTabInsertionPosition.LAST, null));
             }
         }
+        NORMAL_TO_VERTICAL_SLAB_MAP = VERTICAL_TO_NORMAL_SLAB_MAP.inverse();
         Services.PLATFORM.buildCreativeTabs();
     }
 
