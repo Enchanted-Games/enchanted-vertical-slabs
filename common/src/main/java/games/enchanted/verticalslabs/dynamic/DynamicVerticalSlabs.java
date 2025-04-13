@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DynamicVerticalSlabs {
+    private static final ArrayList<ResourceLocation> VANILLA_SLABS = new ArrayList<>();
     public static final ArrayList<DynamicSlab> DYNAMIC_SLAB_BLOCKS = new ArrayList<>();
     public static BiMap<DynamicVerticalSlabBlock, Block> VERTICAL_TO_NORMAL_SLAB_MAP = HashBiMap.create();
     public static Map<Block, DynamicVerticalSlabBlock> NORMAL_TO_VERTICAL_SLAB_MAP = new HashMap<>();
@@ -34,15 +35,25 @@ public class DynamicVerticalSlabs {
         DYNAMIC_SLAB_BLOCKS.add(new DynamicSlab(regularSlabLocation));
     }
 
+    public static void addDynamicSlabForVanilla(ResourceLocation regularSlabLocation) {
+        VANILLA_SLABS.add(regularSlabLocation);
+    }
+
     public static void registerDynamicSlabs() {
+        for (ResourceLocation location : VANILLA_SLABS) {
+            DYNAMIC_SLAB_BLOCKS.add(new DynamicSlab(location));
+        }
         for (DynamicSlab slab : DYNAMIC_SLAB_BLOCKS) {
             Block regularSlabBlock = RegistryHelpers.getBlockFromLocation(slab.getOriginalSlabLocation());
             BlockAndItemContainer registeredBlock = RegistryHelpers.registerDynamicVerticalSlab(slab.getVerticalSlabLocation(), BlockBehaviour.Properties.ofFullCopy(regularSlabBlock), slab);
             VERTICAL_TO_NORMAL_SLAB_MAP.put((DynamicVerticalSlabBlock) registeredBlock.block(), regularSlabBlock);
 
-            CreativeTabModifiers.ADD_TO_MODDED_VERTICAL_SLABS_TAB.addModifierEntry(
-                new CreativeTabModifierEntry(registeredBlock.blockItem(), CreativeTabInsertionPosition.LAST, null)
-            );
+            boolean slabIsVanilla = slab.getOriginalSlabLocation().getNamespace().equals("minecraft");
+            if(!(slabIsVanilla && slab.getOriginalSlabLocation().getPath().equals("petrified_oak_slab"))) {
+                (slabIsVanilla ? CreativeTabModifiers.ADD_TO_VERTICAL_SLABS_TAB : CreativeTabModifiers.ADD_TO_MODDED_VERTICAL_SLABS_TAB).addModifierEntry(
+                    new CreativeTabModifierEntry(registeredBlock.blockItem(), CreativeTabInsertionPosition.LAST, null)
+                );
+            }
 
             Item regularSlabItem = regularSlabBlock.asItem();
             if(regularSlabItem == Items.AIR) regularSlabItem = RegistryHelpers.getItemFromLocation(slab.getOriginalSlabLocation());

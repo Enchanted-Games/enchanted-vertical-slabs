@@ -1,15 +1,11 @@
 package games.enchanted.verticalslabs;
 
-import games.enchanted.verticalslabs.block.ModBlocks;
-import games.enchanted.verticalslabs.item.FuelItems;
 import games.enchanted.verticalslabs.item.creative_tab.FabricCreativeTabModifierRunner;
 import games.enchanted.verticalslabs.item.creative_tab.ModCreativeTab;
 import games.enchanted.verticalslabs.item.creative_tab.ModCreativeTabs;
 import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabModifier;
 import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabModifierRunner;
 import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabModifiers;
-import games.enchanted.verticalslabs.registry.FlammableBlocks;
-import games.enchanted.verticalslabs.registry.WeatheringBlocks;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.resources.ResourceKey;
@@ -20,12 +16,6 @@ public class FabricModEntrypoint implements ModInitializer {
     @Override
     public void onInitialize() {
         EnchantedVerticalSlabsMod.initBeforeRegistration();
-
-        ModBlocks.register();
-        WeatheringBlocks.registerWeatheringBlocks();
-        FlammableBlocks.registerFlammableBlocks();
-
-        FuelItems.registerFuelItems();
 
         ModCreativeTabs.buildTabs(FabricModEntrypoint::tabBuilder);
     }

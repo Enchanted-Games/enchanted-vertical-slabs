@@ -1,14 +1,11 @@
 package games.enchanted.verticalslabs;
 
-import games.enchanted.verticalslabs.block.ModBlocks;
 import games.enchanted.verticalslabs.item.creative_tab.ModCreativeTab;
 import games.enchanted.verticalslabs.item.creative_tab.ModCreativeTabs;
 import games.enchanted.verticalslabs.item.creative_tab.NeoForgeCreativeTabModifierRunner;
 import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabModifier;
 import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabModifierRunner;
 import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabModifiers;
-import games.enchanted.verticalslabs.registry.FlammableBlocks;
-import games.enchanted.verticalslabs.registry.WeatheringBlocks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -29,11 +26,6 @@ public class NeoForgeEntrypoint {
 
         // register stuff
         bus.addListener((RegisterEvent event) -> {
-            if(event.getRegistry().key().equals(Registries.BLOCK)) {
-                ModBlocks.register();
-                WeatheringBlocks.registerWeatheringBlocks();
-                FlammableBlocks.registerFlammableBlocks();
-            }
             if(event.getRegistry().key().equals(Registries.CREATIVE_MODE_TAB)) {
                 ModCreativeTabs.buildTabs(NeoForgeEntrypoint::tabBuilder);
             }

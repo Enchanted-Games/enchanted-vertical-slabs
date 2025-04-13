@@ -20,7 +20,7 @@ public class DynamicSlab {
         ORIGINAL_SLAB_LOCATION = originalSlabLocation;
         VERTICAL_SLAB_LOCATION = ResourceLocation.fromNamespaceAndPath(
             EnchantedVerticalSlabsConstants.LEGACY_NAMESPACE,
-            originalSlabLocation.getNamespace() + "/vertical_" + originalSlabLocation.getPath()
+            (originalSlabLocation.getNamespace().equals("minecraft") ? "" : originalSlabLocation.getNamespace() + "/") + "vertical_" + originalSlabLocation.getPath()
         );
         REGULAR_BLOCK_LOCATION = tryFindRegularBlock();
 

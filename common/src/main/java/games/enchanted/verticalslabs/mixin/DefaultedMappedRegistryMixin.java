@@ -23,12 +23,15 @@ public abstract class DefaultedMappedRegistryMixin<T> extends MappedRegistry<T> 
         method = "register(Lnet/minecraft/resources/ResourceKey;Ljava/lang/Object;Lnet/minecraft/core/RegistrationInfo;)Lnet/minecraft/core/Holder$Reference;"
     )
     public void evs$onRegisteredSomething(ResourceKey<T> key, T value, RegistrationInfo registrationInfo, CallbackInfoReturnable<Holder.Reference<T>> cir) {
-        if(key().equals(Registries.BLOCK) && !key.location().getNamespace().equals("minecraft")) {
-            // if something is being registered to the BLOCK registry
-            if(value instanceof SlabBlock) {
-                EnchantedVerticalSlabsLogging.info("Registered a SlabBlock: " + key.location());
-                DynamicVerticalSlabs.addDynamicSlab(key.location());
+        // if a SlabBlock is being registered to the BLOCK registry
+        if(key().equals(Registries.BLOCK) && value instanceof SlabBlock) {
+            if(key.location().getNamespace().equals("minecraft")) {
+                EnchantedVerticalSlabsLogging.info("Registered a Vanilla SlabBlock: " + key.location());
+                DynamicVerticalSlabs.addDynamicSlabForVanilla(key.location());
+                return;
             }
+            EnchantedVerticalSlabsLogging.info("Registered a SlabBlock: " + key.location());
+            DynamicVerticalSlabs.addDynamicSlab(key.location());
         }
     }
 }

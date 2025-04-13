@@ -7,15 +7,16 @@ import net.minecraft.world.level.ItemLike;
 
 import java.util.ArrayList;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class ModCreativeTab {
-    private final ItemLike icon;
+    private final Supplier<ItemLike> icon;
     private final ResourceLocation location;
     private final ArrayList<ItemLike> items;
     private final Component title;
     private boolean finalised = false;
 
-    public ModCreativeTab(ItemLike icon, ResourceLocation location, ArrayList<ItemLike> items) {
+    public ModCreativeTab(Supplier<ItemLike> icon, ResourceLocation location, ArrayList<ItemLike> items) {
         this(
             icon,
             location,
@@ -23,7 +24,15 @@ public class ModCreativeTab {
             Component.translatable("itemGroup." + location.getNamespace() + "." + location.getPath().replaceAll("/", "."))
         );
     }
-    public ModCreativeTab(ItemLike icon, ResourceLocation location, ArrayList<ItemLike> items, Component title) {
+    public ModCreativeTab(ItemLike icon, ResourceLocation location, ArrayList<ItemLike> items) {
+        this(
+            () -> icon,
+            location,
+            items,
+            Component.translatable("itemGroup." + location.getNamespace() + "." + location.getPath().replaceAll("/", "."))
+        );
+    }
+    public ModCreativeTab(Supplier<ItemLike> icon, ResourceLocation location, ArrayList<ItemLike> items, Component title) {
         this.icon = icon;
         this.location = location;
         this.items = items;
@@ -52,7 +61,7 @@ public class ModCreativeTab {
     }
 
     public ItemLike getIcon() {
-        return icon;
+        return icon.get();
     }
 
     public void setFinalised() {
