@@ -1,4 +1,4 @@
-package games.enchanted.verticalslabs.mixin;
+package games.enchanted.verticalslabs.mixin.resources;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -11,10 +11,10 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(ModelManager.class)
-public abstract class FabricModelManagerMixin {
+public abstract class ModelManagerMixin {
     @WrapOperation(
         at = @At(value = "INVOKE", target = "Lorg/slf4j/Logger;warn(Ljava/lang/String;Ljava/lang/Object;)V", remap = false),
-        method = "method_65752"
+        method = {"method_65752", "lambda$createBlockStateToModelDispatch$19"}
     )
     // suppresses the "Missing model for variant" warnings if the enchanted vertical slabs dynamic resourcepack hasn't been initialised yet
     private static void evs$suppressMissingModelWarningsConditionally(Logger instance, String logMessage, Object object, Operation<Void> original) {

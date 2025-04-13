@@ -17,7 +17,6 @@ public abstract class FabricBuiltinRegistriesMixin {
         method = "freeze"
     )
     private static void freeze(CallbackInfo ci) {
-        registerVerticalSlab("test_slab", Blocks.SPRUCE_SLAB.properties());
         DynamicVerticalSlabs.registerDynamicSlabs();
     }
 }

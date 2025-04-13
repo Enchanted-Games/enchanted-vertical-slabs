@@ -17,7 +17,6 @@ public abstract class NeoForgeGameDataMixin {
         at = @At("HEAD")
     )
     private static void endOfRegistration(CallbackInfo ci) {
-        registerVerticalSlab("test_slab", Blocks.SPRUCE_SLAB.properties());
         DynamicVerticalSlabs.registerDynamicSlabs();
     }
 }
