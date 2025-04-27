@@ -9,6 +9,7 @@ public abstract class PackManager {
     boolean hasBeenInitialised = false;
     boolean isInitialising = false;
     List<Runnable> reloadCallbacks = new ArrayList<>();
+    List<Runnable> completionCallbacks = new ArrayList<>();
 
     public void initialiseInternal() {
         if(hasBeenInitialised) return;
@@ -42,6 +43,7 @@ public abstract class PackManager {
         if(functionOnComplete != null) {
             functionOnComplete.run();
         }
+        completionCallbacks.forEach(Runnable::run);
         if(requiresReload) {
             reloadCallbacks.forEach(Runnable::run);
         }
@@ -58,6 +60,15 @@ public abstract class PackManager {
      */
     public void addReloadCallback(Runnable reloadCallback) {
         reloadCallbacks.add(reloadCallback);
+    }
+
+    /**
+     * Add a runnable that gets called when this pack has been fully initialised
+     *
+     * @param completionCallback the callback to run on completion
+     */
+    public void addCompletionCallback(Runnable completionCallback) {
+        completionCallbacks.add(completionCallback);
     }
 
     protected boolean hasReloadCallbacks() {

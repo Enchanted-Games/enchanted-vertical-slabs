@@ -3,6 +3,11 @@
     "itemGroup.enchanted-vertical-slabs.vertical_slabs": "Vertical Slabs",
     "itemGroup.enchanted-vertical-slabs.modded_vertical_slabs": "Modded Vertical Slabs",
 
+    "gui.enchanted-vertical-slabs.welcome.title": "Enchanted Vertical Slabs: New Slabs Found",
+    "gui.enchanted-vertical-slabs.welcome.message": "New slab blocks were detected since the last game launch, generating vertical slab resources and data.",
+    "gui.enchanted-vertical-slabs.welcome.info": "This process will only need to happen once.",
+    "gui.enchanted-vertical-slabs.welcome.created_resource": "created: %s",
+
     "block.enchanted-vertical-slabs.dynamic_slab": "Vertical %s",
 
     "block.enchanted-vertical-slabs.vertical_oak_slab": "Vertical Oak Slab",
