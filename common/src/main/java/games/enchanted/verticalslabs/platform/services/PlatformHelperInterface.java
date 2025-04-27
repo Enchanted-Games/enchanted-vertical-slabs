@@ -38,6 +38,11 @@ public interface PlatformHelperInterface {
     }
 
     /**
+     * Gets the base minecraft client or server directory
+     */
+    Path getMinecraftDirectory();
+
+    /**
      * Registers a pair of blocks waxable with honeycomb
      *
      * @param unwaxed the unwaxed Block

@@ -46,9 +46,9 @@ public class DynamicResourcePackManager extends PackManager {
         if(DynamicVerticalSlabs.DYNAMIC_SLAB_BLOCKS.isEmpty()) {
             complete(false);
             return;
-        };
+        }
         EnchantedVerticalSlabsLogging.info("Initialising Dynamic Resource Pack");
-
+        // TODO: make this not regenerate any files if they already exist
         addBlockstatesAndModels();
         addItemDefinitions();
 

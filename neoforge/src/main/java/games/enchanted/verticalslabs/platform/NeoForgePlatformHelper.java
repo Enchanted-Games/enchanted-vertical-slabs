@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FireBlock;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLLoader;
+import net.neoforged.fml.loading.FMLPaths;
 import org.jetbrains.annotations.Nullable;
 
 import java.nio.file.Path;
@@ -27,6 +28,11 @@ public class NeoForgePlatformHelper implements PlatformHelperInterface {
     @Override
     public boolean isDevelopmentEnvironment() {
         return !FMLLoader.isProduction();
+    }
+
+    @Override
+    public Path getMinecraftDirectory() {
+        return FMLPaths.GAMEDIR.get();
     }
 
     @Override

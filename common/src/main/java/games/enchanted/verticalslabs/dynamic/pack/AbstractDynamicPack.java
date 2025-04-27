@@ -5,13 +5,11 @@ import com.google.common.base.Supplier;
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsLogging;
 import games.enchanted.verticalslabs.platform.Services;
 import games.enchanted.verticalslabs.util.ArrayUtil;
+import games.enchanted.verticalslabs.util.FilesystemUtil;
 import net.minecraft.FileUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.AbstractPackResources;
-import net.minecraft.server.packs.PackLocationInfo;
-import net.minecraft.server.packs.PackResources;
-import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.*;
 import net.minecraft.server.packs.metadata.MetadataSectionType;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
@@ -21,8 +19,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,26 +30,73 @@ public abstract class AbstractDynamicPack implements PackResources {
     private static final Joiner PATH_JOINER = Joiner.on("/");
     private final Pattern RAW_RESOURCE_PATH_PATTERN = Pattern.compile("^(assets|data)\\/([a-z0-9_.-]+)\\/([a-z0-9/._-]+)");
 
-    private final ArrayList<ResourceType> CLIENT_RESOURCE_TYPES = new ArrayList<>();
-    private final HashMap<String, Integer> CLIENT_RESOURCE_TYPE_NAME_TO_ID = new HashMap<>();
-    private final ArrayList<ResourceType> SERVER_RESOURCE_TYPES = new ArrayList<>();
-    private final HashMap<String, Integer> SERVER_RESOURCE_TYPE_NAME_TO_ID = new HashMap<>();
-    private final VirtualFiles<Supplier<IoSupplier<InputStream>>> RAW_RESOURCES = new VirtualFiles<>();
+    private final ArrayList<ResourceType> CLIENT_RESOURCE_TYPES;
+    private final HashMap<String, Integer> CLIENT_RESOURCE_TYPE_NAME_TO_ID;
+    private final ArrayList<ResourceType> SERVER_RESOURCE_TYPES;
+    private final HashMap<String, Integer> SERVER_RESOURCE_TYPE_NAME_TO_ID;
+    @Nullable private final VirtualFiles<Supplier<IoSupplier<InputStream>>> RAW_RESOURCES;
 
     public final String PACK_ID;
     private final PackLocationInfo PACK_INFO;
     private final Set<String> PROVIDED_CLIENT_NAMESPACES;
     private final Set<String> PROVIDED_SERVER_NAMESPACES;
 
-    public AbstractDynamicPack(String packId, Component packName, Set<String> clientNamespaces, Set<String> serverNamespaces) {
+    @Nullable private final Path PARENT_DIRECTORY;
+    @Nullable private Path ROOT_DIRECTORY;
+    private final boolean inMemoryMode;
+
+    public abstract AbstractDynamicPack getInstance();
+
+    public AbstractDynamicPack(String packId, Component packName, Set<String> clientNamespaces, Set<String> serverNamespaces, @Nullable Path parentDirectory) {
+        this(packId, packName, clientNamespaces, serverNamespaces, parentDirectory, false);
+    }
+
+    public AbstractDynamicPack(String packId, Component packName, Set<String> clientNamespaces, Set<String> serverNamespaces, @Nullable Path parentDirectory, boolean inMemoryMode) {
+        if(!inMemoryMode && parentDirectory == null) {
+            throw new IllegalArgumentException("DynamicPack '" + packId + "': parentDirectory cannot be null if inMemoryMode is set to true.");
+        }
+        if(parentDirectory != null && !Files.isDirectory(parentDirectory)) {
+            throw new IllegalArgumentException("parentDirectory cannot be a file");
+        }
+
         PACK_ID = packId;
         PACK_INFO = new PackLocationInfo(PACK_ID, packName, PackSource.BUILT_IN, Optional.empty());
         PROVIDED_CLIENT_NAMESPACES = clientNamespaces;
         PROVIDED_SERVER_NAMESPACES = serverNamespaces;
+        this.inMemoryMode = inMemoryMode;
+
+        CLIENT_RESOURCE_TYPES = new ArrayList<>();
+        CLIENT_RESOURCE_TYPE_NAME_TO_ID = new HashMap<>();
+        SERVER_RESOURCE_TYPES = new ArrayList<>();
+        SERVER_RESOURCE_TYPE_NAME_TO_ID = new HashMap<>();
         registerResourceTypes();
+
+        if(inMemoryMode) {
+            RAW_RESOURCES = new VirtualFiles<>();
+
+            PARENT_DIRECTORY = null;
+        } else {
+            RAW_RESOURCES = null;
+
+            PARENT_DIRECTORY = parentDirectory;
+            createRootDirectory();
+        }
     }
 
-    public abstract AbstractDynamicPack getInstance();
+    public void createRootDirectory() {
+        if(PARENT_DIRECTORY == null) throw new IllegalStateException("PARENT_DIRECTORY should not be null if createRootDirectory is called.");
+        Path packRootDirectory = PARENT_DIRECTORY.resolve(getDirectoryName());
+        try {
+            FileUtil.createDirectoriesSafe(packRootDirectory);
+            ROOT_DIRECTORY = packRootDirectory;
+        } catch (IOException e) {
+            throw new IllegalStateException("Cannot create folder for '" + PACK_ID + "'\n" + e);
+        }
+    }
+
+    private Path getDirectoryName() {
+        return Path.of(PACK_ID);
+    }
 
     public Pack.ResourcesSupplier getResourcesSupplier() {
         return new Pack.ResourcesSupplier() {
@@ -85,11 +131,36 @@ public abstract class AbstractDynamicPack implements PackResources {
         if(resourceTypeIndex > maxIndex) throw new IllegalStateException("RESOURCE_TYPE_NAME_TO_ID returned an index (" + resourceTypeIndex + ") greater than maximum allowed value (" + maxIndex + ")");
 
         ResourceType resourceType = (isServerResources ? SERVER_RESOURCE_TYPES : CLIENT_RESOURCE_TYPES).get(resourceTypeIndex);
+
+        if(!inMemoryMode) {
+            try {
+                ResourceLocation assetsRelativeLocation = resourceType.fileToIdConverter.idToFile(location);
+                Path rootRelativePath = Path.of(packType.getDirectory(), assetsRelativeLocation.getNamespace(), assetsRelativeLocation.getPath());
+                writeDataToRootDirectory(rootRelativePath, resourceData.get());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            return;
+        }
+
         ResourceLocation fileLocation = resourceType.fileToIdConverter.idToFile(location);
         resourceType.locationToResourceMap.put(fileLocation, resourceData);
     }
 
     public synchronized void addRawResource(String path, Supplier<IoSupplier<InputStream>> resourceData) {
+        if(!inMemoryMode) {
+            try {
+                writeDataToRootDirectory(Paths.get(path), resourceData.get());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            return;
+        }
+
+        if(RAW_RESOURCES == null) {
+            throw new IllegalStateException("Dynamic Pack '" + PACK_ID + "Raw resources is null");
+        }
+
         Matcher matcher = RAW_RESOURCE_PATH_PATTERN.matcher(path);
         matcher.matches();
 
@@ -119,9 +190,36 @@ public abstract class AbstractDynamicPack implements PackResources {
 
         RAW_RESOURCES.add(PATH_JOINER.join(packTypeFolder, pathNamespace, pathResource), resourceData);
     }
-    
+
+    private void writeDataToRootDirectory(Path pathRelativeToRoot, IoSupplier<InputStream> data) throws IOException {
+        if(ROOT_DIRECTORY == null) throw new IOException("Root directory is null for dynamic pack: " + PACK_ID);
+        Path fullSystemPath = ROOT_DIRECTORY.resolve(pathRelativeToRoot);
+        FilesystemUtil.createDirectories(fullSystemPath);
+        Files.write(fullSystemPath, data.get().readAllBytes());
+    }
+
+    private @Nullable IoSupplier<InputStream> getDataFromRootDirectory(Path pathRelativeToRoot) throws IOException {
+        if(ROOT_DIRECTORY == null) throw new IOException("Root directory is null for dynamic pack: " + PACK_ID);
+        Path fullSystemPath = ROOT_DIRECTORY.resolve(pathRelativeToRoot);
+        if(!Files.exists(fullSystemPath)) return null;
+        return IoSupplier.create(fullSystemPath);
+    }
+
     @Override
     public @Nullable IoSupplier<InputStream> getResource(@NotNull PackType packType, @NotNull ResourceLocation location) {
+        if(!inMemoryMode) {
+            try {
+                Path rootRelativePath = Path.of(packType.getDirectory(), location.getNamespace(), location.getPath());
+                return getDataFromRootDirectory(rootRelativePath);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        if(RAW_RESOURCES == null) {
+            throw new IllegalStateException("Dynamic Pack '" + PACK_ID + ": Raw resources is null");
+        }
+
         // try to get resource from a resource type
         ArrayList<ResourceType> resourcesList = packType == PackType.CLIENT_RESOURCES ? CLIENT_RESOURCE_TYPES : SERVER_RESOURCE_TYPES;
         for (ResourceType type : resourcesList) {
@@ -143,6 +241,21 @@ public abstract class AbstractDynamicPack implements PackResources {
     @Override
     public void listResources(@NotNull PackType packType, @NotNull String namespace, @NotNull String path, @NotNull ResourceOutput resourceOutput) {
         if (!(PROVIDED_SERVER_NAMESPACES.contains(namespace) || PROVIDED_CLIENT_NAMESPACES.contains(namespace))) return;
+
+        if(!inMemoryMode) {
+            FileUtil.decomposePath(path).ifSuccess(pathToResource -> {
+                if(ROOT_DIRECTORY == null) {
+                    throw new IllegalStateException("ROOT_DIRECTORY is null");
+                }
+                Path pathToNamespace = ROOT_DIRECTORY.resolve(packType.getDirectory()).resolve(namespace);
+                PathPackResources.listPath(namespace, pathToNamespace, pathToResource, resourceOutput);
+            }).ifError(error -> EnchantedVerticalSlabsLogging.error("Error listing resources for path {}: {}", path, error.message()));
+            return;
+        }
+
+        if(RAW_RESOURCES == null) {
+            throw new IllegalStateException("Dynamic Pack '" + PACK_ID + "': Raw resources is null");
+        }
 
         // list resource types
         ArrayList<ResourceType> resourcesList = packType == PackType.CLIENT_RESOURCES ? CLIENT_RESOURCE_TYPES : SERVER_RESOURCE_TYPES;

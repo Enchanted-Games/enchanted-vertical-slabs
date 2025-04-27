@@ -111,7 +111,6 @@ public class VirtualFiles<T> {
         List<String> elements = decomposePath.getOrThrow();
         String[] elementsArray = elements.toArray(new String[0]);
         for (int i = 0; i < elements.size(); i++) {
-            String element = elements.get(i);
             boolean isLast = i == elements.size() - 1;
             if(isLast) {
                 tryPutFile(fileContent, elementsArray);

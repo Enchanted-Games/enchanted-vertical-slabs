@@ -1,6 +1,7 @@
 package games.enchanted.verticalslabs.dynamic.pack;
 
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
+import games.enchanted.verticalslabs.EnchantedVerticalSlabsMod;
 import games.enchanted.verticalslabs.util.IoSupplierUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.FileToIdConverter;
@@ -22,7 +23,7 @@ public class EVSDynamicResources extends AbstractDynamicPack {
     public static final PackSelectionConfig PACK_SELECTION_CONFIG = new PackSelectionConfig(true, Pack.Position.TOP, false);
 
     public EVSDynamicResources(String packId, Component packName, Set<String> clientNamespaces, Set<String> serverNamespaces) {
-        super(packId, packName, clientNamespaces, serverNamespaces);
+        super(packId, packName, clientNamespaces, serverNamespaces, EnchantedVerticalSlabsMod.getEVSModDirectory());
     }
 
     @Override

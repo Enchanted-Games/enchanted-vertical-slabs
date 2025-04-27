@@ -16,17 +16,16 @@ public class ModCreativeTab {
     private final Component title;
     private boolean finalised = false;
 
-    public ModCreativeTab(Supplier<ItemLike> icon, ResourceLocation location, ArrayList<ItemLike> items) {
-        this(
-            icon,
-            location,
-            items,
-            Component.translatable("itemGroup." + location.getNamespace() + "." + location.getPath().replaceAll("/", "."))
-        );
-    }
     public ModCreativeTab(ItemLike icon, ResourceLocation location, ArrayList<ItemLike> items) {
         this(
             () -> icon,
+            location,
+            items
+        );
+    }
+    public ModCreativeTab(Supplier<ItemLike> icon, ResourceLocation location, ArrayList<ItemLike> items) {
+        this(
+            icon,
             location,
             items,
             Component.translatable("itemGroup." + location.getNamespace() + "." + location.getPath().replaceAll("/", "."))

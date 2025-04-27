@@ -29,6 +29,11 @@ public class FabricPlatformHelper implements PlatformHelperInterface {
     }
 
     @Override
+    public Path getMinecraftDirectory() {
+        return FabricLoader.getInstance().getGameDir();
+    }
+
+    @Override
     public void addWaxableBlockPair(Block unwaxed, Block waxed) {
         OxidizableBlocksRegistry.registerWaxableBlockPair(unwaxed, waxed);
     }
