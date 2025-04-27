@@ -5,9 +5,11 @@ import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabs;
 import games.enchanted.verticalslabs.dynamic.datagen.DynamicDataGenerator;
 import games.enchanted.verticalslabs.dynamic.datagen.provider.DynamicBlockLoot;
 import games.enchanted.verticalslabs.dynamic.datagen.provider.DynamicBlockRecipeProvider;
+import games.enchanted.verticalslabs.dynamic.pack.EVSDynamicResources;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.registries.VanillaRegistries;
+import net.minecraft.server.packs.PackType;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -27,10 +29,12 @@ public class DynamicDataPackManager extends PackManager {
             return;
         }
         EnchantedVerticalSlabsLogging.info("Initialising Dynamic Data Pack");
+        EVSDynamicResources.INSTANCE.clearDirectory(PackType.SERVER_DATA);
 
         HolderLookup.Provider lookup = VanillaRegistries.createLookup();
-        dataGenerator.addProvider(DynamicBlockLoot.getProvider(new PackOutput(Path.of("")), CompletableFuture.completedFuture(lookup)));
-        dataGenerator.addProvider(new DynamicBlockRecipeProvider.Runner(new PackOutput(Path.of("")), CompletableFuture.completedFuture(lookup)));
+        Path outputFolder = Path.of("");
+        dataGenerator.addProvider(DynamicBlockLoot.getProvider(new PackOutput(outputFolder), CompletableFuture.completedFuture(lookup)));
+        dataGenerator.addProvider(new DynamicBlockRecipeProvider.Runner(new PackOutput(outputFolder), CompletableFuture.completedFuture(lookup)));
 
         CompletableFuture<?> asyncTasks;
         try {
@@ -42,7 +46,9 @@ public class DynamicDataPackManager extends PackManager {
         asyncTasks.thenRun(() -> {
             complete(true, () -> {
                 EnchantedVerticalSlabsLogging.info("[Dynamic Datapack]: Async datagenerators completed successfully");
-                EnchantedVerticalSlabsLogging.info("[Dynamic Datapack]: Reloading datapacks to apply changes");
+                if(this.hasReloadCallbacks()) {
+                    EnchantedVerticalSlabsLogging.info("[Dynamic Datapack]: Reloading datapacks to apply changes");
+                }
             });
         })
         .exceptionally((exception) -> {

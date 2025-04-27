@@ -1,6 +1,7 @@
 package games.enchanted.verticalslabs.mixin.resources;
 
 import com.mojang.datafixers.DataFixer;
+import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabs;
 import games.enchanted.verticalslabs.dynamic.pack_managers.DynamicDataPackManager;
 import net.minecraft.gametest.framework.GameTestServer;
 import net.minecraft.server.MinecraftServer;
@@ -29,7 +30,9 @@ public abstract class CommonServersMixin extends MinecraftServer implements Serv
         method = "initServer"
     )
     public void evs$checkAndReloadIfDynamicDataPackRequiresIt(CallbackInfoReturnable<Boolean> cir) {
-        DynamicDataPackManager.INSTANCE.addReloadCallback(() -> reloadResources(getPackRepository().getSelectedIds()));
-        DynamicDataPackManager.INSTANCE.initialiseInternal();
+        if(DynamicVerticalSlabs.newSlabsSinceLastLaunch()) {
+            DynamicDataPackManager.INSTANCE.addReloadCallback(() -> reloadResources(getPackRepository().getSelectedIds()));
+            DynamicDataPackManager.INSTANCE.initialiseInternal();
+        }
     }
 }

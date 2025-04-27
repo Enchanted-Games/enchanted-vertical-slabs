@@ -26,4 +26,19 @@ public class FilesystemUtil {
         path = trimFilenameFromPath(path);
         Files.createDirectories(Files.exists(path) ? path.toRealPath() : path);
     }
+
+    /**
+     * Write data to a file on the file system. Any missing directories will be created if necessary.
+     *
+     * @param filePath        the file path
+     * @param contents        the contents
+     * @param replaceExisting should replace existing file if it already exists
+     */
+    public static void writeToFile(Path filePath, byte[] contents, boolean replaceExisting) throws IOException {
+        createDirectories(filePath);
+        if(!replaceExisting && Files.exists(filePath)) {
+            return;
+        }
+        Files.write(filePath, contents);
+    }
 }

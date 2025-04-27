@@ -59,4 +59,8 @@ public abstract class PackManager {
     public void addReloadCallback(Runnable reloadCallback) {
         reloadCallbacks.add(reloadCallback);
     }
+
+    protected boolean hasReloadCallbacks() {
+        return !reloadCallbacks.isEmpty();
+    }
 }

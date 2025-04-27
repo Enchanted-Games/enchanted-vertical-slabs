@@ -1,7 +1,10 @@
 package games.enchanted.verticalslabs.dynamic;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
 import games.enchanted.verticalslabs.registry.RegistryHelpers;
+import net.minecraft.ResourceLocationException;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -11,6 +14,17 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Optional;
 
 public class DynamicSlab {
+    public static final Codec<DynamicSlab> CODEC = Codec.STRING.comapFlatMap(DynamicSlab::read, (dynamicSlab) -> dynamicSlab.ORIGINAL_SLAB_LOCATION.toString()).stable();
+
+    public static DataResult<DynamicSlab> read(String slabLocation) {
+        try {
+            ResourceLocation slabResourceLocation = ResourceLocation.parse(slabLocation);
+            return DataResult.success(new DynamicSlab(slabResourceLocation));
+        } catch (ResourceLocationException resourcelocationexception) {
+            return DataResult.error(() -> "Not a valid resource location: " + slabLocation + " " + resourcelocationexception.getMessage());
+        }
+    }
+
     private final ResourceLocation ORIGINAL_SLAB_LOCATION;
     private final ResourceLocation VERTICAL_SLAB_LOCATION;
     @Nullable private final ResourceLocation REGULAR_BLOCK_LOCATION;

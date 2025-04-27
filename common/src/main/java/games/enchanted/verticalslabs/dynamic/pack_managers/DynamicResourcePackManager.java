@@ -20,6 +20,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.FileToIdConverter;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.Resource;
 import org.jetbrains.annotations.Nullable;
 
@@ -48,7 +49,8 @@ public class DynamicResourcePackManager extends PackManager {
             return;
         }
         EnchantedVerticalSlabsLogging.info("Initialising Dynamic Resource Pack");
-        // TODO: make this not regenerate any files if they already exist
+        EVSDynamicResources.INSTANCE.clearDirectory(PackType.CLIENT_RESOURCES);
+
         addBlockstatesAndModels();
         addItemDefinitions();
 

@@ -1,20 +1,26 @@
 package games.enchanted.verticalslabs.mixin.client;
 
-import games.enchanted.verticalslabs.dynamic.pack_managers.DynamicResourcePackManager;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import games.enchanted.verticalslabs.ui.EVSWelcomeScreen;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.List;
+import java.util.function.Function;
 
 @Mixin(Minecraft.class)
 public class MinecraftMixin {
-    @Inject(
-        at = @At("HEAD"),
-        method = "onGameLoadFinished"
+    @WrapOperation(
+        at = @At(value = "INVOKE", target = "Lcom/google/common/collect/Lists;reverse(Ljava/util/List;)Ljava/util/List;"),
+        method = "buildInitialScreens"
     )
-    private void evs$initialiseDynamicResourcepack(CallbackInfo ci) {
-        DynamicResourcePackManager.INSTANCE.addReloadCallback(() -> Minecraft.getInstance().reloadResourcePacks());
-        DynamicResourcePackManager.INSTANCE.initialiseInternal();
+    private List<Function<Runnable, Screen>> evs$addWelcomeScreen(List<Function<Runnable, Screen>> list, Operation<List<Function<Runnable, Screen>>> original) {
+        if(EVSWelcomeScreen.shouldDisplayWelcomeScreen()) {
+            list.add(EVSWelcomeScreen::create);
+        }
+        return original.call(list);
     }
 }

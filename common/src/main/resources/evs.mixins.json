@@ -25,7 +25,6 @@
   "client": [
     "client.ItemBlockRenderTypesMixin",
     "client.MinecraftMixin",
-    "resources.ClientServersMixin",
     "resources.ModelManagerMixin"
   ],
   "server": [

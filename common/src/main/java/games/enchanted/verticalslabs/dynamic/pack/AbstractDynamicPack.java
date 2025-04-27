@@ -17,6 +17,7 @@ import net.minecraft.server.packs.resources.IoSupplier;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -25,6 +26,7 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 public abstract class AbstractDynamicPack implements PackResources {
     private static final Joiner PATH_JOINER = Joiner.on("/");
@@ -83,6 +85,10 @@ public abstract class AbstractDynamicPack implements PackResources {
         }
     }
 
+    private String getLogPrefix() {
+        return "Dynamic Pack '" + PACK_ID + "': ";
+    }
+
     public void createRootDirectory() {
         if(PARENT_DIRECTORY == null) throw new IllegalStateException("PARENT_DIRECTORY should not be null if createRootDirectory is called.");
         Path packRootDirectory = PARENT_DIRECTORY.resolve(getDirectoryName());
@@ -91,6 +97,21 @@ public abstract class AbstractDynamicPack implements PackResources {
             ROOT_DIRECTORY = packRootDirectory;
         } catch (IOException e) {
             throw new IllegalStateException("Cannot create folder for '" + PACK_ID + "'\n" + e);
+        }
+    }
+
+    public void clearDirectory(PackType packType) {
+        if(inMemoryMode) {
+            throw new IllegalStateException(getLogPrefix() + "Cannot call clearDirectory if inMemoryMode is true.");
+        }
+        if(ROOT_DIRECTORY == null) {
+            throw new IllegalStateException(getLogPrefix() + "ROOT_DIRECTORY is null.");
+        }
+        Path directoryToRemove = ROOT_DIRECTORY.resolve(packType.getDirectory());
+        try (Stream<Path> paths = Files.walk(directoryToRemove)) {
+            paths.sorted(Comparator.reverseOrder()).map(Path::toFile).forEach(File::delete);
+        } catch (IOException e) {
+            EnchantedVerticalSlabsLogging.warn(getLogPrefix() + "Error while clearing " + packType.getDirectory() + " directory.\n" + e);
         }
     }
 
@@ -158,7 +179,7 @@ public abstract class AbstractDynamicPack implements PackResources {
         }
 
         if(RAW_RESOURCES == null) {
-            throw new IllegalStateException("Dynamic Pack '" + PACK_ID + "Raw resources is null");
+            throw new IllegalStateException(getLogPrefix() + "Raw resources is null");
         }
 
         Matcher matcher = RAW_RESOURCE_PATH_PATTERN.matcher(path);
@@ -217,7 +238,7 @@ public abstract class AbstractDynamicPack implements PackResources {
         }
 
         if(RAW_RESOURCES == null) {
-            throw new IllegalStateException("Dynamic Pack '" + PACK_ID + ": Raw resources is null");
+            throw new IllegalStateException(getLogPrefix() + "Raw resources is null");
         }
 
         // try to get resource from a resource type
@@ -254,7 +275,7 @@ public abstract class AbstractDynamicPack implements PackResources {
         }
 
         if(RAW_RESOURCES == null) {
-            throw new IllegalStateException("Dynamic Pack '" + PACK_ID + "': Raw resources is null");
+            throw new IllegalStateException(getLogPrefix() + "Raw resources is null");
         }
 
         // list resource types
