@@ -1,17 +1,22 @@
 package games.enchanted.verticalslabs.block.vertical_slab;
 
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import games.enchanted.verticalslabs.block.CullMode;
 import games.enchanted.verticalslabs.dynamic.DynamicSlab;
 import games.enchanted.verticalslabs.mixin.invoker.BlockInvoker;
 import games.enchanted.verticalslabs.registry.RegistryHelpers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ChangeOverTimeBlock;
 import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -21,6 +26,13 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class DynamicVerticalSlabBlock extends BaseVerticalSlabBlock {
+    public static final MapCodec<DynamicVerticalSlabBlock> CODEC = RecordCodecBuilder.mapCodec((recordCodecBuilderInstance) ->
+        recordCodecBuilderInstance.group(
+            ResourceLocation.CODEC.fieldOf("regular_slab").forGetter((instance) -> RegistryHelpers.getLocationFromBlock(instance.getRegularSlabBlock())),
+            propertiesCodec()
+        ).apply(recordCodecBuilderInstance, (orginalSlabLocation, properties) -> new DynamicVerticalSlabBlock(properties, new DynamicSlab(orginalSlabLocation)))
+    );
+
     Block REGULAR_SLAB;
     @Nullable Block REGULAR_BLOCK;
 
@@ -32,6 +44,11 @@ public class DynamicVerticalSlabBlock extends BaseVerticalSlabBlock {
         } else {
             REGULAR_BLOCK = null;
         }
+    }
+
+    @Override
+    protected @NotNull MapCodec<? extends BaseVerticalSlabBlock> codec() {
+        return CODEC;
     }
 
     public Block getRegularSlabBlock() {

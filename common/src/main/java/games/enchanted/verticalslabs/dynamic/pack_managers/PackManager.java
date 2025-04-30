@@ -43,10 +43,10 @@ public abstract class PackManager {
         if(functionOnComplete != null) {
             functionOnComplete.run();
         }
-        completionCallbacks.forEach(Runnable::run);
         if(requiresReload) {
             reloadCallbacks.forEach(Runnable::run);
         }
+        completionCallbacks.forEach(Runnable::run);
     }
 
     public boolean hasBeenInitialised() {

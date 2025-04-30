@@ -11,6 +11,7 @@ import com.mojang.serialization.JsonOps;
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsLogging;
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsMod;
 import games.enchanted.verticalslabs.block.BlockAndItemContainer;
+import games.enchanted.verticalslabs.block.WeatheringCopperUtil;
 import games.enchanted.verticalslabs.block.vertical_slab.DynamicVerticalSlabBlock;
 import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabInsertionPosition;
 import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabModifier;
@@ -28,6 +29,7 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import org.jetbrains.annotations.Nullable;
 
@@ -63,7 +65,11 @@ public class DynamicVerticalSlabs {
         }
         for (DynamicSlab slab : DYNAMIC_SLAB_BLOCKS) {
             Block regularSlabBlock = RegistryHelpers.getBlockFromLocation(slab.getOriginalSlabLocation());
-            BlockAndItemContainer registeredBlock = RegistryHelpers.registerDynamicVerticalSlab(slab.getVerticalSlabLocation(), BlockBehaviour.Properties.ofFullCopy(regularSlabBlock), slab);
+            WeatheringCopper.WeatherState weatherState = null;
+            if(regularSlabBlock instanceof WeatheringCopper weatheringCopperSlabBlock) {
+                weatherState = weatheringCopperSlabBlock.getAge();
+            }
+            BlockAndItemContainer registeredBlock = RegistryHelpers.registerDynamicVerticalSlab(slab.getVerticalSlabLocation(), BlockBehaviour.Properties.ofFullCopy(regularSlabBlock), slab, weatherState);
             VERTICAL_TO_NORMAL_SLAB_MAP.put((DynamicVerticalSlabBlock) registeredBlock.block(), regularSlabBlock);
 
             boolean slabIsVanilla = slab.getOriginalSlabLocation().getNamespace().equals("minecraft");
@@ -83,6 +89,9 @@ public class DynamicVerticalSlabs {
         }
         NORMAL_TO_VERTICAL_SLAB_MAP = VERTICAL_TO_NORMAL_SLAB_MAP.inverse();
         Services.PLATFORM.buildCreativeTabs();
+
+        WeatheringCopperUtil.addDynamicWeatheringPairs(DYNAMIC_SLAB_BLOCKS);
+//        WeatheringCopperUtil.addWeatheringPair(RegistryHelpers.getBlockFromLocation(ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_NAMESPACE, "vertical_cut_copper_slab")), RegistryHelpers.getBlockFromLocation(ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_NAMESPACE, "vertical_weathered_cut_copper_slab")));
     }
 
     private static void addSlabToCreativeInventory(CreativeTabModifierEntry modifierEntry) {

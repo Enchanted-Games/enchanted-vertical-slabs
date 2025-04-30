@@ -6,9 +6,7 @@
   "mixins": [
     "HoneyCombItemMixin",
     "NeoForgeBlockMixin",
-    "NeoForgeGameDataMixin",
-    "WeatheringCopperMixin",
-    "WeatheringCopperVerticalSlabBlockMixin"
+    "NeoForgeGameDataMixin"
   ],
   "client": [
   ],

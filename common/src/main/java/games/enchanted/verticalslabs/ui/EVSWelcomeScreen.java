@@ -34,7 +34,7 @@ public class EVSWelcomeScreen extends Screen {
     private static final int PROGRESS_BAR_HEIGHT = 6;
     private static final int PROGRESS_BAR_BORDER_SIZE = 2;
 
-    private static boolean initResourcesCalled = false;
+    private boolean initResourcesCalled = false;
 
     private final Runnable onCloseCallback;
     private int age;

@@ -30,7 +30,7 @@ public class DynamicSlab {
     @Nullable private final ResourceLocation REGULAR_BLOCK_LOCATION;
     @Nullable private final ResourceLocation REGULAR_ITEM_LOCATION;
 
-    DynamicSlab(ResourceLocation originalSlabLocation) {
+    public DynamicSlab(ResourceLocation originalSlabLocation) {
         ORIGINAL_SLAB_LOCATION = originalSlabLocation;
         VERTICAL_SLAB_LOCATION = ResourceLocation.fromNamespaceAndPath(
             EnchantedVerticalSlabsConstants.LEGACY_NAMESPACE,

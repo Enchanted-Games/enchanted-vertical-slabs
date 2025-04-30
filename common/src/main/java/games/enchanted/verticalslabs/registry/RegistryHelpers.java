@@ -1,11 +1,9 @@
 package games.enchanted.verticalslabs.registry;
 
-import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsMod;
 import games.enchanted.verticalslabs.block.BlockAndItemContainer;
-import games.enchanted.verticalslabs.block.vertical_slab.BaseVerticalSlabBlock;
 import games.enchanted.verticalslabs.block.vertical_slab.DynamicVerticalSlabBlock;
-import games.enchanted.verticalslabs.block.vertical_slab.WeatheringCopperVerticalSlabBlock;
+import games.enchanted.verticalslabs.block.vertical_slab.DynamicCopperVerticalSlabBlock;
 import games.enchanted.verticalslabs.dynamic.DynamicSlab;
 import games.enchanted.verticalslabs.item.DynamicBlockItem;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -21,52 +19,25 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import org.jetbrains.annotations.Nullable;
 
 public class RegistryHelpers {
-    public static BlockAndItemContainer registerVerticalSlab(String id, BlockBehaviour.Properties blockProperties) {
-        return registerVerticalSlab(id, blockProperties, null);
-    }
-    public static BlockAndItemContainer registerVerticalSlab(ResourceLocation id, BlockBehaviour.Properties blockProperties) {
-        return registerVerticalSlab(id, blockProperties, null);
-    }
-    public static BlockAndItemContainer registerVerticalSlab(String id, BlockBehaviour.Properties blockProperties, @Nullable WeatheringCopper.WeatherState oxidationLevel) {
-        ResourceLocation location = ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_NAMESPACE, id);
-        return registerVerticalSlab(location, blockProperties, oxidationLevel);
-    }
-
-    public static BlockAndItemContainer registerVerticalSlab(ResourceLocation id, BlockBehaviour.Properties blockProperties, @Nullable WeatheringCopper.WeatherState oxidationLevel) {
-        ResourceKey<Block> blockResourceKey = ResourceKey.create(Registries.BLOCK, id);
-        blockProperties.setId(blockResourceKey);
-
-        final Block registeredBlock = oxidationLevel == null ? registerVerticalSlabBlock(id, blockProperties) : registerVerticalSlabBlock(id, blockProperties, oxidationLevel);
-        final BlockItem registeredBlockItem = registerBlockItem(id, registeredBlock);
-        return new BlockAndItemContainer(registeredBlock, registeredBlockItem);
-    }
-
-
-    private static BlockItem registerBlockItem(ResourceLocation location, Block block) {
-        Item.Properties settings = new Item.Properties();
-        ResourceKey<Item> itemResourceKey = ResourceKey.create(Registries.ITEM, location);
-        settings.useBlockDescriptionPrefix().setId(itemResourceKey);
-        return EnchantedVerticalSlabsMod.register(BuiltInRegistries.ITEM.key(), () -> new BlockItem(block, settings), location);
-    }
-    private static Block registerVerticalSlabBlock(ResourceLocation location, BlockBehaviour.Properties blockSettings) {
-        return EnchantedVerticalSlabsMod.register(BuiltInRegistries.BLOCK.key(), () -> new BaseVerticalSlabBlock(blockSettings), location);
-    }
-    private static Block registerVerticalSlabBlock(ResourceLocation location, BlockBehaviour.Properties blockSettings, WeatheringCopper.WeatherState oxidationLevel) {
-        return EnchantedVerticalSlabsMod.register(BuiltInRegistries.BLOCK.key(), () -> new WeatheringCopperVerticalSlabBlock(oxidationLevel, blockSettings), location);
-    }
-
-
     public static BlockAndItemContainer registerDynamicVerticalSlab(ResourceLocation id, BlockBehaviour.Properties blockProperties, DynamicSlab dynamicSlab) {
+        return registerDynamicVerticalSlab(id, blockProperties, dynamicSlab, null);
+    }
+    public static BlockAndItemContainer registerDynamicVerticalSlab(ResourceLocation id, BlockBehaviour.Properties blockProperties, DynamicSlab dynamicSlab, @Nullable WeatheringCopper.WeatherState weatherState) {
         ResourceKey<Block> blockResourceKey = ResourceKey.create(Registries.BLOCK, id);
         blockProperties.setId(blockResourceKey);
 
-        final Block registeredBlock = registerDynamicVerticalSlabBlock(id, blockProperties, dynamicSlab);
+        final Block registeredBlock = weatherState == null ? registerDynamicVerticalSlabBlock(id, blockProperties, dynamicSlab) : registerDynamicCopperVerticalSlabBlock(id, blockProperties, dynamicSlab, weatherState);
         final BlockItem registeredBlockItem = registerDynamicBlockItem(id, registeredBlock, dynamicSlab);
         return new BlockAndItemContainer(registeredBlock, registeredBlockItem);
     }
+
     private static Block registerDynamicVerticalSlabBlock(ResourceLocation location, BlockBehaviour.Properties blockSettings, DynamicSlab dynamicSlab) {
         return EnchantedVerticalSlabsMod.register(BuiltInRegistries.BLOCK.key(), () -> new DynamicVerticalSlabBlock(blockSettings, dynamicSlab), location);
     }
+    private static Block registerDynamicCopperVerticalSlabBlock(ResourceLocation location, BlockBehaviour.Properties blockSettings, DynamicSlab dynamicSlab, WeatheringCopper.WeatherState weatherState) {
+        return EnchantedVerticalSlabsMod.register(BuiltInRegistries.BLOCK.key(), () -> new DynamicCopperVerticalSlabBlock(weatherState, blockSettings, dynamicSlab), location);
+    }
+
     private static BlockItem registerDynamicBlockItem(ResourceLocation location, Block block, DynamicSlab dynamicSlab) {
         Item.Properties settings = new Item.Properties();
         ResourceKey<Item> itemResourceKey = ResourceKey.create(Registries.ITEM, location);

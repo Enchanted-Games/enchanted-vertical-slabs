@@ -1,6 +1,5 @@
 package games.enchanted.verticalslabs.platform.services;
 
-import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
 
 import java.nio.file.Path;
@@ -41,31 +40,6 @@ public interface PlatformHelperInterface {
      * Gets the base minecraft client or server directory
      */
     Path getMinecraftDirectory();
-
-    /**
-     * Registers a pair of blocks waxable with honeycomb
-     *
-     * @param unwaxed the unwaxed Block
-     * @param waxed   the waxed block
-     */
-    void addWaxableBlockPair(Block unwaxed, Block waxed);
-
-    /**
-     * Registers a block that can weather into another block
-     *
-     * @param less the less weathered block
-     * @param more the more weathered block
-     */
-    void addWeatheringBlockPair(Block less, Block more);
-
-    /**
-     * Makes a block flammable
-     *
-     * @param block the block to make flammable
-     * @param burnTime the time in ticks for the block to burn
-     * @param spread the change the block will catch fire
-     */
-    void addFlammableBlock(Block block, int burnTime, int spread);
 
     /**
      * Returns a Path to a resource in the current mod JAR
