@@ -15,8 +15,8 @@ import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(IronBarsBlock.class)
 public abstract class IronBarsBlockMixin extends CrossCollisionBlock {
-    protected IronBarsBlockMixin(float $$0, float $$1, float $$2, float $$3, float $$4, Properties $$5) {
-        super($$0, $$1, $$2, $$3, $$4, $$5);
+    protected IronBarsBlockMixin(float nodeWidth, float extensionWidth, float nodeHeight, float extensionHeight, float collisionHeight, Properties properties) {
+        super(nodeWidth, extensionWidth, nodeHeight, extensionHeight, collisionHeight, properties);
     }
 
     @Unique

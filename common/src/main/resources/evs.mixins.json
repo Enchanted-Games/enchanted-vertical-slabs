@@ -16,6 +16,7 @@
     "resources.BuiltinPackSourceMixin",
     "resources.CommonServersMixin",
     "resources.RecipeManagerMixin",
+    "slab_behaviours.FenceBlockMixin",
     "slab_behaviours.FireBlockMixin",
     "slab_behaviours.FuelValuesMixin",
     "slab_behaviours.IronBarsBlockMixin",
