@@ -7,7 +7,6 @@
   "mixins": [
     "BlockMixin",
     "DefaultedMappedRegistryMixin",
-    "WeatheringCopperMixin",
     "accessor.CreativeModeTabsAccessor",
     "accessor.ItemPropertiesAccessor",
     "invoker.BlockBehaviourInvoker",

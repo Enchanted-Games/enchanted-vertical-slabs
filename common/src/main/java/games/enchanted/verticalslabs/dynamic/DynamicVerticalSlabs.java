@@ -90,8 +90,7 @@ public class DynamicVerticalSlabs {
         NORMAL_TO_VERTICAL_SLAB_MAP = VERTICAL_TO_NORMAL_SLAB_MAP.inverse();
         Services.PLATFORM.buildCreativeTabs();
 
-        WeatheringCopperUtil.addDynamicWeatheringPairs(DYNAMIC_SLAB_BLOCKS);
-//        WeatheringCopperUtil.addWeatheringPair(RegistryHelpers.getBlockFromLocation(ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_NAMESPACE, "vertical_cut_copper_slab")), RegistryHelpers.getBlockFromLocation(ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_NAMESPACE, "vertical_weathered_cut_copper_slab")));
+        WeatheringCopperUtil.addDynamicCopperPairs(DYNAMIC_SLAB_BLOCKS);
     }
 
     private static void addSlabToCreativeInventory(CreativeTabModifierEntry modifierEntry) {

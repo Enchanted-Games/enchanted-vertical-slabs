@@ -1,8 +1,15 @@
 package games.enchanted.verticalslabs.platform.services;
 
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.DataProvider;
+import net.minecraft.data.PackOutput;
+import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.nio.file.Path;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public interface PlatformHelperInterface {
     /**
@@ -52,4 +59,24 @@ public interface PlatformHelperInterface {
      * This is used to get Enchanted Vertical Slabs' creative tabs to register after other mods on Fabric. No-op on NeoForge
      */
     void buildCreativeTabs();
+
+    /**
+     * Registers a pair of blocks waxable with honeycomb
+     *
+     * @param unwaxed the unwaxed Block
+     * @param waxed   the waxed block
+     */
+    void addWaxableBlockPair(Block unwaxed, Block waxed);
+
+    /**
+     * Registers a block that can weather into another block
+     *
+     * @param less the less weathered block
+     * @param more the more weathered block
+     */
+    void addWeatheringBlockPair(Block less, Block more);
+
+    default @NotNull List<DataProvider> getPlatformSpecificClientDataproviders(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+        return List.of();
+    }
 }

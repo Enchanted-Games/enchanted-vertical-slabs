@@ -2,8 +2,10 @@ package games.enchanted.verticalslabs.platform;
 
 import games.enchanted.verticalslabs.FabricModEntrypoint;
 import games.enchanted.verticalslabs.platform.services.PlatformHelperInterface;
+import net.fabricmc.fabric.api.registry.OxidizableBlocksRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
+import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
 
 import java.nio.file.Path;
@@ -43,5 +45,15 @@ public class FabricPlatformHelper implements PlatformHelperInterface {
     @Override
     public void buildCreativeTabs() {
         FabricModEntrypoint.registerCreativeTabModifiers();
+    }
+
+    @Override
+    public void addWaxableBlockPair(Block unwaxed, Block waxed) {
+        OxidizableBlocksRegistry.registerWaxableBlockPair(unwaxed, waxed);
+    }
+
+    @Override
+    public void addWeatheringBlockPair(Block less, Block more) {
+        OxidizableBlocksRegistry.registerOxidizableBlockPair(less, more);
     }
 }
