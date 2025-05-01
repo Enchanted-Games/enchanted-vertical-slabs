@@ -1,22 +1,17 @@
 package games.enchanted.verticalslabs.mixin.slab_behaviours;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import games.enchanted.verticalslabs.block.vertical_slab.BaseVerticalSlabBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.CrossCollisionBlock;
 import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(IronBarsBlock.class)
 public abstract class IronBarsBlockMixin extends CrossCollisionBlock {
@@ -27,55 +22,17 @@ public abstract class IronBarsBlockMixin extends CrossCollisionBlock {
     @Unique
     private boolean evs$getConnectionForDirection(BlockState state, Direction direction) {
         if(!(state.getBlock() instanceof BaseVerticalSlabBlock)) {
-            throw new IllegalArgumentException("BlockState block must contain an instance of VerticalSlabBlock");
+            return false;
         }
         boolean slabAwayFromWall = state.getValue(BaseVerticalSlabBlock.FACING) == direction;
         return !(state.getValue(BaseVerticalSlabBlock.SINGLE) && slabAwayFromWall);
     }
 
-    @Inject(
-        at = @At("TAIL"),
-        method = "getStateForPlacement(Lnet/minecraft/world/item/context/BlockPlaceContext;)Lnet/minecraft/world/level/block/state/BlockState;",
-        cancellable = true
+    @WrapOperation(
+        at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;isFaceSturdy(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;)Z"),
+        method = {"getStateForPlacement", "updateShape"}
     )
-    // attach iron bars (and similar blocks like glass panes) to vertical slabs when placed
-    public void evs$overridePlacementStateWhenNextToVerticalSlab(BlockPlaceContext blockPlaceContext, CallbackInfoReturnable<BlockState> cir) {
-        BlockPos blockPos = blockPlaceContext.getClickedPos();
-        BlockGetter blockGetter = blockPlaceContext.getLevel();
-
-        BlockState northBlockState = blockGetter.getBlockState(blockPos.north());
-        BlockState eastBlockState = blockGetter.getBlockState(blockPos.east());
-        BlockState southBlockState = blockGetter.getBlockState(blockPos.south());
-        BlockState westBlockState = blockGetter.getBlockState(blockPos.west());
-
-        if(northBlockState.getBlock() instanceof BaseVerticalSlabBlock) {
-            cir.setReturnValue(cir.getReturnValue().setValue(NORTH, evs$getConnectionForDirection(northBlockState, Direction.NORTH)));
-        }
-        if(eastBlockState.getBlock() instanceof BaseVerticalSlabBlock) {
-            cir.setReturnValue(cir.getReturnValue().setValue(EAST, evs$getConnectionForDirection(eastBlockState, Direction.EAST)));
-        }
-        if(southBlockState.getBlock() instanceof BaseVerticalSlabBlock) {
-            cir.setReturnValue(cir.getReturnValue().setValue(SOUTH, evs$getConnectionForDirection(southBlockState, Direction.SOUTH)));
-        }
-        if(westBlockState.getBlock() instanceof BaseVerticalSlabBlock) {
-            cir.setReturnValue(cir.getReturnValue().setValue(WEST, evs$getConnectionForDirection(westBlockState, Direction.WEST)));
-        }
-    }
-
-    @Inject(
-        at = @At("HEAD"),
-        method = "updateShape",
-        cancellable = true
-    )
-    // attach iron bars (and similar blocks like glass panes) to vertical slabs
-    protected void evs$attachToVerticalSlabsNextToThisBlock(BlockState blockState, @NotNull LevelReader levelReader, @NotNull ScheduledTickAccess scheduledTickAccess, @NotNull BlockPos pos, @NotNull Direction direction, @NotNull BlockPos pos2, @NotNull BlockState blockState2, @NotNull RandomSource randomSource, CallbackInfoReturnable<BlockState> cir) {
-        if(blockState2.getBlock() instanceof BaseVerticalSlabBlock) {
-            boolean slabAwayFromBarBlock = blockState2.getValue(BaseVerticalSlabBlock.FACING) == direction;
-            cir.setReturnValue(
-                direction.getAxis().isHorizontal() ?
-                    blockState.setValue(PROPERTY_BY_DIRECTION.get(direction), !slabAwayFromBarBlock) :
-                    super.updateShape(blockState, levelReader, scheduledTickAccess, pos, direction, pos2, blockState2, randomSource)
-            );
-        }
+    private boolean evs$attachToVerticalSlabs(BlockState instance, BlockGetter blockGetter, BlockPos blockPos, Direction direction, Operation<Boolean> original) {
+        return original.call(instance, blockGetter, blockPos, direction) || evs$getConnectionForDirection(instance, direction.getOpposite());
     }
 }

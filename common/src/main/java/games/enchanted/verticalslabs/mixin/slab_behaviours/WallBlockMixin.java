@@ -1,5 +1,6 @@
 package games.enchanted.verticalslabs.mixin.slab_behaviours;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import games.enchanted.verticalslabs.block.vertical_slab.BaseVerticalSlabBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -15,14 +16,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(WallBlock.class)
 public abstract class WallBlockMixin {
-    @Shadow
-    protected abstract BlockState updateSides(BlockState state, boolean north, boolean east, boolean south, boolean west, VoxelShape aboveShape);
-
     @Final @Shadow
     public static BooleanProperty UP;
     @Final @Shadow
@@ -56,38 +52,31 @@ public abstract class WallBlockMixin {
         return WallSide.NONE;
     }
 
-    @Inject(
-        at = @At("HEAD"),
-        method = "connectsTo(Lnet/minecraft/world/level/block/state/BlockState;ZLnet/minecraft/core/Direction;)Z",
-        cancellable = true
+    @ModifyReturnValue(
+        at = @At("RETURN"),
+        method = "connectsTo(Lnet/minecraft/world/level/block/state/BlockState;ZLnet/minecraft/core/Direction;)Z"
     )
     // if side block is a vertical slab, connect to it unless vertical slab is "away" from the wall
-    private void evs$connectWallToVerticalSlabsNextToIt(BlockState state, boolean isFaceSturdy, Direction side, CallbackInfoReturnable<Boolean> cir) {
+    private boolean evs$connectWallToVerticalSlabs(boolean original, BlockState state, boolean sideSolid, Direction direction) {
         if(state.getBlock() instanceof BaseVerticalSlabBlock) {
-            boolean slabAwayFromWall = state.getValue(BaseVerticalSlabBlock.FACING) == side.getOpposite();
-            cir.setReturnValue(!(state.getValue(BaseVerticalSlabBlock.SINGLE) && slabAwayFromWall));
+            boolean slabAwayFromWall = state.getValue(BaseVerticalSlabBlock.FACING) == direction.getOpposite();
+            return original || !(state.getValue(BaseVerticalSlabBlock.SINGLE) && slabAwayFromWall);
         }
+        return original;
     }
 
-    @Inject(
-        at = @At("TAIL"),
-        cancellable = true,
+    @ModifyReturnValue(
+        at = @At("RETURN"),
         method = "updateShape(Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;ZZZZ)Lnet/minecraft/world/level/block/state/BlockState;"
     )
     // connect walls up to vertical slabs above them
-    private void evs$connectWallUpToVerticalSlabAbove(LevelReader world, BlockState state, BlockPos pos, BlockState aboveState, boolean north, boolean east, boolean south, boolean west, CallbackInfoReturnable<BlockState> cir) {
-        VoxelShape voxelShape = aboveState.getCollisionShape(world, pos).getFaceShape(Direction.DOWN);
-        BlockState blockState = this.updateSides(state, north, east, south, west, voxelShape);
-
-        if ( aboveState.getBlock() instanceof BaseVerticalSlabBlock && aboveState.getValue(BaseVerticalSlabBlock.SINGLE) ) {
-            cir.setReturnValue( state
-                .setValue(NORTH_WALL, evs$getWallSideForConnection(north, blockState))
-                .setValue(EAST_WALL, evs$getWallSideForConnection(east, blockState))
-                .setValue(SOUTH_WALL, evs$getWallSideForConnection(south, blockState))
-                .setValue(WEST_WALL, evs$getWallSideForConnection(west, blockState))
-                .setValue(UP, !evs$isWallHorizontallyConnected(blockState))
-            );
-        }
-
+    private BlockState evs$connectWallUpToVerticalSlabAbove(BlockState original, LevelReader level, BlockState state, BlockPos pos, BlockState aboveState, boolean northConnection, boolean eastConnection, boolean southConnection, boolean westConnection) {
+        if (!(aboveState.getBlock() instanceof BaseVerticalSlabBlock && aboveState.getValue(BaseVerticalSlabBlock.SINGLE))) return original;
+        return original
+            .setValue(NORTH_WALL, evs$getWallSideForConnection(northConnection, original))
+            .setValue(EAST_WALL, evs$getWallSideForConnection(eastConnection, original))
+            .setValue(SOUTH_WALL, evs$getWallSideForConnection(southConnection, original))
+            .setValue(WEST_WALL, evs$getWallSideForConnection(westConnection, original))
+            .setValue(UP, !evs$isWallHorizontallyConnected(original));
     }
 }
