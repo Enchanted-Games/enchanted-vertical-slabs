@@ -40,6 +40,9 @@ public class EVSWelcomeScreen extends Screen {
     private int age;
     private int closeAtTicks = -1;
 
+    private float currentProgress = 0;
+    private float prevProgress = 0;
+
     private final HeaderAndFooterLayout headerAndFooterLayout = new HeaderAndFooterLayout(this, 50, 50);
     private final LinearLayout contentsFlow = LinearLayout.vertical().spacing(8);
 
@@ -74,19 +77,44 @@ public class EVSWelcomeScreen extends Screen {
     }
 
     @Override
+    public void tick() {
+        super.tick();
+        Overlay activeOverlay = Minecraft.getInstance().getOverlay();
+        if(activeOverlay == null || !activeOverlay.isPauseScreen()) {
+            this.age++;
+        }
+        if(this.age == 1) {
+            repositionElements();
+        }
+        if(!initResourcesCalled && this.age == 40) {
+            initResources(this::resourceLoadFinished);
+        }
+        if(this.closeAtTicks > -1 && this.age == this.closeAtTicks) {
+            onClose();
+        }
+
+        this.prevProgress = currentProgress;
+        this.currentProgress += this.age % 6 == 0 ? 0.15f : 0f;
+    }
+
+    @Override
     public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         super.render(guiGraphics, mouseX, mouseY, partialTicks);
         renderProgressBar(guiGraphics, partialTicks);
     }
 
     protected float getProgress(float partialTicks) {
-        return Mth.lerp(partialTicks, (float) this.age / 100, (float) (this.age + 1) / 100);
+        float delta = 0;
+        if(this.minecraft != null) {
+            delta = this.minecraft.getDeltaTracker().getGameTimeDeltaPartialTick(true);
+        }
+        return Math.clamp(Mth.lerp(delta, this.prevProgress, this.currentProgress), 0, 1);
     }
 
     protected void renderProgressBar(GuiGraphics guiGraphics, float partialTicks) {
         int x = (this.width / 2) - (PROGRESS_BAR_WIDTH / 2);
         int y = (this.height / 2) + 40;
-        int fillWidth = Mth.ceil((float) PROGRESS_BAR_WIDTH * Math.min(this.getProgress(partialTicks), 1f));
+        int fillWidth = Math.round((float) PROGRESS_BAR_WIDTH * this.getProgress(partialTicks));
         int height = PROGRESS_BAR_HEIGHT;
 
         guiGraphics.blitSprite(
@@ -136,24 +164,6 @@ public class EVSWelcomeScreen extends Screen {
             resourceLoadFinished();
         }
         initResourcesCalled = true;
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-        Overlay activeOverlay = Minecraft.getInstance().getOverlay();
-        if(activeOverlay == null || !activeOverlay.isPauseScreen()) {
-            this.age++;
-        }
-        if(this.age == 1) {
-            repositionElements();
-        }
-        if(!initResourcesCalled && this.age == 40) {
-            initResources(this::resourceLoadFinished);
-        }
-        if(this.closeAtTicks > -1 && this.age == this.closeAtTicks) {
-            onClose();
-        }
     }
 
     protected void resourceLoadFinished() {
