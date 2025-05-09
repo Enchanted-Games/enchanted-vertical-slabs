@@ -2,7 +2,7 @@ package games.enchanted.verticalslabs.mixin.client;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import games.enchanted.verticalslabs.ui.EVSWelcomeScreen;
+import games.enchanted.verticalslabs.ui.EVSResourceGenerationScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,8 +18,8 @@ public class MinecraftMixin {
         method = "buildInitialScreens"
     )
     private List<Function<Runnable, Screen>> evs$addWelcomeScreen(List<Function<Runnable, Screen>> list, Operation<List<Function<Runnable, Screen>>> original) {
-        if(EVSWelcomeScreen.shouldDisplayWelcomeScreen()) {
-            list.add(EVSWelcomeScreen::create);
+        if(EVSResourceGenerationScreen.shouldDisplayOnGameLoad()) {
+            list.add(EVSResourceGenerationScreen::create);
         }
         return original.call(list);
     }

@@ -1,6 +1,6 @@
 package games.enchanted.verticalslabs.mixin.client;
 
-import games.enchanted.verticalslabs.ui.EVSWelcomeScreen;
+import games.enchanted.verticalslabs.ui.EVSResourceGenerationScreen;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
@@ -21,7 +21,7 @@ public abstract class DebugTitleScreenMixin extends Screen {
         method = "init"
     )
     public void appendButton(CallbackInfo ci) {
-        this.addRenderableWidget(Button.builder(Component.literal("evs debug open screen"), (p_344156_) -> this.minecraft.setScreen(EVSWelcomeScreen.create(() -> this.minecraft.setScreen(this)))).bounds(this.width / 2 - 100, 0, 140, 20).build());
+        this.addRenderableWidget(Button.builder(Component.literal("evs debug open screen"), (p_344156_) -> this.minecraft.setScreen(EVSResourceGenerationScreen.create(() -> this.minecraft.setScreen(this)))).bounds(this.width / 2 - 100, 0, 140, 20).build());
     }
 
 }

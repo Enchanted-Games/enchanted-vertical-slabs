@@ -6,6 +6,7 @@ import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabs;
 import games.enchanted.verticalslabs.dynamic.pack_managers.DynamicDataPackManager;
 import games.enchanted.verticalslabs.dynamic.pack_managers.DynamicResourcePackManager;
 import games.enchanted.verticalslabs.ui.widget.TextBoxWidget;
+import games.enchanted.verticalslabs.util.ResourcepackUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -17,15 +18,22 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public class EVSWelcomeScreen extends Screen {
-    private static final Component TITLE = Component.translatable("gui.enchanted-vertical-slabs.welcome.title");
-    private static final Component MESSAGE = Component.translatable("gui.enchanted-vertical-slabs.welcome.message");
-    private static final Component INFO = Component.translatable("gui.enchanted-vertical-slabs.welcome.info").withColor(0xB0ADB4);
-    private static final String CREATED_RESOURCE_KEY = "gui.enchanted-vertical-slabs.welcome.created_resource";
+import java.util.Collection;
+import java.util.Collections;
+
+public class EVSResourceGenerationScreen extends Screen {
+    private static final Component TITLE = Component.translatable("gui.enchanted-vertical-slabs.resource_gen.title").withStyle(Style.EMPTY.withBold(true));
+    private static final Component MESSAGE = Component.translatable("gui.enchanted-vertical-slabs.resource_gen.message");
+    private static final Component INFO = Component.translatable("gui.enchanted-vertical-slabs.resource_gen.info").withColor(0xB0ADB4);
+    private static final String WAITING_KEY = "gui.enchanted-vertical-slabs.resource_gen.gui.enchanted-vertical-slabs.resource_gen.waiting";
+    private static final String CREATED_RESOURCE_KEY = "gui.enchanted-vertical-slabs.resource_gen.created_resource";
+    private static final String DISABLING_PACKS_KEY = "gui.enchanted-vertical-slabs.resource_gen.disabling_packs";
+    private static final String ENABLING_PACKS_KEY = "gui.enchanted-vertical-slabs.resource_gen.enabling_packs";
     private static final ResourceLocation LOADING_ICON = ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_NAMESPACE, "loading");
     private static final int LOADING_ICON_SIZE = 32;
     private static final ResourceLocation PROGRESS_BAR_BORDER_SPRITE = ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_NAMESPACE, "welcome_screen/progress_bar_border");
@@ -38,15 +46,19 @@ public class EVSWelcomeScreen extends Screen {
 
     private final Runnable onCloseCallback;
     private int age;
-    private int closeAtTicks = -1;
 
+    private int generationStep = 0;
+    private int closeAtTicks = -1;
+    private boolean loadFinished = false;
     private float currentProgress = 0;
-    private float prevProgress = 0;
+
+    @Nullable private Collection<String> currentlySelectedPacks = null;
+    private Component statusText = Component.translatable(WAITING_KEY);
 
     private final HeaderAndFooterLayout headerAndFooterLayout = new HeaderAndFooterLayout(this, 50, 50);
     private final LinearLayout contentsFlow = LinearLayout.vertical().spacing(8);
 
-    EVSWelcomeScreen(Component message, Runnable onClose) {
+    EVSResourceGenerationScreen(Component message, Runnable onClose) {
         super(message);
         onCloseCallback = onClose;
     }
@@ -82,19 +94,43 @@ public class EVSWelcomeScreen extends Screen {
         Overlay activeOverlay = Minecraft.getInstance().getOverlay();
         if(activeOverlay == null || !activeOverlay.isPauseScreen()) {
             this.age++;
+            generateResourcesStep(15);
         }
+
         if(this.age == 1) {
             repositionElements();
         }
-        if(!initResourcesCalled && this.age == 40) {
-            initResources(this::resourceLoadFinished);
-        }
+
         if(this.closeAtTicks > -1 && this.age == this.closeAtTicks) {
             onClose();
         }
+    }
 
-        this.prevProgress = currentProgress;
-        this.currentProgress += this.age % 6 == 0 ? 0.15f : 0f;
+    private void generateResourcesStep(int startAge) {
+        final int waitBetweenSteps = 10;
+
+        if(this.age < startAge) return;
+
+        if(generationStep == 0) {
+            EnchantedVerticalSlabsLogging.info("[Resource Generation]: Temporarily disabling resourcepacks...");
+            setStatusText(Component.translatable(DISABLING_PACKS_KEY));
+            currentlySelectedPacks = ResourcepackUtil.removeAllResourcepacks();
+
+            this.currentProgress += 0.3334f;
+            this.generationStep = 1;
+        }
+        if(generationStep == 1 && this.age > startAge + waitBetweenSteps) {
+            EnchantedVerticalSlabsLogging.info("[Resource Generation]: Generating resources...");
+            setStatusText(Component.translatableWithFallback(CREATED_RESOURCE_KEY, "created: %s", "asset/will/be/here.json"));
+            initResources(currentlySelectedPacks == null ? Collections.emptyList() : currentlySelectedPacks);
+
+            this.currentProgress += 0.3333f;
+            generationStep = 2;
+        }
+    }
+
+    private synchronized void setStatusText(Component text) {
+        statusText = text;
     }
 
     @Override
@@ -104,11 +140,7 @@ public class EVSWelcomeScreen extends Screen {
     }
 
     protected float getProgress(float partialTicks) {
-        float delta = 0;
-        if(this.minecraft != null) {
-            delta = this.minecraft.getDeltaTracker().getGameTimeDeltaPartialTick(true);
-        }
-        return Math.clamp(Mth.lerp(delta, this.prevProgress, this.currentProgress), 0, 1);
+        return currentProgress;
     }
 
     protected void renderProgressBar(GuiGraphics guiGraphics, float partialTicks) {
@@ -128,7 +160,7 @@ public class EVSWelcomeScreen extends Screen {
 
         guiGraphics.drawCenteredString(
             this.font,
-            Component.translatableWithFallback(CREATED_RESOURCE_KEY, "created: ", "enchanted-vertical-slabs/models/item/acacia_slab.json"),
+            statusText,
             this.width / 2,
             y + 3 + PROGRESS_BAR_HEIGHT + PROGRESS_BAR_BORDER_SIZE,
             0xffffff
@@ -152,35 +184,41 @@ public class EVSWelcomeScreen extends Screen {
         );
     }
 
-    protected void initResources(Runnable completionFunction) {
+    protected void initResources(Collection<String> packsToReEnable) {
         if(DynamicVerticalSlabs.newSlabsSinceLastLaunch() && !initResourcesCalled) {
-            DynamicResourcePackManager.INSTANCE.addReloadCallback(() -> Minecraft.getInstance().reloadResourcePacks());
             DynamicResourcePackManager.INSTANCE.addCompletionCallback(() -> {
-                DynamicDataPackManager.INSTANCE.addCompletionCallback(completionFunction);
+                DynamicDataPackManager.INSTANCE.addCompletionCallback(() -> resourceLoadFinished(packsToReEnable));
                 DynamicDataPackManager.INSTANCE.initialiseInternal();
             });
             DynamicResourcePackManager.INSTANCE.initialiseInternal();
         } else {
-            resourceLoadFinished();
+            this.currentProgress += 0.3333f;
+            resourceLoadFinished(packsToReEnable);
         }
         initResourcesCalled = true;
     }
 
-    protected void resourceLoadFinished() {
+    protected void resourceLoadFinished(Collection<String> packsToReEnable) {
+        EnchantedVerticalSlabsLogging.info("[Resource Generation]: Generation finished! Re-enabling resourcepacks and applying changes");
+        setStatusText(Component.translatable(ENABLING_PACKS_KEY));
+
         LinearLayout horizontalButtonLayout = this.headerAndFooterLayout.addToFooter(LinearLayout.horizontal().spacing(8));
         Button buttonWidget = horizontalButtonLayout.addChild(
             Button.builder(CommonComponents.GUI_PROCEED, (button) -> this.onClose()).build()
         );
         this.addRenderableWidget(buttonWidget);
 
+        ResourcepackUtil.reEnableResourcepacks(packsToReEnable);
+
         repositionElements();
 
+        this.loadFinished = true;
         this.closeAtTicks = this.age + 12;
     }
 
     @Override
     public boolean shouldCloseOnEsc() {
-        return initResourcesCalled || !DynamicVerticalSlabs.newSlabsSinceLastLaunch();
+        return this.loadFinished || !DynamicVerticalSlabs.newSlabsSinceLastLaunch();
     }
 
     @Override
@@ -189,11 +227,11 @@ public class EVSWelcomeScreen extends Screen {
         onCloseCallback.run();
     }
 
-    public static boolean shouldDisplayWelcomeScreen() {
+    public static boolean shouldDisplayOnGameLoad() {
         return DynamicVerticalSlabs.newSlabsSinceLastLaunch();
     }
 
     public static Screen create(Runnable onCloseCallback) {
-        return new EVSWelcomeScreen(Component.literal("message"), onCloseCallback);
+        return new EVSResourceGenerationScreen(Component.literal("message"), onCloseCallback);
     }
 }
