@@ -8,9 +8,13 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 public class DynamicBlockRecipeProvider extends RecipeProvider {
@@ -21,16 +25,23 @@ public class DynamicBlockRecipeProvider extends RecipeProvider {
     @Override
     public void buildRecipes() {
         for (DynamicSlab slab : DynamicVerticalSlabs.DYNAMIC_SLAB_BLOCKS) {
-            itemIntoOtherItem(RegistryHelpers.getBlockFromLocation(slab.getOriginalSlabLocation()), RegistryHelpers.getBlockFromLocation(slab.getVerticalSlabLocation()), 1);
+            Block regularSlab = RegistryHelpers.getBlockFromLocation(slab.getOriginalSlabLocation());
+            Block verticalSlab = RegistryHelpers.getBlockFromLocation(slab.getVerticalSlabLocation());
+            Optional<ResourceLocation> regularBlockLocation = slab.getRegularBlockLocation();
+
+            @Nullable Block regularBlock;
+            regularBlock = regularBlockLocation.map(RegistryHelpers::getBlockFromLocation).orElse(null);
+
+            itemIntoOtherItem(regularSlab, verticalSlab, 1, regularBlock == null ? regularSlab : regularBlock);
         }
     }
 
-    protected void itemIntoOtherItem(@NotNull ItemLike input, @NotNull ItemLike result, int amount) {
+    protected void itemIntoOtherItem(@NotNull ItemLike input, @NotNull ItemLike result, int amount, @NotNull ItemLike unlockedBy) {
         this.shapeless(RecipeCategory.BUILDING_BLOCKS, result, amount)
             .requires(input)
             .group(RegistryHelpers.getLocationFromItem(result.asItem()).toString())
-            .unlockedBy(RecipeProvider.getHasName(input), this.has(input))
-            .save(this.output);
+            .unlockedBy(RecipeProvider.getHasName(unlockedBy), this.has(unlockedBy))
+        .save(this.output);
     }
 
     public static class Runner extends RecipeProvider.Runner {

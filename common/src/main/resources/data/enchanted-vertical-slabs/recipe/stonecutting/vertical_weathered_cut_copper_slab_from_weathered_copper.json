@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-"ingredient": "minecraft:weathered_copper",
-  "result": {
-    "count": 8,
-    "id": "enchanted-vertical-slabs:vertical_weathered_cut_copper_slab"
-  }
-}

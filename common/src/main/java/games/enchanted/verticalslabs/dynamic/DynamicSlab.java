@@ -6,7 +6,6 @@ import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
 import games.enchanted.verticalslabs.registry.RegistryHelpers;
 import net.minecraft.ResourceLocationException;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.Nullable;
@@ -28,7 +27,6 @@ public class DynamicSlab {
     private final ResourceLocation ORIGINAL_SLAB_LOCATION;
     private final ResourceLocation VERTICAL_SLAB_LOCATION;
     @Nullable private final ResourceLocation REGULAR_BLOCK_LOCATION;
-    @Nullable private final ResourceLocation REGULAR_ITEM_LOCATION;
 
     public DynamicSlab(ResourceLocation originalSlabLocation) {
         ORIGINAL_SLAB_LOCATION = originalSlabLocation;
@@ -37,9 +35,6 @@ public class DynamicSlab {
             (originalSlabLocation.getNamespace().equals("minecraft") ? "" : originalSlabLocation.getNamespace() + "/") + "vertical_" + originalSlabLocation.getPath()
         );
         REGULAR_BLOCK_LOCATION = tryFindRegularBlock();
-
-        Item regularItem = RegistryHelpers.getItemFromLocation(ORIGINAL_SLAB_LOCATION);
-        REGULAR_ITEM_LOCATION = RegistryHelpers.getLocationFromItem(regularItem);
     }
 
     private @Nullable ResourceLocation tryFindRegularBlock() {
@@ -92,9 +87,5 @@ public class DynamicSlab {
 
     public Optional<ResourceLocation> getRegularBlockLocation() {
         return REGULAR_BLOCK_LOCATION == null ? Optional.empty() : Optional.of(REGULAR_BLOCK_LOCATION);
-    }
-
-    public Optional<ResourceLocation> getRegularItemLocation() {
-        return REGULAR_ITEM_LOCATION == null ? Optional.empty() : Optional.of(REGULAR_ITEM_LOCATION);
     }
 }

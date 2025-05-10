@@ -24,6 +24,7 @@ public abstract class PackManager {
             initialiseResources();
         } catch (ResourceGenerationException e) {
             exceptionCallbacks.forEach((callback) -> callback.accept(e));
+            clearCallbacks();
         }
     }
 
@@ -56,10 +57,16 @@ public abstract class PackManager {
             reloadCallbacks.forEach(Runnable::run);
         }
         completionCallbacks.forEach(Runnable::run);
+        clearCallbacks();
     }
 
     public boolean hasBeenInitialised() {
         return hasBeenInitialised;
+    }
+
+    private void clearCallbacks() {
+        this.exceptionCallbacks.clear();
+        this.completionCallbacks.clear();
     }
 
     /**
@@ -77,6 +84,7 @@ public abstract class PackManager {
 
     /**
      * Add a runnable that gets called when this pack has been fully initialised
+     * This is cleared once the resource generation is complete or an error occurs
      *
      * @param completionCallback the callback to run on completion
      */
@@ -85,7 +93,8 @@ public abstract class PackManager {
     }
 
     /**
-     * Add a runnable that gets called when a {@link ResourceGenerationException} is thrown
+     * Add a consumer that gets called when a {@link ResourceGenerationException} is thrown
+     * This is cleared once the resource generation is complete or an error occurs
      *
      * @param exceptionCallback the callback to run on completion
      */

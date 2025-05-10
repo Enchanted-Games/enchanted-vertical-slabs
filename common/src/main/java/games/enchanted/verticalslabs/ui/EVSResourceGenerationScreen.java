@@ -32,8 +32,9 @@ public class EVSResourceGenerationScreen extends Screen {
     private static final Component TITLE = Component.translatable("gui.enchanted-vertical-slabs.resource_gen.title").withStyle(Style.EMPTY.withBold(true));
     private static final Component MESSAGE = Component.translatable("gui.enchanted-vertical-slabs.resource_gen.message");
     private static final Component INFO = Component.translatable("gui.enchanted-vertical-slabs.resource_gen.info").withColor(0xB0ADB4);
-    private static final String WAITING_KEY = "gui.enchanted-vertical-slabs.resource_gen.gui.enchanted-vertical-slabs.resource_gen.waiting";
-    private static final String CREATED_RESOURCE_KEY = "gui.enchanted-vertical-slabs.resource_gen.created_resource";
+    private static final String WAITING_KEY = "gui.enchanted-vertical-slabs.resource_gen.waiting";
+    private static final String GENERATING_RESOURCEPACK = "gui.enchanted-vertical-slabs.resource_gen.resourcepack";
+    private static final String GENERATING_DATAPACK = "gui.enchanted-vertical-slabs.resource_gen.datapack";
     private static final String DISABLING_PACKS_KEY = "gui.enchanted-vertical-slabs.resource_gen.disabling_packs";
     private static final String ENABLING_PACKS_KEY = "gui.enchanted-vertical-slabs.resource_gen.enabling_packs";
     private static final String RESOURCE_GEN_ERROR = "gui.enchanted-vertical-slabs.resource_gen.error";
@@ -43,8 +44,8 @@ public class EVSResourceGenerationScreen extends Screen {
 
     private static final ResourceLocation LOADING_ICON = ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_NAMESPACE, "loading");
     private static final int LOADING_ICON_SIZE = 32;
-    private static final ResourceLocation PROGRESS_BAR_BORDER_SPRITE = ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_NAMESPACE, "welcome_screen/progress_bar_border");
-    private static final ResourceLocation PROGRESS_BAR_FILL_SPRITE = ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_NAMESPACE,  "welcome_screen/progress_bar_fill");
+    private static final ResourceLocation PROGRESS_BAR_BORDER_SPRITE = ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_NAMESPACE, "resource_generation_screen/progress_bar_border");
+    private static final ResourceLocation PROGRESS_BAR_FILL_SPRITE = ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.LEGACY_NAMESPACE,  "resource_generation_screen/progress_bar_fill");
     private static final int PROGRESS_BAR_WIDTH = 300;
     private static final int PROGRESS_BAR_HEIGHT = 6;
     private static final int PROGRESS_BAR_BORDER_SIZE = 2;
@@ -102,7 +103,7 @@ public class EVSResourceGenerationScreen extends Screen {
         Overlay activeOverlay = Minecraft.getInstance().getOverlay();
         if(activeOverlay == null || !activeOverlay.isPauseScreen()) {
             this.age++;
-            generateResourcesStep(15);
+            generateResourcesStep(7);
         }
 
         if(this.age == 1) {
@@ -129,10 +130,8 @@ public class EVSResourceGenerationScreen extends Screen {
         }
         if(generationStep == 1 && this.age > startAge + waitBetweenSteps) {
             EnchantedVerticalSlabsLogging.info("[Resource Generation]: Generating resources...");
-            setStatusText(Component.translatableWithFallback(CREATED_RESOURCE_KEY, "created: %s", "asset/will/be/here.json"));
             initResources(currentlySelectedPacks == null ? Collections.emptyList() : currentlySelectedPacks);
 
-            this.currentProgress += 0.3333f;
             generationStep = 2;
         }
     }
@@ -224,10 +223,35 @@ public class EVSResourceGenerationScreen extends Screen {
             DynamicDataPackManager.INSTANCE.addExceptionCallback((e) -> finishedWithErrors(e, packsToReEnable));
 
             DynamicResourcePackManager.INSTANCE.addCompletionCallback(() -> {
-                DynamicDataPackManager.INSTANCE.addCompletionCallback(() -> resourceLoadFinished(packsToReEnable));
-                DynamicDataPackManager.INSTANCE.initialiseInternal();
+                this.currentProgress += 0.1666665f;
+
+                DynamicDataPackManager.INSTANCE.addCompletionCallback(() -> {
+                    this.currentProgress += 0.1666665f;
+                    resourceLoadFinished(packsToReEnable);
+                });
+
+                setStatusText(Component.translatableWithFallback(GENERATING_DATAPACK, "generating datapack"));
+
+                class DatapackThread extends Thread {
+                    @Override
+                    public void run() {
+                        DynamicDataPackManager.INSTANCE.initialiseInternal();
+                    }
+                }
+                Thread thread = new DatapackThread();
+                thread.start();
             });
-            DynamicResourcePackManager.INSTANCE.initialiseInternal();
+
+            setStatusText(Component.translatableWithFallback(GENERATING_RESOURCEPACK, "generating resourcepack"));
+
+            class ResourcepackThread extends Thread {
+                @Override
+                public void run() {
+                    DynamicResourcePackManager.INSTANCE.initialiseInternal();
+                }
+            }
+            Thread thread = new ResourcepackThread();
+            thread.start();
         } else {
             this.currentProgress += 0.3333f;
             resourceLoadFinished(packsToReEnable);
@@ -249,6 +273,7 @@ public class EVSResourceGenerationScreen extends Screen {
 
         repositionElements();
 
+        this.currentProgress += 0.3333f;
         this.loadFinished = true;
         this.closeAtTicks = this.age + 12;
     }
