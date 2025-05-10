@@ -55,6 +55,7 @@ public class EVSResourceGenerationScreen extends Screen {
     private final Runnable onCloseCallback;
     private int age;
 
+    private static final float GENERATION_STEP_PROGRESS_INCREASE = 0.25f;
     private int generationStep = 0;
     private int closeAtTicks = -1;
     private boolean loadFinished = false;
@@ -125,7 +126,7 @@ public class EVSResourceGenerationScreen extends Screen {
             setStatusText(Component.translatable(DISABLING_PACKS_KEY));
             currentlySelectedPacks = ResourcepackUtil.removeAllResourcepacks();
 
-            this.currentProgress += 0.3334f;
+            this.currentProgress += GENERATION_STEP_PROGRESS_INCREASE;
             this.generationStep = 1;
         }
         if(generationStep == 1 && this.age > startAge + waitBetweenSteps) {
@@ -219,41 +220,43 @@ public class EVSResourceGenerationScreen extends Screen {
 
     protected void initResources(Collection<String> packsToReEnable) {
         if(DynamicVerticalSlabs.newSlabsSinceLastLaunch() && !initResourcesCalled) {
-            DynamicResourcePackManager.INSTANCE.addExceptionCallback((e) -> finishedWithErrors(e, packsToReEnable));
             DynamicDataPackManager.INSTANCE.addExceptionCallback((e) -> finishedWithErrors(e, packsToReEnable));
+            DynamicResourcePackManager.INSTANCE.addExceptionCallback((e) -> finishedWithErrors(e, packsToReEnable));
 
-            DynamicResourcePackManager.INSTANCE.addCompletionCallback(() -> {
-                this.currentProgress += 0.1666665f;
+            DynamicDataPackManager.INSTANCE.addCompletionCallback(() -> {
+                DynamicResourcePackManager.INSTANCE.addCompletionCallback(() -> resourceLoadFinished(packsToReEnable));
 
-                DynamicDataPackManager.INSTANCE.addCompletionCallback(() -> {
-                    this.currentProgress += 0.1666665f;
-                    resourceLoadFinished(packsToReEnable);
-                });
+                setStatusText(Component.translatableWithFallback(GENERATING_RESOURCEPACK, "generating resourcepack [%s]", "Starting thread"));
 
-                setStatusText(Component.translatableWithFallback(GENERATING_DATAPACK, "generating datapack"));
-
-                class DatapackThread extends Thread {
+                class ResourcepackThread extends Thread {
                     @Override
                     public void run() {
-                        DynamicDataPackManager.INSTANCE.initialiseInternal();
+                        DynamicResourcePackManager.INSTANCE.initialiseInternal((name, percentageStep) -> {
+                            setStatusText(Component.translatableWithFallback(GENERATING_RESOURCEPACK, "generating resourcepack [%s]", name));
+                            currentProgress += percentageStep * GENERATION_STEP_PROGRESS_INCREASE;
+                        });
                     }
                 }
-                Thread thread = new DatapackThread();
+                Thread thread = new ResourcepackThread();
                 thread.start();
             });
 
-            setStatusText(Component.translatableWithFallback(GENERATING_RESOURCEPACK, "generating resourcepack"));
+            setStatusText(Component.translatableWithFallback(GENERATING_DATAPACK, "generating datapack [%s]", "Starting thread"));
 
-            class ResourcepackThread extends Thread {
+            class DatapackThread extends Thread {
                 @Override
                 public void run() {
-                    DynamicResourcePackManager.INSTANCE.initialiseInternal();
+                    DynamicDataPackManager.INSTANCE.initialiseInternal((name, percentageStep) -> {
+                        setStatusText(Component.translatableWithFallback(GENERATING_DATAPACK, "generating datapack [%s]", name));
+                        currentProgress += percentageStep * GENERATION_STEP_PROGRESS_INCREASE;
+                    });
                 }
             }
-            Thread thread = new ResourcepackThread();
+            Thread thread = new DatapackThread();
             thread.start();
+
         } else {
-            this.currentProgress += 0.3333f;
+            this.currentProgress += 0.5f;
             resourceLoadFinished(packsToReEnable);
         }
         initResourcesCalled = true;
@@ -273,7 +276,7 @@ public class EVSResourceGenerationScreen extends Screen {
 
         repositionElements();
 
-        this.currentProgress += 0.3333f;
+        this.currentProgress += GENERATION_STEP_PROGRESS_INCREASE;
         this.loadFinished = true;
         this.closeAtTicks = this.age + 12;
     }

@@ -1,12 +1,11 @@
 package games.enchanted.verticalslabs.dynamic.pack_managers;
 
 import games.enchanted.verticalslabs.dynamic.resources.ResourceGenerationException;
-import net.minecraft.ResourceLocationException;
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public abstract class PackManager {
@@ -16,12 +15,12 @@ public abstract class PackManager {
     List<Runnable> completionCallbacks = new ArrayList<>();
     List<Consumer<ResourceGenerationException>> exceptionCallbacks = new ArrayList<>();
 
-    public void initialiseInternal() {
+    public void initialiseInternal(BiConsumer<String, Float> taskCompletionCallback) {
         if(hasBeenInitialised) return;
         if(isInitialising) throw new IllegalStateException("Cannot initialise dynamic pack: it is already being initialised");
         isInitialising = true;
         try {
-            initialiseResources();
+            initialiseResources(taskCompletionCallback);
         } catch (ResourceGenerationException e) {
             exceptionCallbacks.forEach((callback) -> callback.accept(e));
             clearCallbacks();
@@ -31,7 +30,7 @@ public abstract class PackManager {
     /**
      * Generate all resources here
      */
-    abstract void initialiseResources() throws ResourceGenerationException;
+    abstract void initialiseResources(BiConsumer<String, Float> taskCompletionCallback) throws ResourceGenerationException;
 
     /**
      * Call this when all the resources have been generated

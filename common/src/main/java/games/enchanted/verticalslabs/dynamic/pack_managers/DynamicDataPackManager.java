@@ -13,13 +13,12 @@ import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.registries.VanillaRegistries;
 import net.minecraft.server.packs.PackType;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.BiConsumer;
 
 public class DynamicDataPackManager extends PackManager {
     public static DynamicDataPackManager INSTANCE = new DynamicDataPackManager();
@@ -29,7 +28,7 @@ public class DynamicDataPackManager extends PackManager {
     private DynamicDataPackManager() {}
 
     @Override
-    void initialiseResources() {
+    void initialiseResources(BiConsumer<String, Float> taskCompletionCallback) {
         if(DynamicVerticalSlabs.DYNAMIC_SLAB_BLOCKS.isEmpty()) {
             complete(false);
             return;
@@ -47,7 +46,7 @@ public class DynamicDataPackManager extends PackManager {
 
         CompletableFuture<?> asyncTasks;
         try {
-            asyncTasks = dataGenerator.run();
+            asyncTasks = dataGenerator.run(taskCompletionCallback);
         } catch (IOException e) {
             throw new ResourceGenerationException("[Dynamic Datapack]: Initialising datagenerators", e);
         }

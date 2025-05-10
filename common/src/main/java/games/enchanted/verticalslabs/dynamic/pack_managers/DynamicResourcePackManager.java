@@ -30,7 +30,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
+import java.util.function.BiConsumer;
 
 public class DynamicResourcePackManager extends PackManager {
     public static DynamicResourcePackManager INSTANCE = new DynamicResourcePackManager();
@@ -45,7 +45,7 @@ public class DynamicResourcePackManager extends PackManager {
     private DynamicResourcePackManager() {}
 
     @Override
-    public void initialiseResources() throws ResourceGenerationException {
+    public void initialiseResources(BiConsumer<String, Float> taskCompletionCallback) throws ResourceGenerationException {
         if(DynamicVerticalSlabs.DYNAMIC_SLAB_BLOCKS.isEmpty()) {
             complete(false);
             return;
@@ -53,12 +53,14 @@ public class DynamicResourcePackManager extends PackManager {
         EnchantedVerticalSlabsLogging.info("Initialising Dynamic Resource Pack");
         EVSDynamicResources.INSTANCE.clearDirectory(PackType.CLIENT_RESOURCES);
 
+        taskCompletionCallback.accept("Blockstates and Models", 0.1f);
         addBlockstatesAndModels();
+        taskCompletionCallback.accept("Item Model Definitions", 0.1f);
         addItemDefinitions();
 
         CompletableFuture<?> asyncTasks;
         try {
-            asyncTasks = dataGenerator.run();
+            asyncTasks = dataGenerator.run((name, percentage) -> taskCompletionCallback.accept(name, percentage * 0.8f));
         } catch (IOException e) {
             throw new ResourceGenerationException("[Dynamic Resourcepack]: Initialising datagenerators", e);
         }
