@@ -1,27 +1,36 @@
 package games.enchanted.verticalslabs.dynamic.pack_managers;
 
+import games.enchanted.verticalslabs.dynamic.resources.ResourceGenerationException;
+import net.minecraft.ResourceLocationException;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public abstract class PackManager {
     boolean hasBeenInitialised = false;
     boolean isInitialising = false;
     List<Runnable> reloadCallbacks = new ArrayList<>();
     List<Runnable> completionCallbacks = new ArrayList<>();
+    List<Consumer<ResourceGenerationException>> exceptionCallbacks = new ArrayList<>();
 
     public void initialiseInternal() {
         if(hasBeenInitialised) return;
         if(isInitialising) throw new IllegalStateException("Cannot initialise dynamic pack: it is already being initialised");
         isInitialising = true;
-        initialiseResources();
+        try {
+            initialiseResources();
+        } catch (ResourceGenerationException e) {
+            exceptionCallbacks.forEach((callback) -> callback.accept(e));
+        }
     }
 
     /**
      * Generate all resources here
      */
-    abstract void initialiseResources();
+    abstract void initialiseResources() throws ResourceGenerationException;
 
     /**
      * Call this when all the resources have been generated
@@ -62,6 +71,10 @@ public abstract class PackManager {
         reloadCallbacks.add(reloadCallback);
     }
 
+    protected boolean hasReloadCallbacks() {
+        return !reloadCallbacks.isEmpty();
+    }
+
     /**
      * Add a runnable that gets called when this pack has been fully initialised
      *
@@ -71,7 +84,12 @@ public abstract class PackManager {
         completionCallbacks.add(completionCallback);
     }
 
-    protected boolean hasReloadCallbacks() {
-        return !reloadCallbacks.isEmpty();
+    /**
+     * Add a runnable that gets called when a {@link ResourceGenerationException} is thrown
+     *
+     * @param exceptionCallback the callback to run on completion
+     */
+    public void addExceptionCallback(Consumer<ResourceGenerationException> exceptionCallback) {
+        exceptionCallbacks.add(exceptionCallback);
     }
 }

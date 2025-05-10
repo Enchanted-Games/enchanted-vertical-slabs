@@ -14,6 +14,7 @@ import games.enchanted.verticalslabs.dynamic.datagen.DynamicDataGenerator;
 import games.enchanted.verticalslabs.dynamic.datagen.provider.DynamicItemDefinitionProvider;
 import games.enchanted.verticalslabs.dynamic.pack.EVSDynamicResources;
 import games.enchanted.verticalslabs.dynamic.resources.BlockStateFile;
+import games.enchanted.verticalslabs.dynamic.resources.ResourceGenerationException;
 import games.enchanted.verticalslabs.util.DirectionUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;
@@ -29,6 +30,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 
 public class DynamicResourcePackManager extends PackManager {
     public static DynamicResourcePackManager INSTANCE = new DynamicResourcePackManager();
@@ -43,7 +45,7 @@ public class DynamicResourcePackManager extends PackManager {
     private DynamicResourcePackManager() {}
 
     @Override
-    public void initialiseResources() {
+    public void initialiseResources() throws ResourceGenerationException {
         if(DynamicVerticalSlabs.DYNAMIC_SLAB_BLOCKS.isEmpty()) {
             complete(false);
             return;
@@ -58,20 +60,19 @@ public class DynamicResourcePackManager extends PackManager {
         try {
             asyncTasks = dataGenerator.run();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new ResourceGenerationException("[Dynamic Resourcepack]: Initialising datagenerators", e);
         }
 
-        asyncTasks.thenRun(() -> {
-            complete(true, () -> {
-                EnchantedVerticalSlabsLogging.info("[Dynamic Resourcepack]: Async datagenerators completed successfully");
-                EnchantedVerticalSlabsLogging.info("[Dynamic Resourcepack]: Reloading resourcepacks to apply changes");
-            });
-        })
-        .exceptionally((exception) -> {
-            EnchantedVerticalSlabsLogging.info("[Dynamic Resourcepack]: Errors occurred while running datagenerators");
-            exception.printStackTrace();
-            throw new RuntimeException(exception);
-        });
+        CompletableFuture<Void> completionStage = asyncTasks.thenRun(() -> complete(true, () -> {
+            EnchantedVerticalSlabsLogging.info("[Dynamic Resourcepack]: Async datagenerators completed successfully");
+        }));
+
+        try {
+            completionStage.get();
+        } catch (Throwable e) {
+            EnchantedVerticalSlabsLogging.info("[Dynamic Resourcepack]: Errors occurred while running datagenerators\n {}", e);
+            throw new ResourceGenerationException("[Dynamic Resourcepack]: Errors occurred while running datagenerators", e);
+        }
     }
 
     private static void addItemDefinitions() {
@@ -154,6 +155,7 @@ public class DynamicResourcePackManager extends PackManager {
 
         } else if(slabBlockStateFile.multipart().isPresent()) {
             // file uses multipart
+            // TODO: possible multipart model support
             return null;
         }
         return null;
@@ -206,7 +208,7 @@ public class DynamicResourcePackManager extends PackManager {
         // add new vertical slab model to dynamic resource pack
         ResourceLocation newModelLocation = ResourceLocation.fromNamespaceAndPath(
             EnchantedVerticalSlabsConstants.LEGACY_NAMESPACE,
-            "block/" + model.model.getNamespace() + "/" + model.model.getPath().replaceFirst("^block\\/", "")
+            "block/" + model.model.getNamespace() + "/vertical_" + model.model.getPath().replaceFirst("^block/", "")
         );
         EnchantedVerticalSlabsLogging.debug("ADDED MODEL: {}", newModelLocation);
         EVSDynamicResources.INSTANCE.addModel(newModelLocation, parsedModelFile.toString());

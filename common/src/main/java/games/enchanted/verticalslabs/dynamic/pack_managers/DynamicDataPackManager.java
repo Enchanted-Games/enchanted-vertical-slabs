@@ -6,17 +6,20 @@ import games.enchanted.verticalslabs.dynamic.datagen.DynamicDataGenerator;
 import games.enchanted.verticalslabs.dynamic.datagen.provider.DynamicBlockLoot;
 import games.enchanted.verticalslabs.dynamic.datagen.provider.DynamicBlockRecipeProvider;
 import games.enchanted.verticalslabs.dynamic.pack.EVSDynamicResources;
+import games.enchanted.verticalslabs.dynamic.resources.ResourceGenerationException;
 import games.enchanted.verticalslabs.platform.Services;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.registries.VanillaRegistries;
 import net.minecraft.server.packs.PackType;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class DynamicDataPackManager extends PackManager {
     public static DynamicDataPackManager INSTANCE = new DynamicDataPackManager();
@@ -46,21 +49,18 @@ public class DynamicDataPackManager extends PackManager {
         try {
             asyncTasks = dataGenerator.run();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new ResourceGenerationException("[Dynamic Datapack]: Initialising datagenerators", e);
         }
 
-        asyncTasks.thenRun(() -> {
-            complete(true, () -> {
-                EnchantedVerticalSlabsLogging.info("[Dynamic Datapack]: Async datagenerators completed successfully");
-                if(this.hasReloadCallbacks()) {
-                    EnchantedVerticalSlabsLogging.info("[Dynamic Datapack]: Reloading datapacks to apply changes");
-                }
-            });
-        })
-        .exceptionally((exception) -> {
-            EnchantedVerticalSlabsLogging.info("[Dynamic Datapack]: Errors occurred while running datagenerators");
-            exception.printStackTrace();
-            throw new RuntimeException(exception);
-        });
+        CompletableFuture<Void> completionStage = asyncTasks.thenRun(() -> complete(true, () -> {
+            EnchantedVerticalSlabsLogging.info("[Dynamic Datapack]: Async datagenerators completed successfully");
+        }));
+
+        try {
+            completionStage.get();
+        } catch (Throwable e) {
+            EnchantedVerticalSlabsLogging.info("[Dynamic Datapack]: Errors occurred while running datagenerators\n {}", e);
+            throw new ResourceGenerationException("[Dynamic Datapack]: Errors occurred while running datagenerators", e);
+        }
     }
 }

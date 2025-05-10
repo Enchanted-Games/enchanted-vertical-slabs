@@ -3,6 +3,7 @@ package games.enchanted.verticalslabs.dynamic.pack;
 import com.google.common.base.Joiner;
 import com.google.common.base.Supplier;
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsLogging;
+import games.enchanted.verticalslabs.dynamic.resources.ResourceGenerationException;
 import games.enchanted.verticalslabs.platform.Services;
 import games.enchanted.verticalslabs.util.ArrayUtil;
 import games.enchanted.verticalslabs.util.FilesystemUtil;
@@ -21,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
@@ -110,8 +112,10 @@ public abstract class AbstractDynamicPack implements PackResources {
         Path directoryToRemove = ROOT_DIRECTORY.resolve(packType.getDirectory());
         try (Stream<Path> paths = Files.walk(directoryToRemove)) {
             paths.sorted(Comparator.reverseOrder()).map(Path::toFile).forEach(File::delete);
-        } catch (IOException e) {
-            EnchantedVerticalSlabsLogging.warn(getLogPrefix() + "Error while clearing " + packType.getDirectory() + " directory.\n" + e);
+        }
+        catch (NoSuchFileException ignored) {}
+        catch (IOException e) {
+            throw new ResourceGenerationException("Clearing" + packType.getDirectory() + " directory", e);
         }
     }
 
