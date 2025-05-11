@@ -21,8 +21,13 @@ public abstract class PackManager {
         isInitialising = true;
         try {
             initialiseResources(taskCompletionCallback);
-        } catch (ResourceGenerationException e) {
+        }
+        catch (ResourceGenerationException e) {
             exceptionCallbacks.forEach((callback) -> callback.accept(e));
+            clearCallbacks();
+        }
+        catch (Exception e) {
+            exceptionCallbacks.forEach((callback) -> callback.accept(new ResourceGenerationException("Unknown", e)));
             clearCallbacks();
         }
     }

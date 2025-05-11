@@ -283,6 +283,8 @@ public class EVSResourceGenerationScreen extends Screen {
 
     protected void finishedWithErrors(ResourceGenerationException exception, Collection<String> packsToReEnable) {
         EnchantedVerticalSlabsLogging.info("[Resource Generation]: Generation did not finish correctly. Re-enabling resourcepacks and showing error screen.");
+        EnchantedVerticalSlabsLogging.error(exception.getFullErrorAndStacktrace());
+        
         ResourcepackUtil.reEnableResourcepacks(packsToReEnable);
 
         setStatusText(Component.literal(exception.getCauseMessage()));

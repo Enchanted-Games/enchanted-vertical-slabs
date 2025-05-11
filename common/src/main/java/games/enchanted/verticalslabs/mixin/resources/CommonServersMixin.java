@@ -42,13 +42,7 @@ public abstract class CommonServersMixin extends MinecraftServer implements Serv
             DynamicDataPackManager.INSTANCE.addExceptionCallback((e) -> {
                 this.evs$dynamicResourcesPercentage = 0f;
                 EnchantedVerticalSlabsLogging.error("[Dynamic Datapack]: An error occurred that is preventing EVS from generating its resources, details will be printed below.\nPlease restart the server and report this error if it persists (issue tracker '{}').\nAlternatively you may continue, however you may run into buggy and broken behaviour.", EnchantedVerticalSlabsConstants.ISSUE_TRACKER);
-                EnchantedVerticalSlabsLogging.error(e.getCauseMessage());
-                EnchantedVerticalSlabsLogging.error(e.getCause().toString());
-                StringBuilder stacktrace = new StringBuilder();
-                for (StackTraceElement line : e.getCause().getStackTrace()) {
-                    stacktrace.append(line).append("\n");
-                }
-                EnchantedVerticalSlabsLogging.error(stacktrace.toString());
+                EnchantedVerticalSlabsLogging.error(e.getFullErrorAndStacktrace());
             });
 
             DynamicDataPackManager.INSTANCE.initialiseInternal((name, percentageStep) -> {

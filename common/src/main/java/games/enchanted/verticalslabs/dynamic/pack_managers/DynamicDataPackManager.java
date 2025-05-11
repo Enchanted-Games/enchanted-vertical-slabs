@@ -28,7 +28,7 @@ public class DynamicDataPackManager extends PackManager {
     private DynamicDataPackManager() {}
 
     @Override
-    void initialiseResources(BiConsumer<String, Float> taskCompletionCallback) {
+    void initialiseResources(BiConsumer<String, Float> taskCompletionCallback) throws ResourceGenerationException {
         if(DynamicVerticalSlabs.DYNAMIC_SLAB_BLOCKS.isEmpty()) {
             complete(false);
             return;
