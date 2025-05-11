@@ -2,7 +2,7 @@ package games.enchanted.verticalslabs.block;
 
 import games.enchanted.verticalslabs.block.vertical_slab.DynamicVerticalSlabBlock;
 import games.enchanted.verticalslabs.dynamic.DynamicSlab;
-import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabs;
+import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabsManager;
 import games.enchanted.verticalslabs.platform.Services;
 import games.enchanted.verticalslabs.registry.RegistryHelpers;
 import net.minecraft.world.item.HoneycombItem;
@@ -23,17 +23,17 @@ public class WeatheringCopperUtil {
             Optional<BlockState> waxedSlabBlock = HoneycombItem.getWaxed(regularSlabBlock.defaultBlockState());
             if (nextOxidationSlabBlock.isEmpty() && waxedSlabBlock.isEmpty()) continue;
 
-            @Nullable DynamicVerticalSlabBlock verticalSlabBlock = DynamicVerticalSlabs.NORMAL_TO_VERTICAL_SLAB_MAP.get(regularSlabBlock);
+            @Nullable DynamicVerticalSlabBlock verticalSlabBlock = DynamicVerticalSlabsManager.NORMAL_TO_VERTICAL_SLAB_MAP.get(regularSlabBlock);
             if(verticalSlabBlock == null) continue;
 
             if(nextOxidationSlabBlock.isPresent()) {
-                @Nullable DynamicVerticalSlabBlock nextOxidationVerticalSlabBlock = DynamicVerticalSlabs.NORMAL_TO_VERTICAL_SLAB_MAP.get(nextOxidationSlabBlock.get());
+                @Nullable DynamicVerticalSlabBlock nextOxidationVerticalSlabBlock = DynamicVerticalSlabsManager.NORMAL_TO_VERTICAL_SLAB_MAP.get(nextOxidationSlabBlock.get());
                 if (nextOxidationVerticalSlabBlock != null) {
                     Services.PLATFORM.addWeatheringBlockPair(verticalSlabBlock, nextOxidationVerticalSlabBlock);
                 }
             }
             if(waxedSlabBlock.isPresent()) {
-                @Nullable DynamicVerticalSlabBlock waxedVerticalSlabBlock = DynamicVerticalSlabs.NORMAL_TO_VERTICAL_SLAB_MAP.get(waxedSlabBlock.get().getBlock());
+                @Nullable DynamicVerticalSlabBlock waxedVerticalSlabBlock = DynamicVerticalSlabsManager.NORMAL_TO_VERTICAL_SLAB_MAP.get(waxedSlabBlock.get().getBlock());
                 if(waxedVerticalSlabBlock != null) {
                     Services.PLATFORM.addWaxableBlockPair(verticalSlabBlock, waxedVerticalSlabBlock);
                 }

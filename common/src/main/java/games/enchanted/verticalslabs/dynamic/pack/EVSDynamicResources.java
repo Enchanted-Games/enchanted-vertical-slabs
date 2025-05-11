@@ -20,7 +20,7 @@ public class EVSDynamicResources extends AbstractDynamicPack {
         Set.of(EnchantedVerticalSlabsConstants.LEGACY_NAMESPACE),
         Set.of(EnchantedVerticalSlabsConstants.LEGACY_NAMESPACE, "neoforge")
     );
-    public static final PackSelectionConfig PACK_SELECTION_CONFIG = new PackSelectionConfig(true, Pack.Position.TOP, false);
+    public static final PackSelectionConfig PACK_SELECTION_CONFIG = new PackSelectionConfig(true, Pack.Position.BOTTOM, false);
 
     public EVSDynamicResources(String packId, Component packName, Set<String> clientNamespaces, Set<String> serverNamespaces) {
         super(packId, packName, clientNamespaces, serverNamespaces, EnchantedVerticalSlabsMod.getEVSModDirectory());

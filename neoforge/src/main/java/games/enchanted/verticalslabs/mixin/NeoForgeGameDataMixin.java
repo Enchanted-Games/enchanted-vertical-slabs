@@ -1,6 +1,6 @@
 package games.enchanted.verticalslabs.mixin;
 
-import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabs;
+import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabsManager;
 import net.neoforged.neoforge.registries.GameData;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -14,6 +14,6 @@ public abstract class NeoForgeGameDataMixin {
         at = @At("HEAD")
     )
     private static void endOfRegistration(CallbackInfo ci) {
-        DynamicVerticalSlabs.registerDynamicSlabs();
+        DynamicVerticalSlabsManager.registerDynamicSlabs();
     }
 }

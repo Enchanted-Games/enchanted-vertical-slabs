@@ -3,7 +3,8 @@ package games.enchanted.verticalslabs.mixin.resources;
 import com.mojang.datafixers.DataFixer;
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsLogging;
-import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabs;
+import games.enchanted.verticalslabs.config.dynamic.DynamicResourcesSettingsFile;
+import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabsManager;
 import games.enchanted.verticalslabs.dynamic.pack_managers.DynamicDataPackManager;
 import net.minecraft.gametest.framework.GameTestServer;
 import net.minecraft.server.MinecraftServer;
@@ -35,9 +36,12 @@ public abstract class CommonServersMixin extends MinecraftServer implements Serv
         method = "initServer"
     )
     public void evs$checkAndReloadIfDynamicDataPackRequiresIt(CallbackInfoReturnable<Boolean> cir) {
-        if(DynamicVerticalSlabs.newSlabsSinceLastLaunch()) {
+        if(DynamicVerticalSlabsManager.resourcesNeedRegenerating()) {
             DynamicDataPackManager.INSTANCE.addReloadCallback(() -> reloadResources(getPackRepository().getSelectedIds()));
-            DynamicDataPackManager.INSTANCE.addCompletionCallback(() -> this.evs$dynamicResourcesPercentage = 0f);
+            DynamicDataPackManager.INSTANCE.addCompletionCallback(() -> {
+                this.evs$dynamicResourcesPercentage = 0f;
+                DynamicResourcesSettingsFile.INSTANCE.resetForceRegenerateToFalse();
+            });
 
             DynamicDataPackManager.INSTANCE.addExceptionCallback((e) -> {
                 this.evs$dynamicResourcesPercentage = 0f;

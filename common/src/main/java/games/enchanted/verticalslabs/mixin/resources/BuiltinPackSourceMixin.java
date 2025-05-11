@@ -1,6 +1,6 @@
 package games.enchanted.verticalslabs.mixin.resources;
 
-import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabs;
+import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabsManager;
 import games.enchanted.verticalslabs.dynamic.pack.EVSDynamicResources;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.BuiltInPackSource;
@@ -21,7 +21,7 @@ public abstract class BuiltinPackSourceMixin {
         method = "listBundledPacks"
     )
     private void evs$listDynamicPacks(Consumer<Pack> packConsumer, CallbackInfo ci) {
-        if(DynamicVerticalSlabs.DYNAMIC_SLAB_BLOCKS.isEmpty()) return;
+        if(DynamicVerticalSlabsManager.DYNAMIC_SLAB_BLOCKS.isEmpty()) return;
         packConsumer.accept(evs$createDynamicPack(PackType.CLIENT_RESOURCES));
         packConsumer.accept(evs$createDynamicPack(PackType.SERVER_DATA));
     }

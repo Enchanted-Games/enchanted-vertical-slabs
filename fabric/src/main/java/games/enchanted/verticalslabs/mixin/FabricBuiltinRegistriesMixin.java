@@ -1,6 +1,6 @@
 package games.enchanted.verticalslabs.mixin;
 
-import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabs;
+import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabsManager;
 import net.minecraft.core.registries.BuiltInRegistries;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -14,6 +14,6 @@ public abstract class FabricBuiltinRegistriesMixin {
         method = "freeze"
     )
     private static void freeze(CallbackInfo ci) {
-        DynamicVerticalSlabs.registerDynamicSlabs();
+        DynamicVerticalSlabsManager.registerDynamicSlabs();
     }
 }

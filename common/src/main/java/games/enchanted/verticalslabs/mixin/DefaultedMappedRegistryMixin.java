@@ -2,7 +2,7 @@ package games.enchanted.verticalslabs.mixin;
 
 import com.mojang.serialization.Lifecycle;
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsLogging;
-import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabs;
+import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabsManager;
 import net.minecraft.core.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -27,11 +27,11 @@ public abstract class DefaultedMappedRegistryMixin<T> extends MappedRegistry<T> 
         if(key().equals(Registries.BLOCK) && value instanceof SlabBlock) {
             if(key.location().getNamespace().equals("minecraft")) {
                 EnchantedVerticalSlabsLogging.info("Registered a Vanilla SlabBlock: " + key.location());
-                DynamicVerticalSlabs.addDynamicSlabForVanilla(key.location());
+                DynamicVerticalSlabsManager.addDynamicSlabForVanilla(key.location());
                 return;
             }
             EnchantedVerticalSlabsLogging.info("Registered a SlabBlock: " + key.location());
-            DynamicVerticalSlabs.addDynamicSlab(key.location());
+            DynamicVerticalSlabsManager.addDynamicSlab(key.location());
         }
     }
 }

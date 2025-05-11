@@ -2,7 +2,8 @@ package games.enchanted.verticalslabs.ui;
 
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsLogging;
-import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabs;
+import games.enchanted.verticalslabs.config.dynamic.DynamicResourcesSettingsFile;
+import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabsManager;
 import games.enchanted.verticalslabs.dynamic.pack_managers.DynamicDataPackManager;
 import games.enchanted.verticalslabs.dynamic.pack_managers.DynamicResourcePackManager;
 import games.enchanted.verticalslabs.dynamic.resources.ResourceGenerationException;
@@ -219,7 +220,7 @@ public class EVSResourceGenerationScreen extends Screen {
     }
 
     protected void initResources(Collection<String> packsToReEnable) {
-        if(DynamicVerticalSlabs.newSlabsSinceLastLaunch() && !initResourcesCalled) {
+        if(DynamicVerticalSlabsManager.resourcesNeedRegenerating() && !initResourcesCalled) {
             DynamicDataPackManager.INSTANCE.addExceptionCallback((e) -> finishedWithErrors(e, packsToReEnable));
             DynamicResourcePackManager.INSTANCE.addExceptionCallback((e) -> finishedWithErrors(e, packsToReEnable));
 
@@ -279,6 +280,8 @@ public class EVSResourceGenerationScreen extends Screen {
         this.currentProgress += GENERATION_STEP_PROGRESS_INCREASE;
         this.loadFinished = true;
         this.closeAtTicks = this.age + 12;
+
+        DynamicResourcesSettingsFile.INSTANCE.resetForceRegenerateToFalse();
     }
 
     protected void finishedWithErrors(ResourceGenerationException exception, Collection<String> packsToReEnable) {
@@ -316,7 +319,7 @@ public class EVSResourceGenerationScreen extends Screen {
 
     @Override
     public boolean shouldCloseOnEsc() {
-        return this.loadFinished || !DynamicVerticalSlabs.newSlabsSinceLastLaunch();
+        return this.loadFinished || !DynamicVerticalSlabsManager.resourcesNeedRegenerating();
     }
 
     @Override
@@ -326,7 +329,7 @@ public class EVSResourceGenerationScreen extends Screen {
     }
 
     public static boolean shouldDisplayOnGameLoad() {
-        return DynamicVerticalSlabs.newSlabsSinceLastLaunch();
+        return DynamicVerticalSlabsManager.resourcesNeedRegenerating();
     }
 
     public static Screen create(Runnable onCloseCallback) {

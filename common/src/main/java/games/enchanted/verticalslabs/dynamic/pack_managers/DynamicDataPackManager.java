@@ -1,7 +1,7 @@
 package games.enchanted.verticalslabs.dynamic.pack_managers;
 
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsLogging;
-import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabs;
+import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabsManager;
 import games.enchanted.verticalslabs.dynamic.datagen.DynamicDataGenerator;
 import games.enchanted.verticalslabs.dynamic.datagen.provider.DynamicBlockLoot;
 import games.enchanted.verticalslabs.dynamic.datagen.provider.DynamicBlockRecipeProvider;
@@ -29,7 +29,7 @@ public class DynamicDataPackManager extends PackManager {
 
     @Override
     void initialiseResources(BiConsumer<String, Float> taskCompletionCallback) throws ResourceGenerationException {
-        if(DynamicVerticalSlabs.DYNAMIC_SLAB_BLOCKS.isEmpty()) {
+        if(DynamicVerticalSlabsManager.DYNAMIC_SLAB_BLOCKS.isEmpty()) {
             complete(false);
             return;
         }

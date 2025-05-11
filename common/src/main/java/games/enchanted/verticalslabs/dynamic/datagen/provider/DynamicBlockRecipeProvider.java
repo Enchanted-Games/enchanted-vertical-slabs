@@ -1,7 +1,7 @@
 package games.enchanted.verticalslabs.dynamic.datagen.provider;
 
 import games.enchanted.verticalslabs.dynamic.DynamicSlab;
-import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabs;
+import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabsManager;
 import games.enchanted.verticalslabs.registry.RegistryHelpers;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -24,7 +24,7 @@ public class DynamicBlockRecipeProvider extends RecipeProvider {
 
     @Override
     public void buildRecipes() {
-        for (DynamicSlab slab : DynamicVerticalSlabs.DYNAMIC_SLAB_BLOCKS) {
+        for (DynamicSlab slab : DynamicVerticalSlabsManager.DYNAMIC_SLAB_BLOCKS) {
             Block regularSlab = RegistryHelpers.getBlockFromLocation(slab.getOriginalSlabLocation());
             Block verticalSlab = RegistryHelpers.getBlockFromLocation(slab.getVerticalSlabLocation());
             Optional<ResourceLocation> regularBlockLocation = slab.getRegularBlockLocation();

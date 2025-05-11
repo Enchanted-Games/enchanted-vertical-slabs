@@ -2,7 +2,7 @@ package games.enchanted.verticalslabs.mixin.resources;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import games.enchanted.verticalslabs.block.vertical_slab.DynamicVerticalSlabBlock;
-import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabs;
+import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabsManager;
 import games.enchanted.verticalslabs.mixin.invoker.SingleItemRecipeInvoker;
 import games.enchanted.verticalslabs.registry.RegistryHelpers;
 import net.minecraft.core.registries.Registries;
@@ -34,7 +34,7 @@ public class RecipeManagerMixin {
     private static void evs$appendStonecutterRecipesForVerticalSlabs(List<RecipeManager.IngredientCollector> ingredientCollectors, FeatureFlagSet enabledFeatures, List<SelectableRecipe.SingleInputEntry<StonecutterRecipe>> stonecutterRecipes, RecipeHolder<?> recipeHolder, CallbackInfo ci, @Local StonecutterRecipe stonecutterRecipe) {
         if(!(((SingleItemRecipeInvoker) stonecutterRecipe).evs$getResult().getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof SlabBlock slabBlock)) return;
 
-        DynamicVerticalSlabBlock verticalSlabBlock = DynamicVerticalSlabs.NORMAL_TO_VERTICAL_SLAB_MAP.get(slabBlock);
+        DynamicVerticalSlabBlock verticalSlabBlock = DynamicVerticalSlabsManager.NORMAL_TO_VERTICAL_SLAB_MAP.get(slabBlock);
         if(verticalSlabBlock == null) return;
 
         ResourceLocation verticalSlabLocation = RegistryHelpers.getLocationFromBlock(verticalSlabBlock);

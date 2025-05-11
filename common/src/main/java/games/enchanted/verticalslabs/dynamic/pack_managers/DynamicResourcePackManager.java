@@ -9,7 +9,7 @@ import com.mojang.serialization.JsonOps;
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsLogging;
 import games.enchanted.verticalslabs.dynamic.DynamicSlab;
-import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabs;
+import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabsManager;
 import games.enchanted.verticalslabs.dynamic.datagen.DynamicDataGenerator;
 import games.enchanted.verticalslabs.dynamic.datagen.provider.DynamicItemDefinitionProvider;
 import games.enchanted.verticalslabs.dynamic.pack.EVSDynamicResources;
@@ -46,7 +46,7 @@ public class DynamicResourcePackManager extends PackManager {
 
     @Override
     public void initialiseResources(BiConsumer<String, Float> taskCompletionCallback) throws ResourceGenerationException {
-        if(DynamicVerticalSlabs.DYNAMIC_SLAB_BLOCKS.isEmpty()) {
+        if(DynamicVerticalSlabsManager.DYNAMIC_SLAB_BLOCKS.isEmpty()) {
             complete(false);
             return;
         }
@@ -82,7 +82,7 @@ public class DynamicResourcePackManager extends PackManager {
     }
 
     private static void addBlockstatesAndModels() {
-        for (DynamicSlab slab : DynamicVerticalSlabs.DYNAMIC_SLAB_BLOCKS) {
+        for (DynamicSlab slab : DynamicVerticalSlabsManager.DYNAMIC_SLAB_BLOCKS) {
             String blockStateFile = generateBlockStateFileForSlab(slab);
             if(blockStateFile == null) {
                 EnchantedVerticalSlabsLogging.error("Failed to generate blockstate definition file for: {}", slab.getVerticalSlabLocation());

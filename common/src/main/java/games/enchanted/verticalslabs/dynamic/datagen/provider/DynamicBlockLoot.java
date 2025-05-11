@@ -1,7 +1,7 @@
 package games.enchanted.verticalslabs.dynamic.datagen.provider;
 
 import games.enchanted.verticalslabs.block.vertical_slab.BaseVerticalSlabBlock;
-import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabs;
+import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabsManager;
 import games.enchanted.verticalslabs.registry.RegistryHelpers;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate.Builder;
 import net.minecraft.core.HolderLookup;
@@ -47,8 +47,8 @@ public class DynamicBlockLoot extends BlockLootSubProvider {
 
     @Override
     public void generate(@NotNull BiConsumer<ResourceKey<LootTable>, LootTable.Builder> output) {
-        for (int i = 0; i < DynamicVerticalSlabs.DYNAMIC_SLAB_BLOCKS.size(); i++) {
-            ResourceLocation dynamicSlabBlockLocation = DynamicVerticalSlabs.DYNAMIC_SLAB_BLOCKS.get(i).getVerticalSlabLocation();
+        for (int i = 0; i < DynamicVerticalSlabsManager.DYNAMIC_SLAB_BLOCKS.size(); i++) {
+            ResourceLocation dynamicSlabBlockLocation = DynamicVerticalSlabsManager.DYNAMIC_SLAB_BLOCKS.get(i).getVerticalSlabLocation();
             Block block = RegistryHelpers.getBlockFromLocation(dynamicSlabBlockLocation);
             if(block.getLootTable().isEmpty()) continue;
             ResourceKey<LootTable> table = block.getLootTable().get();
