@@ -296,6 +296,8 @@ public class EVSResourceGenerationScreen extends Screen {
         LinearLayout horizontalButtonLayout = this.headerAndFooterLayout.addToFooter(LinearLayout.horizontal().spacing(8));
         Button quitButton = horizontalButtonLayout.addChild(
             Button.builder(Component.translatable(QUIT), (button) -> {
+                DynamicResourcesSettingsFile.INSTANCE.setForceRegenerate(true);
+                DynamicResourcesSettingsFile.INSTANCE.writeSettingsFile();
                 assert this.minecraft != null;
                 this.minecraft.stop();
             }).build()
