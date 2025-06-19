@@ -6,6 +6,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "CreativeModeTabsAccessor",
+    "FenceBlockMixin",
     "IronBarsBlockMixin",
     "WallBlockMixin"
   ],
