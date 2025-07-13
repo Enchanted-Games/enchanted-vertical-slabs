@@ -14,7 +14,7 @@ import java.util.function.Function;
 @Mixin(Minecraft.class)
 public class MinecraftMixin {
     @WrapOperation(
-        at = @At(value = "INVOKE", target = "Lcom/google/common/collect/Lists;reverse(Ljava/util/List;)Ljava/util/List;"),
+        at = @At(value = "INVOKE", target = "Lcom/google/common/collect/Lists;reverse(Ljava/util/List;)Ljava/util/List;", remap = false),
         method = "buildInitialScreens"
     )
     private List<Function<Runnable, Screen>> evs$addWelcomeScreen(List<Function<Runnable, Screen>> list, Operation<List<Function<Runnable, Screen>>> original) {

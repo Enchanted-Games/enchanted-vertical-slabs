@@ -21,23 +21,23 @@ public abstract class WallBlockMixin {
     @Final @Shadow
     public static BooleanProperty UP;
     @Final @Shadow
-    public static EnumProperty<WallSide> EAST_WALL;
-    @Final  @Shadow
-    public static EnumProperty<WallSide> NORTH_WALL;
+    public static EnumProperty<WallSide> EAST;
     @Final @Shadow
-    public static EnumProperty<WallSide> SOUTH_WALL;
+    public static EnumProperty<WallSide> NORTH;
     @Final @Shadow
-    public static EnumProperty<WallSide> WEST_WALL;
+    public static EnumProperty<WallSide> SOUTH;
+    @Final @Shadow
+    public static EnumProperty<WallSide> WEST;
 
     @Unique
     private boolean evs$isWallHorizontallyConnected(BlockState state) {
         return ((
-            state.getValue(NORTH_WALL) != WallSide.NONE && state.getValue(SOUTH_WALL) != WallSide.NONE &&
-            state.getValue(EAST_WALL) == WallSide.NONE && state.getValue(WEST_WALL) == WallSide.NONE
+            state.getValue(NORTH) != WallSide.NONE && state.getValue(SOUTH) != WallSide.NONE &&
+            state.getValue(EAST) == WallSide.NONE && state.getValue(WEST) == WallSide.NONE
         ) ||
         (
-            state.getValue(NORTH_WALL) == WallSide.NONE && state.getValue(SOUTH_WALL) == WallSide.NONE &&
-            state.getValue(EAST_WALL) != WallSide.NONE && state.getValue(WEST_WALL) != WallSide.NONE
+            state.getValue(NORTH) == WallSide.NONE && state.getValue(SOUTH) == WallSide.NONE &&
+            state.getValue(EAST) != WallSide.NONE && state.getValue(WEST) != WallSide.NONE
         ));
     }
 
@@ -72,10 +72,10 @@ public abstract class WallBlockMixin {
     private BlockState evs$connectWallUpToVerticalSlabAbove(BlockState original, LevelReader level, BlockState state, BlockPos pos, BlockState aboveState, boolean northConnection, boolean eastConnection, boolean southConnection, boolean westConnection) {
         if (!(aboveState.getBlock() instanceof BaseVerticalSlabBlock && aboveState.getValue(BaseVerticalSlabBlock.SINGLE))) return original;
         return original
-            .setValue(NORTH_WALL, evs$getWallSideForConnection(northConnection, original))
-            .setValue(EAST_WALL, evs$getWallSideForConnection(eastConnection, original))
-            .setValue(SOUTH_WALL, evs$getWallSideForConnection(southConnection, original))
-            .setValue(WEST_WALL, evs$getWallSideForConnection(westConnection, original))
+            .setValue(NORTH, evs$getWallSideForConnection(northConnection, original))
+            .setValue(EAST, evs$getWallSideForConnection(eastConnection, original))
+            .setValue(SOUTH, evs$getWallSideForConnection(southConnection, original))
+            .setValue(WEST, evs$getWallSideForConnection(westConnection, original))
             .setValue(UP, !evs$isWallHorizontallyConnected(original));
     }
 }

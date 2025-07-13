@@ -103,7 +103,7 @@ public class DynamicVerticalSlabBlock extends BaseVerticalSlabBlock {
     }
 
     @Override
-    public void fallOn(@NotNull Level level, @NotNull BlockState state, @NotNull BlockPos pos, @NotNull Entity entity, float fallDistance) {
+    public void fallOn(@NotNull Level level, @NotNull BlockState state, @NotNull BlockPos pos, @NotNull Entity entity, double fallDistance) {
         if(REGULAR_BLOCK == null) {
             super.fallOn(level, state, pos, entity, fallDistance);
             return;

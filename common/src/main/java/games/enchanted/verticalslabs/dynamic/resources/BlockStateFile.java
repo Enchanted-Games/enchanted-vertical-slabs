@@ -31,6 +31,7 @@ import java.util.function.Function;
 
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Either;
+import com.mojang.math.Quadrant;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -38,8 +39,10 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.client.resources.model.BlockModelRotation;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Property;
+import org.jetbrains.annotations.Nullable;
 
 public record BlockStateFile(Optional<Variants> variants, Optional<Multipart> multipart)
 {
@@ -445,7 +448,9 @@ public record BlockStateFile(Optional<Variants> variants, Optional<Multipart> mu
 		 * @param weight Weight of model part when used in a list of model parts. Must be positive.
 		 */
 		public Model(ResourceLocation model, int x, int y, boolean uvLock, int weight) {
-			if (BlockModelRotation.by(x, y) == null)
+			@Nullable Quadrant xQuadrant = getQuadrantFromRotation(x);
+			@Nullable Quadrant yQuadrant = getQuadrantFromRotation(y);
+			if (yQuadrant == null || xQuadrant == null)
 				throw new IllegalArgumentException(String.format("Invalid blockstate model part rotation: x=%s, y=%s (must be 0, 90, 180, or 270)", x, y));
 			if (weight < 1)
 				throw new IllegalArgumentException(String.format("Invalid blockstate model part weight %s: weight must be positive", weight));
@@ -517,5 +522,15 @@ public record BlockStateFile(Optional<Variants> variants, Optional<Multipart> mu
 			int y = (ordinal % 4) * 90;
 			return new Model(model, x, y, uvLock, weight);
 		}
+	}
+
+	public static @Nullable Quadrant getQuadrantFromRotation(int rot) {
+		return switch (Mth.positiveModulo(rot, 360)) {
+			case 0 -> Quadrant.R0;
+            case 90 -> Quadrant.R90;
+			case 180 -> Quadrant.R180;
+			case 270 -> Quadrant.R270;
+			default -> null;
+		};
 	}
 }

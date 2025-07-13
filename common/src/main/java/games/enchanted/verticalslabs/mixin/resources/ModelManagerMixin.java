@@ -2,10 +2,10 @@ package games.enchanted.verticalslabs.mixin.resources;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
+import games.enchanted.verticalslabs.block.vertical_slab.DynamicVerticalSlabBlock;
 import games.enchanted.verticalslabs.dynamic.pack_managers.DynamicResourcePackManager;
 import net.minecraft.client.resources.model.ModelManager;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.world.level.block.state.BlockState;
 import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -18,11 +18,11 @@ public abstract class ModelManagerMixin {
     )
     // suppresses the "Missing model for variant" warnings if the enchanted vertical slabs dynamic resourcepack hasn't been initialised yet
     private static void evs$suppressMissingModelWarningsConditionally(Logger instance, String logMessage, Object object, Operation<Void> original) {
-        if(!(object instanceof ModelResourceLocation modelLocation)) {
+        if(!(object instanceof BlockState state)) {
             original.call(instance, logMessage, object);
             return;
         }
-        if(!DynamicResourcePackManager.INSTANCE.hasBeenInitialised() && modelLocation.id().getNamespace().equals(EnchantedVerticalSlabsConstants.LEGACY_NAMESPACE)) {
+        if(!DynamicResourcePackManager.INSTANCE.hasBeenInitialised() && state.getBlock() instanceof DynamicVerticalSlabBlock) {
             return;
         }
         original.call(instance, logMessage, object);

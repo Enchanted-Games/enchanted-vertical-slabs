@@ -17,6 +17,7 @@ import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.Overlay;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -168,7 +169,7 @@ public class EVSResourceGenerationScreen extends Screen {
             statusText,
             this.width / 2,
             y + 3 + PROGRESS_BAR_HEIGHT + PROGRESS_BAR_BORDER_SIZE,
-            0xffffff
+            0xffffffff
         );
 
         if(errorStatusText != null) {
@@ -178,7 +179,7 @@ public class EVSResourceGenerationScreen extends Screen {
                 (this.width / 2) - 200,
                 y + 3 + PROGRESS_BAR_HEIGHT + PROGRESS_BAR_BORDER_SIZE + 12,
                 400,
-                0xffbbbb
+                0xffffbbbb
             );
             guiGraphics.drawWordWrap(
                 this.font,
@@ -186,14 +187,14 @@ public class EVSResourceGenerationScreen extends Screen {
                 (this.width / 2) - 200,
                 y + 3 + PROGRESS_BAR_HEIGHT + PROGRESS_BAR_BORDER_SIZE + 50,
                 400,
-                0xffffff
+                0xffffffff
             );
 
             return;
         }
 
         guiGraphics.blitSprite(
-            RenderType::guiTextured,
+            RenderPipelines.GUI_TEXTURED,
             LOADING_ICON,
             (this.width / 2) - (LOADING_ICON_SIZE  / 2) - 3,
             y - LOADING_ICON_SIZE,
@@ -202,7 +203,7 @@ public class EVSResourceGenerationScreen extends Screen {
         );
 
         guiGraphics.blitSprite(
-            RenderType::guiTextured,
+            RenderPipelines.GUI_TEXTURED,
             PROGRESS_BAR_FILL_SPRITE,
             x - PROGRESS_BAR_BORDER_SIZE,
             y - PROGRESS_BAR_BORDER_SIZE,
@@ -210,7 +211,7 @@ public class EVSResourceGenerationScreen extends Screen {
             height + (PROGRESS_BAR_BORDER_SIZE * 2)
         );
         guiGraphics.blitSprite(
-            RenderType::guiTextured,
+            RenderPipelines.GUI_TEXTURED,
             PROGRESS_BAR_BORDER_SPRITE,
             x - PROGRESS_BAR_BORDER_SIZE,
             y - PROGRESS_BAR_BORDER_SIZE,

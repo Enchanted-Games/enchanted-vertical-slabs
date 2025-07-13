@@ -3,6 +3,7 @@ package games.enchanted.verticalslabs.mixin.client;
 import games.enchanted.verticalslabs.dynamic.DynamicVerticalSlabsManager;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,7 +18,7 @@ public abstract class ItemBlockRenderTypesMixin {
         method = "getChunkRenderType",
         cancellable = true
     )
-    private static void evs$overrideRenderTypeForDynamicVerticalSlab(BlockState blockState, CallbackInfoReturnable<RenderType> cir) {
+    private static void evs$overrideRenderTypeForDynamicVerticalSlab(BlockState blockState, CallbackInfoReturnable<ChunkSectionLayer> cir) {
         Block originalBlock = blockState.getBlock();
         Block blockToGetRenderTypeOf = DynamicVerticalSlabsManager.VERTICAL_TO_NORMAL_SLAB_MAP.get(originalBlock);
         if(blockToGetRenderTypeOf == null) return;
