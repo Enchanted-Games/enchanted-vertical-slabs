@@ -1,30 +1,55 @@
 package games.enchanted.verticalslabs.mixin;
 
-import games.enchanted.verticalslabs.block.CullMode;
+import games.enchanted.verticalslabs.block.vertical_slab.BaseVerticalSlabBlock;
 import games.enchanted.verticalslabs.block.vertical_slab.DynamicVerticalSlabBlock;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(Block.class)
 public class BlockMixin {
-    @Inject(
+//    @Inject(
+//        at = @At("HEAD"),
+//        method = "shouldRenderFace",
+//        cancellable = true
+//    )
+//    private static void renderFace(BlockState currentFace, BlockState neighboringFace, Direction face, CallbackInfoReturnable<Boolean> cir) {
+//        if(neighboringFace.getBlock() instanceof DynamicVerticalSlabBlock dynamicBlock) {
+//            CullMode cullMode = dynamicBlock.shouldCullOtherBlock(neighboringFace, currentFace, face.getOpposite());
+//            if(cullMode.forceReturnValue) cir.setReturnValue(cullMode.cull);
+//        }
+//        if(currentFace.getBlock() instanceof DynamicVerticalSlabBlock dynamicBlock) {
+//            CullMode cullMode = dynamicBlock.shouldCullOtherBlock(currentFace, neighboringFace, face);
+//            if(cullMode.forceReturnValue) cir.setReturnValue(cullMode.cull);
+//        }
+//    }
+
+    @ModifyVariable(
         at = @At("HEAD"),
         method = "shouldRenderFace",
-        cancellable = true
+        ordinal = 0,
+        argsOnly = true
     )
-    private static void renderFace(BlockState currentFace, BlockState neighboringFace, Direction face, CallbackInfoReturnable<Boolean> cir) {
-        if(neighboringFace.getBlock() instanceof DynamicVerticalSlabBlock dynamicBlock) {
-            CullMode cullMode = dynamicBlock.shouldCullOtherBlock(neighboringFace, currentFace, face.getOpposite());
-            if(cullMode.forceReturnValue) cir.setReturnValue(cullMode.cull);
+    private static BlockState evs$modifyCurrentState(BlockState value) {
+        if(value.getBlock() instanceof DynamicVerticalSlabBlock dynamicVerticalSlabBlock && !value.getValue(BaseVerticalSlabBlock.SINGLE)) {
+            return dynamicVerticalSlabBlock.getRegularSlabDoubleState();
         }
-        if(currentFace.getBlock() instanceof DynamicVerticalSlabBlock dynamicBlock) {
-            CullMode cullMode = dynamicBlock.shouldCullOtherBlock(currentFace, neighboringFace, face);
-            if(cullMode.forceReturnValue) cir.setReturnValue(cullMode.cull);
+        return value;
+    }
+
+    @ModifyVariable(
+        at = @At("HEAD"),
+        method = "shouldRenderFace",
+        ordinal = 1,
+        argsOnly = true
+    )
+    private static BlockState evs$modifyNeighbouringState(BlockState value) {
+        if(value.getBlock() instanceof DynamicVerticalSlabBlock dynamicVerticalSlabBlock && !value.getValue(BaseVerticalSlabBlock.SINGLE)) {
+            return dynamicVerticalSlabBlock.getRegularSlabDoubleState();
         }
+        return value;
     }
 }

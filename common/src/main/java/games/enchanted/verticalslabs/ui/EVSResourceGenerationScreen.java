@@ -273,7 +273,7 @@ public class EVSResourceGenerationScreen extends Screen {
         );
         this.addRenderableWidget(buttonWidget);
 
-        ResourcepackUtil.reEnableResourcepacks(packsToReEnable);
+        ResourcepackUtil.reEnableResourcepacks(packsToReEnable, true);
 
         repositionElements();
 
