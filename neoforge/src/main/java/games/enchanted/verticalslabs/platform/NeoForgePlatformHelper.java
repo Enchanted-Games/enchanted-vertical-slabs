@@ -44,11 +44,6 @@ public class NeoForgePlatformHelper implements PlatformHelperInterface {
     }
 
     @Override
-    public void buildCreativeTabs() {
-        // no op
-    }
-
-    @Override
     public void addWaxableBlockPair(Block unwaxed, Block waxed) {
         CopperDatamapProvider.WAXABLE_PAIRS.put(unwaxed, waxed);
     }

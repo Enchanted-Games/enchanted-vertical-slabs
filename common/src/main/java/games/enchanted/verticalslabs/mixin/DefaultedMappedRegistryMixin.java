@@ -26,11 +26,11 @@ public abstract class DefaultedMappedRegistryMixin<T> extends MappedRegistry<T> 
         // if a SlabBlock is being registered to the BLOCK registry
         if(key().equals(Registries.BLOCK) && value instanceof SlabBlock) {
             if(key.location().getNamespace().equals("minecraft")) {
-                EnchantedVerticalSlabsLogging.info("Registered a Vanilla SlabBlock: " + key.location());
+                EnchantedVerticalSlabsLogging.debug("Registered a Vanilla SlabBlock: " + key.location());
                 DynamicVerticalSlabsManager.addDynamicSlabForVanilla(key.location());
                 return;
             }
-            EnchantedVerticalSlabsLogging.info("Registered a SlabBlock: " + key.location());
+            EnchantedVerticalSlabsLogging.debug("Registered a SlabBlock: " + key.location());
             DynamicVerticalSlabsManager.addDynamicSlab(key.location());
         }
     }

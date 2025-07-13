@@ -11,22 +11,6 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(Block.class)
 public class BlockMixin {
-//    @Inject(
-//        at = @At("HEAD"),
-//        method = "shouldRenderFace",
-//        cancellable = true
-//    )
-//    private static void renderFace(BlockState currentFace, BlockState neighboringFace, Direction face, CallbackInfoReturnable<Boolean> cir) {
-//        if(neighboringFace.getBlock() instanceof DynamicVerticalSlabBlock dynamicBlock) {
-//            CullMode cullMode = dynamicBlock.shouldCullOtherBlock(neighboringFace, currentFace, face.getOpposite());
-//            if(cullMode.forceReturnValue) cir.setReturnValue(cullMode.cull);
-//        }
-//        if(currentFace.getBlock() instanceof DynamicVerticalSlabBlock dynamicBlock) {
-//            CullMode cullMode = dynamicBlock.shouldCullOtherBlock(currentFace, neighboringFace, face);
-//            if(cullMode.forceReturnValue) cir.setReturnValue(cullMode.cull);
-//        }
-//    }
-
     @ModifyVariable(
         at = @At("HEAD"),
         method = "shouldRenderFace",

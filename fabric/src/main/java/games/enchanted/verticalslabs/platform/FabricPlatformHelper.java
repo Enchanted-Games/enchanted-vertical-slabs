@@ -43,11 +43,6 @@ public class FabricPlatformHelper implements PlatformHelperInterface {
     }
 
     @Override
-    public void buildCreativeTabs() {
-        FabricModEntrypoint.registerCreativeTabModifiers();
-    }
-
-    @Override
     public void addWaxableBlockPair(Block unwaxed, Block waxed) {
         OxidizableBlocksRegistry.registerWaxableBlockPair(unwaxed, waxed);
     }

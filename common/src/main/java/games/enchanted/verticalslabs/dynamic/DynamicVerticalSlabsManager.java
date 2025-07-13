@@ -72,16 +72,15 @@ public class DynamicVerticalSlabsManager {
                 );
             }
 
-            Item regularSlabItem = regularSlabBlock.asItem();
-            if(regularSlabItem == Items.AIR) regularSlabItem = RegistryHelpers.getItemFromLocation(slab.getOriginalSlabLocation());
-            if(regularSlabItem != Items.AIR) {
-                addSlabToCreativeInventory(new CreativeTabModifierEntry(registeredBlock.blockItem(), CreativeTabInsertionPosition.AFTER, regularSlabItem.getDefaultInstance()));
-            } else {
-                addSlabToCreativeInventory(new CreativeTabModifierEntry(registeredBlock.blockItem(), CreativeTabInsertionPosition.LAST, null));
-            }
+//            Item regularSlabItem = regularSlabBlock.asItem();
+//            if(regularSlabItem == Items.AIR) regularSlabItem = RegistryHelpers.getItemFromLocation(slab.getOriginalSlabLocation());
+//            if(regularSlabItem != Items.AIR) {
+//                addSlabToCreativeInventory(new CreativeTabModifierEntry(registeredBlock.blockItem(), CreativeTabInsertionPosition.AFTER, regularSlabItem.getDefaultInstance()));
+//            } else {
+//                addSlabToCreativeInventory(new CreativeTabModifierEntry(registeredBlock.blockItem(), CreativeTabInsertionPosition.LAST, null));
+//            }
         }
         NORMAL_TO_VERTICAL_SLAB_MAP = VERTICAL_TO_NORMAL_SLAB_MAP.inverse();
-        Services.PLATFORM.buildCreativeTabs();
 
         WeatheringCopperUtil.addDynamicCopperPairs(DYNAMIC_SLAB_BLOCKS);
 
@@ -89,6 +88,7 @@ public class DynamicVerticalSlabsManager {
     }
 
     private static void addSlabToCreativeInventory(CreativeTabModifierEntry modifierEntry) {
+        // TODO: reimplement this to run after other mods
         List<CreativeModeTab> tabs = CreativeModeTabs.allTabs();
         tabs.forEach((creativeModeTab -> CreativeTabModifiers.addModifier(
             new CreativeTabModifier(
