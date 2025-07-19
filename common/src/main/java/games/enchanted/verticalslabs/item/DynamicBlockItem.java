@@ -1,5 +1,6 @@
 package games.enchanted.verticalslabs.item;
 
+import games.enchanted.verticalslabs.config.dynamic.SlabBehaviourFile;
 import games.enchanted.verticalslabs.dynamic.DynamicSlab;
 import games.enchanted.verticalslabs.mixin.accessor.ItemPropertiesAccessor;
 import games.enchanted.verticalslabs.registry.RegistryHelpers;
@@ -7,6 +8,7 @@ import net.minecraft.Util;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
@@ -43,5 +45,10 @@ public class DynamicBlockItem extends BlockItem {
             "block.enchanted-vertical-slabs.dynamic_slab : %s",
             RegistryHelpers.getItemFromLocation(ORIGINAL_ITEM_LOCATION).getName()
         );
+    }
+
+    @Override
+    public boolean isEnabled(@NotNull FeatureFlagSet enabledFeatures) {
+        return SlabBehaviourFile.INSTANCE.getUseSeparateVerticalSlabItems();
     }
 }

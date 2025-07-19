@@ -23,7 +23,7 @@ public abstract class BasicConfigFile {
 
     protected abstract JsonElement encode();
 
-    public void readSettingsFile() {
+    public void readOrCreateSettingsFile() {
         try {
             byte[] bytesFromFile;
             try {

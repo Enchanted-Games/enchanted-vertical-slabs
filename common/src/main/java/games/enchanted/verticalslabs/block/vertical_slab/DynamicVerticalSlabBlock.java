@@ -3,6 +3,7 @@ package games.enchanted.verticalslabs.block.vertical_slab;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import games.enchanted.verticalslabs.block.CullMode;
+import games.enchanted.verticalslabs.config.dynamic.SlabBehaviourFile;
 import games.enchanted.verticalslabs.dynamic.DynamicSlab;
 import games.enchanted.verticalslabs.mixin.invoker.BlockInvoker;
 import games.enchanted.verticalslabs.registry.RegistryHelpers;
@@ -11,19 +12,26 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ChangeOverTimeBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.SlabType;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class DynamicVerticalSlabBlock extends BaseVerticalSlabBlock {
     public static final MapCodec<DynamicVerticalSlabBlock> CODEC = RecordCodecBuilder.mapCodec((recordCodecBuilderInstance) ->
@@ -130,5 +138,27 @@ public class DynamicVerticalSlabBlock extends BaseVerticalSlabBlock {
     protected float getShadeBrightness(BlockState state, @NotNull BlockGetter level, @NotNull BlockPos pos) {
         if(state.getValue(BaseVerticalSlabBlock.SINGLE)) return 1.0f;
         return getRegularSlabDoubleState().getShadeBrightness(level, pos);
+    }
+
+    @Override
+    protected @NotNull ItemStack getCloneItemStack(@NotNull LevelReader level, @NotNull BlockPos pos, @NotNull BlockState state, boolean includeData) {
+        if(SlabBehaviourFile.INSTANCE.getUseSeparateVerticalSlabItems()) {
+            return super.getCloneItemStack(level, pos, state, includeData);
+        }
+        return new ItemStack(getRegularSlabBlock().asItem());
+    }
+
+    @Override
+    protected @NotNull List<ItemStack> getDrops(@NotNull BlockState state, LootParams.@NotNull Builder params) {
+        if(SlabBehaviourFile.INSTANCE.getUseSeparateVerticalSlabItems()) {
+            return super.getDrops(state, params);
+        }
+        BlockState regularSlabState;
+        if(state.getValue(BaseVerticalSlabBlock.SINGLE)) {
+            regularSlabState = getRegularSlabBlock().defaultBlockState();
+        } else {
+            regularSlabState = getRegularSlabDoubleState();
+        }
+        return regularSlabState.getDrops(params);
     }
 }

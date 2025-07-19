@@ -1,5 +1,6 @@
 package games.enchanted.verticalslabs;
 
+import games.enchanted.verticalslabs.config.dynamic.SlabBehaviourFile;
 import games.enchanted.verticalslabs.platform.Services;
 import net.minecraft.FileUtil;
 import net.minecraft.core.Registry;
@@ -16,6 +17,7 @@ public class EnchantedVerticalSlabsMod {
     public static void initBeforeRegistration() {
         getEVSModDirectory();
         EnchantedVerticalSlabsLogging.info("Mod is loading in a {} environment!", Services.PLATFORM.getPlatformName());
+        SlabBehaviourFile.INSTANCE.readOrCreateSettingsFile();
     }
 
     public static Path getEVSModDirectory() {

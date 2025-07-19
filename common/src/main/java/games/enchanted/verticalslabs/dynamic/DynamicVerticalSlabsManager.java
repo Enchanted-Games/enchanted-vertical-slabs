@@ -12,7 +12,6 @@ import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabInser
 import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabModifier;
 import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabModifierEntry;
 import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabModifiers;
-import games.enchanted.verticalslabs.platform.Services;
 import games.enchanted.verticalslabs.registry.RegistryHelpers;
 import games.enchanted.verticalslabs.util.ListUtil;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -20,12 +19,9 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,8 +46,8 @@ public class DynamicVerticalSlabsManager {
     }
 
     public static void registerDynamicSlabs() {
-        DynamicResourcesSettingsFile.INSTANCE.readSettingsFile();
-        KnownSlabsFile.INSTANCE.readSettingsFile();
+        DynamicResourcesSettingsFile.INSTANCE.readOrCreateSettingsFile();
+        KnownSlabsFile.INSTANCE.readOrCreateSettingsFile();
 
         for (ResourceLocation location : VANILLA_SLABS) {
             DYNAMIC_SLAB_BLOCKS.add(new DynamicSlab(location));

@@ -2,8 +2,8 @@ package games.enchanted.verticalslabs.registry;
 
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsMod;
 import games.enchanted.verticalslabs.block.BlockAndItemContainer;
-import games.enchanted.verticalslabs.block.vertical_slab.DynamicVerticalSlabBlock;
 import games.enchanted.verticalslabs.block.vertical_slab.DynamicCopperVerticalSlabBlock;
+import games.enchanted.verticalslabs.block.vertical_slab.DynamicVerticalSlabBlock;
 import games.enchanted.verticalslabs.dynamic.DynamicSlab;
 import games.enchanted.verticalslabs.item.DynamicBlockItem;
 import net.minecraft.core.registries.BuiltInRegistries;

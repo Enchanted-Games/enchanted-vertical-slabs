@@ -7,6 +7,7 @@ import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabModif
 import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabModifierRunner;
 import games.enchanted.verticalslabs.item.creative_tab.modifier.CreativeTabModifiers;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
