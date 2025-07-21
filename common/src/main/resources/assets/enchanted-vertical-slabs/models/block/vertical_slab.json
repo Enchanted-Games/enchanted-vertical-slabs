@@ -1,7 +1,6 @@
 {
-	"credit": "Made with Blockbench, by Enchanted Games (https://www.youtube.com/c/enchantedgames)",
-	"useModelShape": true,
-	"parent": "block/cube",
+	"credit": "Made with Blockbench, by Enchanted Games (https://enchanted.games)",
+	"parent": "block/block",
 	"textures": {
 		"particle": "all"
 	},
@@ -11,23 +10,32 @@
 			"to": [16, 16, 16],
 			"faces": {
 				"north": {"uv": [0, 0, 16, 16], "texture": "#north"},
-				"east": {"uv": [0, 0, 8, 16], "texture": "#east"},
-				"south": {"uv": [0, 0, 16, 16], "texture": "#south"},
-				"west": {"uv": [8, 0, 16, 16], "texture": "#west"},
-				"up": {"uv": [0, 8, 16, 16], "texture": "#up"},
-				"down": {"uv": [0, 0, 16, 8], "texture": "#down"}
+				"east": {"uv": [0, 0, 8, 16], "texture": "#east", "cullface": "east"},
+				"south": {"uv": [0, 0, 16, 16], "texture": "#south", "cullface": "south"},
+				"west": {"uv": [8, 0, 16, 16], "texture": "#west", "cullface": "west"},
+				"up": {"uv": [0, 8, 16, 16], "texture": "#up", "cullface": "up"},
+				"down": {"uv": [0, 0, 16, 8], "texture": "#down", "cullface": "down"}
 			}
 		}
 	],
 	"display": {
+		"ground": {
+			"translation": [0, 3, -1],
+			"scale": [0.25, 0.25, 0.25]
+		},
 		"gui": {
 			"rotation": [30, 225, 0],
 			"translation": [1.75, -0.75, 0],
 			"scale": [0.625, 0.625, 0.625]
 		},
+		"head": {
+			"rotation": [103, 0, 0],
+			"translation": [0, 8, 1.75]
+		},
 		"fixed": {
 			"translation": [0, 0, -0.5],
 			"scale": [0.5, 0.5, 0.5]
 		}
-	}
+	},
+	"useModelShape": true
 }
