@@ -48,4 +48,4 @@ plugins {
 rootProject.name = 'enchanted-vertical-slabs'
 include("common")
 include("fabric")
-include("neoforge")
+//include("neoforge")

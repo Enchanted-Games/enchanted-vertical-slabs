@@ -6,7 +6,7 @@ import games.enchanted.verticalslabs.item.ModCreativeTab.ModCreativeTabEntry;
 import games.enchanted.verticalslabs.item.ModCreativeTab;
 import games.enchanted.verticalslabs.item.ModCreativeTabs;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
@@ -65,7 +65,7 @@ public class NeoForgeCreativeTabRegistration {
             EnchantedVerticalSlabsMod.register(
                 BuiltInRegistries.CREATIVE_MODE_TAB.key(),
                 () -> TAB,
-                ResourceLocation.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.MOD_ID, ModCreativeTabs.modCreativeTabs[finalI].registryName)
+                Identifier.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.MOD_ID, ModCreativeTabs.modCreativeTabs[finalI].registryName)
             );
         }
     }
