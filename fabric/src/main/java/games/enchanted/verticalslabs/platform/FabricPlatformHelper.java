@@ -24,12 +24,12 @@ public class FabricPlatformHelper implements PlatformHelperInterface {
 
     @Override
     public void addWaxableBlockPair(Block unwaxed, Block waxed) {
-        OxidizableBlocksRegistry.registerWaxableBlockPair(unwaxed, waxed);
+        OxidizableBlocksRegistry.registerWaxable(unwaxed, waxed);
     }
 
     @Override
     public void addWeatheringBlockPair(Block less, Block more) {
-        OxidizableBlocksRegistry.registerOxidizableBlockPair(less, more);
+        OxidizableBlocksRegistry.registerNextStage(less, more);
     }
 
     @Override

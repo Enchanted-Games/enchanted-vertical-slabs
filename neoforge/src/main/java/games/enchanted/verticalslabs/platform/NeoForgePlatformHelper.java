@@ -2,6 +2,7 @@ package games.enchanted.verticalslabs.platform;
 
 import com.google.common.collect.ImmutableBiMap;
 import games.enchanted.verticalslabs.block.SpecialBlockMaps;
+import games.enchanted.verticalslabs.mixin.FireBlockAccessor;
 import games.enchanted.verticalslabs.platform.services.PlatformHelperInterface;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -45,6 +46,6 @@ public class NeoForgePlatformHelper implements PlatformHelperInterface {
 
     @Override
     public void addFlammableBlock(Block block, int burnTime, int spread) {
-        ((FireBlock) Blocks.FIRE).setFlammable(block, burnTime, spread);
+        ((FireBlockAccessor) ((FireBlock) Blocks.FIRE)).evs$setFlammable(block, burnTime, spread);
     }
 }

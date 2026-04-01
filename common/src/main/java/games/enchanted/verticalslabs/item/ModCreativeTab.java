@@ -6,6 +6,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 
 public class ModCreativeTab {
     public static class DummyCreativeTabData {
@@ -52,7 +53,7 @@ public class ModCreativeTab {
             this.additionalTab = additionalTab;
             this.relatedItem = relatedItem;
             this.insertionPosition = insertionPosition;
-            new ItemStack(item);
+            new ItemStackTemplate(item);
         }
 
         /**

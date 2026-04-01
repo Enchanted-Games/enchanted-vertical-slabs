@@ -1,11 +1,11 @@
 package games.enchanted.verticalslabs.item;
 
 import games.enchanted.verticalslabs.block.ModBlocks;
-import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
+import net.fabricmc.fabric.api.registry.FuelValueEvents;
 
 public class FuelItems {
     public static void registerFuelItems() {
-        FuelRegistryEvents.BUILD.register((builder, context) -> {
+        FuelValueEvents.BUILD.register((builder, context) -> {
             builder.add(ModBlocks.VERTICAL_OAK_SLAB.block(), 300);
             builder.add(ModBlocks.VERTICAL_SPRUCE_SLAB.block(), 300);
             builder.add(ModBlocks.VERTICAL_BIRCH_SLAB.block(), 300);

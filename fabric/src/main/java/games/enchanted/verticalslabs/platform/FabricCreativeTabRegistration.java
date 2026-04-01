@@ -4,8 +4,8 @@ import games.enchanted.verticalslabs.EnchantedVerticalSlabsMod;
 import games.enchanted.verticalslabs.EnchantedVerticalSlabsConstants;
 import games.enchanted.verticalslabs.item.ModCreativeTab;
 import games.enchanted.verticalslabs.item.ModCreativeTabs;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.CreativeModeTab;
@@ -20,17 +20,17 @@ public class FabricCreativeTabRegistration {
         for (int j = 0; j < ModCreativeTabs.modCreativeTabs[i].groupEntries.length; j++) {
             ModCreativeTab.ModCreativeTabEntry entry = ModCreativeTabs.modCreativeTabs[i].groupEntries[j];
 
-            ItemGroupEvents.modifyEntriesEvent(entry.additionalTab).register(event -> {
+            CreativeModeTabEvents.modifyOutputEvent(entry.additionalTab).register(event -> {
                 try {
                     switch (entry.insertionPosition) {
                         case ModCreativeTab.INSERT_LAST:
                             event.accept(entry.item.getDefaultInstance());
                             break;
                         case ModCreativeTab.INSERT_AFTER_RELATED:
-                            event.addAfter(entry.relatedItem.getDefaultInstance(), entry.item.getDefaultInstance());
+                            event.insertAfter(entry.relatedItem.getDefaultInstance(), entry.item.getDefaultInstance());
                             break;
                         case ModCreativeTab.INSERT_BEFORE_RELATED:
-                            event.addBefore(entry.relatedItem.getDefaultInstance(), entry.item.getDefaultInstance());
+                            event.insertBefore(entry.relatedItem.getDefaultInstance(), entry.item.getDefaultInstance());
                             break;
                         default:
                             throw new IllegalStateException("Unexpected value: '" + entry.insertionPosition + "' for creative mode tab insertionPosition");
@@ -48,7 +48,7 @@ public class FabricCreativeTabRegistration {
     public static void registerTabs() {
         for (int i = 0; i < ModCreativeTabs.modCreativeTabs.length; i++) {
             int finalI = i;
-            final CreativeModeTab TAB = FabricItemGroup.builder()
+            final CreativeModeTab TAB = FabricCreativeModeTab.builder()
                 .title(ModCreativeTabs.modCreativeTabs[finalI].groupTitle)
                 .icon(() -> new ItemStack(ModCreativeTabs.modCreativeTabs[finalI].groupIcon))
                 .displayItems((params, output) -> {
