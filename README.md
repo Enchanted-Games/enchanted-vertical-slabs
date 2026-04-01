@@ -22,6 +22,8 @@ To place a vertical slab, you need to craft one, this mod uses a seperate item f
 
 ## Translators
 Huge thanks to the following people for translating Enchanted Vertical Slabs!
+- Copy_TT (github) [ko_kr]
+- SzabAndris10 (github) [hu_hu]
 - ChristosMaragkos (github) [el_gr]
 - CANALETA (github) [es_mx]
 - PlayboyX312 (github) [ru_ru]
