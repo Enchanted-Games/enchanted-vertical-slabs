@@ -22,7 +22,6 @@ public class VerticalSlabBlocks {
     public static final BlockAndItemContainer VERTICAL_BAMBOO_MOSAIC_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_BAMBOO_MOSAIC_SLAB, Blocks.BAMBOO_MOSAIC_SLAB.properties());
     public static final BlockAndItemContainer VERTICAL_PALE_OAK_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_PALE_OAK_SLAB, Blocks.PALE_OAK_SLAB.properties());
 
-    // copper slabs
     public static final BlockAndItemContainer VERTICAL_CUT_COPPER_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_CUT_COPPER_SLAB, Blocks.CUT_COPPER_SLAB.weathering().unaffected().properties(), WeatheringCopper.WeatherState.UNAFFECTED);
     public static final BlockAndItemContainer VERTICAL_EXPOSED_CUT_COPPER_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_EXPOSED_CUT_COPPER_SLAB, Blocks.CUT_COPPER_SLAB.weathering().exposed().properties(), WeatheringCopper.WeatherState.EXPOSED);
     public static final BlockAndItemContainer VERTICAL_WEATHERED_CUT_COPPER_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_WEATHERED_CUT_COPPER_SLAB, Blocks.CUT_COPPER_SLAB.weathering().weathered().properties(), WeatheringCopper.WeatherState.WEATHERED);
@@ -33,7 +32,6 @@ public class VerticalSlabBlocks {
     public static final BlockAndItemContainer VERTICAL_WAXED_WEATHERED_CUT_COPPER_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_WAXED_WEATHERED_CUT_COPPER_SLAB, Blocks.CUT_COPPER_SLAB.waxed().weathered().properties(), WeatheringCopper.WeatherState.WEATHERED);
     public static final BlockAndItemContainer VERTICAL_WAXED_OXIDIZED_CUT_COPPER_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_WAXED_OXIDIZED_CUT_COPPER_SLAB, Blocks.CUT_COPPER_SLAB.waxed().oxidized().properties(), WeatheringCopper.WeatherState.OXIDIZED);
 
-    // others
     public static final BlockAndItemContainer VERTICAL_STONE_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_STONE_SLAB, Blocks.STONE_SLAB.properties());
     public static final BlockAndItemContainer VERTICAL_SMOOTH_STONE_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_SMOOTH_STONE_SLAB, Blocks.SMOOTH_STONE_SLAB.properties());
     public static final BlockAndItemContainer VERTICAL_SANDSTONE_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_SANDSTONE_SLAB, Blocks.SANDSTONE_SLAB.properties());
@@ -81,9 +79,16 @@ public class VerticalSlabBlocks {
     public static final BlockAndItemContainer VERTICAL_POLISHED_TUFF_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_POLISHED_TUFF_SLAB, Blocks.POLISHED_TUFF_SLAB.properties());
     public static final BlockAndItemContainer VERTICAL_TUFF_BRICK_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_TUFF_BRICK_SLAB, Blocks.TUFF_BRICK_SLAB.properties());
 
+    public static final BlockAndItemContainer VERTICAL_CINNABAR_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_CINNABAR_SLAB, Blocks.CINNABAR_SLAB.properties());
+    public static final BlockAndItemContainer VERTICAL_POLISHED_CINNABAR_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_POLISHED_CINNABAR_SLAB, Blocks.POLISHED_CINNABAR_SLAB.properties());
+    public static final BlockAndItemContainer VERTICAL_CINNABAR_BRICK_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_CINNABAR_BRICK_SLAB, Blocks.CINNABAR_BRICK_SLAB.properties());
+    public static final BlockAndItemContainer VERTICAL_SULFUR_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_SULFUR_SLAB, Blocks.SULFUR_SLAB.properties());
+    public static final BlockAndItemContainer VERTICAL_POLISHED_SULFUR_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_POLISHED_SULFUR_SLAB, Blocks.POLISHED_SULFUR_SLAB.properties());
+    public static final BlockAndItemContainer VERTICAL_SULFUR_BRICK_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_SULFUR_BRICK_SLAB, Blocks.SULFUR_BRICK_SLAB.properties());
 
     /**
-     * Calls the class to register blocks
+     * Load the class to register blocks
      */
-    public static void register() {};
+    public static void register() {
+    }
 }

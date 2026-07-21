@@ -5,7 +5,6 @@ import net.minecraft.references.BlockItemId;
 import net.minecraft.resources.Identifier;
 
 public class VerticalSlabIds {
-
     public static final BlockItemId VERTICAL_OAK_SLAB = create("vertical_oak_slab");
 
     public static final BlockItemId VERTICAL_SPRUCE_SLAB = create("vertical_spruce_slab");
@@ -21,7 +20,6 @@ public class VerticalSlabIds {
     public static final BlockItemId VERTICAL_BAMBOO_MOSAIC_SLAB = create("vertical_bamboo_mosaic_slab");
     public static final BlockItemId VERTICAL_PALE_OAK_SLAB = create("vertical_pale_oak_slab");
 
-    // copper slabs
     public static final BlockItemId VERTICAL_CUT_COPPER_SLAB = create("vertical_cut_copper_slab");
     public static final BlockItemId VERTICAL_EXPOSED_CUT_COPPER_SLAB = create("vertical_exposed_cut_copper_slab");
     public static final BlockItemId VERTICAL_WEATHERED_CUT_COPPER_SLAB = create("vertical_weathered_cut_copper_slab");
@@ -32,7 +30,6 @@ public class VerticalSlabIds {
     public static final BlockItemId VERTICAL_WAXED_WEATHERED_CUT_COPPER_SLAB = create("vertical_waxed_weathered_cut_copper_slab");
     public static final BlockItemId VERTICAL_WAXED_OXIDIZED_CUT_COPPER_SLAB = create("vertical_waxed_oxidized_cut_copper_slab");
 
-    // others
     public static final BlockItemId VERTICAL_STONE_SLAB = create("vertical_stone_slab");
     public static final BlockItemId VERTICAL_SMOOTH_STONE_SLAB = create("vertical_smooth_stone_slab");
     public static final BlockItemId VERTICAL_SANDSTONE_SLAB = create("vertical_sandstone_slab");
@@ -42,7 +39,7 @@ public class VerticalSlabIds {
     public static final BlockItemId VERTICAL_BRICK_SLAB = create("vertical_brick_slab");
     public static final BlockItemId VERTICAL_STONE_BRICK_SLAB = create("vertical_stone_brick_slab");
     public static final BlockItemId VERTICAL_QUARTZ_SLAB = create("vertical_quartz_slab");
-    public static final net.minecraft.references.BlockItemId VERTICAL_SMOOTH_QUARTZ_SLAB = create("vertical_smooth_quartz_slab");
+    public static final BlockItemId VERTICAL_SMOOTH_QUARTZ_SLAB = create("vertical_smooth_quartz_slab");
     public static final BlockItemId VERTICAL_RED_SANDSTONE_SLAB = create("vertical_red_sandstone_slab");
     public static final BlockItemId VERTICAL_CUT_RED_SANDSTONE_SLAB = create("vertical_cut_red_sandstone_slab");
     public static final BlockItemId VERTICAL_PURPUR_SLAB = create("vertical_purpur_slab");
@@ -79,6 +76,14 @@ public class VerticalSlabIds {
     public static final BlockItemId VERTICAL_TUFF_SLAB = create("vertical_tuff_slab");
     public static final BlockItemId VERTICAL_POLISHED_TUFF_SLAB = create("vertical_polished_tuff_slab");
     public static final BlockItemId VERTICAL_TUFF_BRICK_SLAB = create("vertical_tuff_brick_slab");
+
+    public static final BlockItemId VERTICAL_CINNABAR_SLAB = create("vertical_cinnabar_slab");
+    public static final BlockItemId VERTICAL_POLISHED_CINNABAR_SLAB = create("vertical_polished_cinnabar_slab");
+    public static final BlockItemId VERTICAL_CINNABAR_BRICK_SLAB = create("vertical_cinnabar_brick_slab");
+    public static final BlockItemId VERTICAL_SULFUR_SLAB = create("vertical_sulfur_slab");
+    public static final BlockItemId VERTICAL_POLISHED_SULFUR_SLAB = create("vertical_polished_sulfur_slab");
+    public static final BlockItemId VERTICAL_SULFUR_BRICK_SLAB = create("vertical_sulfur_brick_slab");
+
 
     private static BlockItemId create(String id) {
         Identifier identifier = Identifier.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.MOD_ID, id);

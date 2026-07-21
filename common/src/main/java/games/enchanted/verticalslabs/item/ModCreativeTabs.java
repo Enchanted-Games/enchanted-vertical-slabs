@@ -75,7 +75,13 @@ public class ModCreativeTabs {
 			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_WAXED_CUT_COPPER_SLAB.blockItem(), buildingBlocksTab, Items.CUT_COPPER_SLAB.waxed().unaffected(), ModCreativeTab.INSERT_AFTER_RELATED),
 			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_WAXED_EXPOSED_CUT_COPPER_SLAB.blockItem(), buildingBlocksTab, Items.CUT_COPPER_SLAB.waxed().exposed(), ModCreativeTab.INSERT_AFTER_RELATED),
 			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_WAXED_WEATHERED_CUT_COPPER_SLAB.blockItem(), buildingBlocksTab, Items.CUT_COPPER_SLAB.waxed().weathered(), ModCreativeTab.INSERT_AFTER_RELATED),
-			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_WAXED_OXIDIZED_CUT_COPPER_SLAB.blockItem(), buildingBlocksTab, Items.CUT_COPPER_SLAB.waxed().oxidized(), ModCreativeTab.INSERT_AFTER_RELATED)
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_WAXED_OXIDIZED_CUT_COPPER_SLAB.blockItem(), buildingBlocksTab, Items.CUT_COPPER_SLAB.waxed().oxidized(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_CINNABAR_SLAB.blockItem(), buildingBlocksTab, Items.CINNABAR_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_POLISHED_CINNABAR_SLAB.blockItem(), buildingBlocksTab, Items.POLISHED_CINNABAR_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_CINNABAR_BRICK_SLAB.blockItem(), buildingBlocksTab, Items.CINNABAR_BRICK_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_SULFUR_SLAB.blockItem(), buildingBlocksTab, Items.SULFUR_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_POLISHED_SULFUR_SLAB.blockItem(), buildingBlocksTab, Items.POLISHED_SULFUR_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_SULFUR_BRICK_SLAB.blockItem(), buildingBlocksTab, Items.SULFUR_BRICK_SLAB, ModCreativeTab.INSERT_AFTER_RELATED)
         }
     );
 
