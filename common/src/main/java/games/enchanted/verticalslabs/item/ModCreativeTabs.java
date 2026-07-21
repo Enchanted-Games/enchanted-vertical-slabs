@@ -68,14 +68,14 @@ public class ModCreativeTabs {
 			new ModCreativeTabEntry(ModBlocks.VERTICAL_PURPUR_SLAB.blockItem(), buildingBlocksTab, Items.PURPUR_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
 			new ModCreativeTabEntry(ModBlocks.VERTICAL_QUARTZ_SLAB.blockItem(), buildingBlocksTab, Items.QUARTZ_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
 			new ModCreativeTabEntry(ModBlocks.VERTICAL_SMOOTH_QUARTZ_SLAB.blockItem(), buildingBlocksTab, Items.SMOOTH_QUARTZ_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
-			new ModCreativeTabEntry(ModBlocks.VERTICAL_CUT_COPPER_SLAB.blockItem(), buildingBlocksTab, Items.CUT_COPPER_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
-			new ModCreativeTabEntry(ModBlocks.VERTICAL_EXPOSED_CUT_COPPER_SLAB.blockItem(), buildingBlocksTab, Items.EXPOSED_CUT_COPPER_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
-			new ModCreativeTabEntry(ModBlocks.VERTICAL_WEATHERED_CUT_COPPER_SLAB.blockItem(), buildingBlocksTab, Items.WEATHERED_CUT_COPPER_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
-			new ModCreativeTabEntry(ModBlocks.VERTICAL_OXIDIZED_CUT_COPPER_SLAB.blockItem(), buildingBlocksTab, Items.OXIDIZED_CUT_COPPER_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
-			new ModCreativeTabEntry(ModBlocks.VERTICAL_WAXED_CUT_COPPER_SLAB.blockItem(), buildingBlocksTab, Items.WAXED_CUT_COPPER_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
-			new ModCreativeTabEntry(ModBlocks.VERTICAL_WAXED_EXPOSED_CUT_COPPER_SLAB.blockItem(), buildingBlocksTab, Items.WAXED_EXPOSED_CUT_COPPER_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
-			new ModCreativeTabEntry(ModBlocks.VERTICAL_WAXED_WEATHERED_CUT_COPPER_SLAB.blockItem(), buildingBlocksTab, Items.WAXED_WEATHERED_CUT_COPPER_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
-			new ModCreativeTabEntry(ModBlocks.VERTICAL_WAXED_OXIDIZED_CUT_COPPER_SLAB.blockItem(), buildingBlocksTab, Items.WAXED_OXIDIZED_CUT_COPPER_SLAB, ModCreativeTab.INSERT_AFTER_RELATED)
+			new ModCreativeTabEntry(ModBlocks.VERTICAL_CUT_COPPER_SLAB.blockItem(), buildingBlocksTab, Items.CUT_COPPER_SLAB.weathering().unaffected(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(ModBlocks.VERTICAL_EXPOSED_CUT_COPPER_SLAB.blockItem(), buildingBlocksTab, Items.CUT_COPPER_SLAB.weathering().exposed(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(ModBlocks.VERTICAL_WEATHERED_CUT_COPPER_SLAB.blockItem(), buildingBlocksTab, Items.CUT_COPPER_SLAB.weathering().weathered(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(ModBlocks.VERTICAL_OXIDIZED_CUT_COPPER_SLAB.blockItem(), buildingBlocksTab, Items.CUT_COPPER_SLAB.weathering().oxidized(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(ModBlocks.VERTICAL_WAXED_CUT_COPPER_SLAB.blockItem(), buildingBlocksTab, Items.CUT_COPPER_SLAB.waxed().unaffected(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(ModBlocks.VERTICAL_WAXED_EXPOSED_CUT_COPPER_SLAB.blockItem(), buildingBlocksTab, Items.CUT_COPPER_SLAB.waxed().exposed(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(ModBlocks.VERTICAL_WAXED_WEATHERED_CUT_COPPER_SLAB.blockItem(), buildingBlocksTab, Items.CUT_COPPER_SLAB.waxed().weathered(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(ModBlocks.VERTICAL_WAXED_OXIDIZED_CUT_COPPER_SLAB.blockItem(), buildingBlocksTab, Items.CUT_COPPER_SLAB.waxed().oxidized(), ModCreativeTab.INSERT_AFTER_RELATED)
         }
     );
 

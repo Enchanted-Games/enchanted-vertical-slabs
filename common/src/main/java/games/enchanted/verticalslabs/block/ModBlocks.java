@@ -22,15 +22,15 @@ public class ModBlocks {
     public static final BlockAndItemContainer VERTICAL_PALE_OAK_SLAB = registerVerticalSlab("vertical_pale_oak_slab", Blocks.PALE_OAK_SLAB.properties());
 
     // copper slabs
-    public static final BlockAndItemContainer VERTICAL_CUT_COPPER_SLAB = registerVerticalSlab("vertical_cut_copper_slab", Blocks.CUT_COPPER_SLAB.properties(), WeatheringCopper.WeatherState.UNAFFECTED);
-    public static final BlockAndItemContainer VERTICAL_EXPOSED_CUT_COPPER_SLAB = registerVerticalSlab("vertical_exposed_cut_copper_slab", Blocks.EXPOSED_CUT_COPPER_SLAB.properties(), WeatheringCopper.WeatherState.EXPOSED);
-    public static final BlockAndItemContainer VERTICAL_WEATHERED_CUT_COPPER_SLAB = registerVerticalSlab("vertical_weathered_cut_copper_slab", Blocks.WEATHERED_CUT_COPPER_SLAB.properties(), WeatheringCopper.WeatherState.WEATHERED);
-    public static final BlockAndItemContainer VERTICAL_OXIDIZED_CUT_COPPER_SLAB = registerVerticalSlab("vertical_oxidized_cut_copper_slab", Blocks.OXIDIZED_CUT_COPPER_SLAB.properties(), WeatheringCopper.WeatherState.OXIDIZED);
+    public static final BlockAndItemContainer VERTICAL_CUT_COPPER_SLAB = registerVerticalSlab("vertical_cut_copper_slab", Blocks.CUT_COPPER_SLAB.weathering().unaffected().properties(), WeatheringCopper.WeatherState.UNAFFECTED);
+    public static final BlockAndItemContainer VERTICAL_EXPOSED_CUT_COPPER_SLAB = registerVerticalSlab("vertical_exposed_cut_copper_slab", Blocks.CUT_COPPER_SLAB.weathering().exposed().properties(), WeatheringCopper.WeatherState.EXPOSED);
+    public static final BlockAndItemContainer VERTICAL_WEATHERED_CUT_COPPER_SLAB = registerVerticalSlab("vertical_weathered_cut_copper_slab", Blocks.CUT_COPPER_SLAB.weathering().weathered().properties(), WeatheringCopper.WeatherState.WEATHERED);
+    public static final BlockAndItemContainer VERTICAL_OXIDIZED_CUT_COPPER_SLAB = registerVerticalSlab("vertical_oxidized_cut_copper_slab", Blocks.CUT_COPPER_SLAB.weathering().oxidized().properties(), WeatheringCopper.WeatherState.OXIDIZED);
 
-    public static final BlockAndItemContainer VERTICAL_WAXED_CUT_COPPER_SLAB = registerVerticalSlab("vertical_waxed_cut_copper_slab", Blocks.WAXED_CUT_COPPER_SLAB.properties(), WeatheringCopper.WeatherState.UNAFFECTED);
-    public static final BlockAndItemContainer VERTICAL_WAXED_EXPOSED_CUT_COPPER_SLAB = registerVerticalSlab("vertical_waxed_exposed_cut_copper_slab", Blocks.WAXED_EXPOSED_CUT_COPPER_SLAB.properties(), WeatheringCopper.WeatherState.EXPOSED);
-    public static final BlockAndItemContainer VERTICAL_WAXED_WEATHERED_CUT_COPPER_SLAB = registerVerticalSlab("vertical_waxed_weathered_cut_copper_slab", Blocks.WAXED_WEATHERED_CUT_COPPER_SLAB.properties(), WeatheringCopper.WeatherState.WEATHERED);
-    public static final BlockAndItemContainer VERTICAL_WAXED_OXIDIZED_CUT_COPPER_SLAB = registerVerticalSlab("vertical_waxed_oxidized_cut_copper_slab", Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB.properties(), WeatheringCopper.WeatherState.OXIDIZED);
+    public static final BlockAndItemContainer VERTICAL_WAXED_CUT_COPPER_SLAB = registerVerticalSlab("vertical_waxed_cut_copper_slab", Blocks.CUT_COPPER_SLAB.waxed().unaffected().properties(), WeatheringCopper.WeatherState.UNAFFECTED);
+    public static final BlockAndItemContainer VERTICAL_WAXED_EXPOSED_CUT_COPPER_SLAB = registerVerticalSlab("vertical_waxed_exposed_cut_copper_slab", Blocks.CUT_COPPER_SLAB.waxed().exposed().properties(), WeatheringCopper.WeatherState.EXPOSED);
+    public static final BlockAndItemContainer VERTICAL_WAXED_WEATHERED_CUT_COPPER_SLAB = registerVerticalSlab("vertical_waxed_weathered_cut_copper_slab", Blocks.CUT_COPPER_SLAB.waxed().weathered().properties(), WeatheringCopper.WeatherState.WEATHERED);
+    public static final BlockAndItemContainer VERTICAL_WAXED_OXIDIZED_CUT_COPPER_SLAB = registerVerticalSlab("vertical_waxed_oxidized_cut_copper_slab", Blocks.CUT_COPPER_SLAB.waxed().oxidized().properties(), WeatheringCopper.WeatherState.OXIDIZED);
 
     // others
     public static final BlockAndItemContainer VERTICAL_STONE_SLAB = registerVerticalSlab("vertical_stone_slab", Blocks.STONE_SLAB.properties());
