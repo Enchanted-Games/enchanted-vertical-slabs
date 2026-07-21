@@ -1,6 +1,6 @@
 package games.enchanted.verticalslabs;
 
-import games.enchanted.verticalslabs.block.ModBlocks;
+import games.enchanted.verticalslabs.registry.VerticalSlabBlocks;
 import games.enchanted.verticalslabs.item.FuelItems;
 import games.enchanted.verticalslabs.platform.FabricCreativeTabRegistration;
 import games.enchanted.verticalslabs.registry.FlammableBlocks;
@@ -12,7 +12,7 @@ public class FabricModEntrypoint implements ModInitializer {
     public void onInitialize() {
         EnchantedVerticalSlabsMod.initBeforeRegistration();
 
-        ModBlocks.register();
+        VerticalSlabBlocks.register();
         WeatheringBlocks.registerWeatheringBlocks();
         FlammableBlocks.registerFlammableBlocks();
 

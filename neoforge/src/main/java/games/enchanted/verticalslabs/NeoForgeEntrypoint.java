@@ -1,6 +1,6 @@
 package games.enchanted.verticalslabs;
 
-import games.enchanted.verticalslabs.block.ModBlocks;
+import games.enchanted.verticalslabs.registry.VerticalSlabBlocks;
 import games.enchanted.verticalslabs.platform.NeoForgeCreativeTabRegistration;
 import games.enchanted.verticalslabs.registry.FlammableBlocks;
 import games.enchanted.verticalslabs.registry.WeatheringBlocks;
@@ -20,7 +20,7 @@ public class NeoForgeEntrypoint {
         // register stuff
         bus.addListener((RegisterEvent event) -> {
             if(event.getRegistry().key().equals(Registries.BLOCK)) {
-                ModBlocks.register();
+                VerticalSlabBlocks.register();
                 WeatheringBlocks.registerWeatheringBlocks();
                 FlammableBlocks.registerFlammableBlocks();
             }

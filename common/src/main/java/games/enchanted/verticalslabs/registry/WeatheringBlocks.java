@@ -1,6 +1,5 @@
 package games.enchanted.verticalslabs.registry;
 
-import games.enchanted.verticalslabs.block.ModBlocks;
 import games.enchanted.verticalslabs.platform.Services;
 
 public class WeatheringBlocks {
@@ -9,14 +8,14 @@ public class WeatheringBlocks {
      */
     public static void registerWeatheringBlocks() {
         // Weathering pairs
-        Services.PLATFORM.addWeatheringBlockPair(ModBlocks.VERTICAL_CUT_COPPER_SLAB.block(), ModBlocks.VERTICAL_EXPOSED_CUT_COPPER_SLAB.block());
-        Services.PLATFORM.addWeatheringBlockPair(ModBlocks.VERTICAL_EXPOSED_CUT_COPPER_SLAB.block(), ModBlocks.VERTICAL_WEATHERED_CUT_COPPER_SLAB.block());
-        Services.PLATFORM.addWeatheringBlockPair(ModBlocks.VERTICAL_WEATHERED_CUT_COPPER_SLAB.block(), ModBlocks.VERTICAL_OXIDIZED_CUT_COPPER_SLAB.block());
+        Services.PLATFORM.addWeatheringBlockPair(VerticalSlabBlocks.VERTICAL_CUT_COPPER_SLAB.block(), VerticalSlabBlocks.VERTICAL_EXPOSED_CUT_COPPER_SLAB.block());
+        Services.PLATFORM.addWeatheringBlockPair(VerticalSlabBlocks.VERTICAL_EXPOSED_CUT_COPPER_SLAB.block(), VerticalSlabBlocks.VERTICAL_WEATHERED_CUT_COPPER_SLAB.block());
+        Services.PLATFORM.addWeatheringBlockPair(VerticalSlabBlocks.VERTICAL_WEATHERED_CUT_COPPER_SLAB.block(), VerticalSlabBlocks.VERTICAL_OXIDIZED_CUT_COPPER_SLAB.block());
 
         // Waxable pairs
-        Services.PLATFORM.addWaxableBlockPair(ModBlocks.VERTICAL_CUT_COPPER_SLAB.block(), ModBlocks.VERTICAL_WAXED_CUT_COPPER_SLAB.block());
-        Services.PLATFORM.addWaxableBlockPair(ModBlocks.VERTICAL_EXPOSED_CUT_COPPER_SLAB.block(), ModBlocks.VERTICAL_WAXED_EXPOSED_CUT_COPPER_SLAB.block());
-        Services.PLATFORM.addWaxableBlockPair(ModBlocks.VERTICAL_WEATHERED_CUT_COPPER_SLAB.block(), ModBlocks.VERTICAL_WAXED_WEATHERED_CUT_COPPER_SLAB.block());
-        Services.PLATFORM.addWaxableBlockPair(ModBlocks.VERTICAL_OXIDIZED_CUT_COPPER_SLAB.block(), ModBlocks.VERTICAL_WAXED_OXIDIZED_CUT_COPPER_SLAB.block());
+        Services.PLATFORM.addWaxableBlockPair(VerticalSlabBlocks.VERTICAL_CUT_COPPER_SLAB.block(), VerticalSlabBlocks.VERTICAL_WAXED_CUT_COPPER_SLAB.block());
+        Services.PLATFORM.addWaxableBlockPair(VerticalSlabBlocks.VERTICAL_EXPOSED_CUT_COPPER_SLAB.block(), VerticalSlabBlocks.VERTICAL_WAXED_EXPOSED_CUT_COPPER_SLAB.block());
+        Services.PLATFORM.addWaxableBlockPair(VerticalSlabBlocks.VERTICAL_WEATHERED_CUT_COPPER_SLAB.block(), VerticalSlabBlocks.VERTICAL_WAXED_WEATHERED_CUT_COPPER_SLAB.block());
+        Services.PLATFORM.addWaxableBlockPair(VerticalSlabBlocks.VERTICAL_OXIDIZED_CUT_COPPER_SLAB.block(), VerticalSlabBlocks.VERTICAL_WAXED_OXIDIZED_CUT_COPPER_SLAB.block());
     }
 }
