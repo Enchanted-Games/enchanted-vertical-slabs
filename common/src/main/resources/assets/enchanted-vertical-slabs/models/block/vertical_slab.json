@@ -2,7 +2,7 @@
 	"credit": "Made with Blockbench, by Enchanted Games (https://enchanted.games)",
 	"parent": "block/block",
 	"textures": {
-		"particle": "all"
+		"particle": "#up"
 	},
 	"elements": [
 		{

@@ -1,0 +1,11 @@
+{
+    "parent": "enchanted-vertical-slabs:block/vertical_slab",
+    "textures": {
+        "up": "enchanted-vertical-slabs:block/smooth_stone_slab_top_ns",
+        "north": "enchanted-vertical-slabs:block/smooth_stone_slab_front",
+        "east": "enchanted-vertical-slabs:block/smooth_stone_slab_side",
+        "south": "enchanted-vertical-slabs:block/smooth_stone_slab_front",
+        "west": "enchanted-vertical-slabs:block/smooth_stone_slab_side",
+        "down": "enchanted-vertical-slabs:block/smooth_stone_slab_top_ns"
+    }
+}

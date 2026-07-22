@@ -1,35 +1,44 @@
 {
   "variants": {
     "facing=north,single_slab=true": {
-      "model": "enchanted-vertical-slabs:block/vertical_smooth_stone_slab",
+      "model": "enchanted-vertical-slabs:block/vertical_smooth_stone_slab_ns",
       "y": 180,
       "uvlock": true
     },
     "facing=north,single_slab=false": {
-      "model": "minecraft:block/smooth_stone"
+      "model": "enchanted-vertical-slabs:block/vertical_double_smooth_stone_slab_ns",
+      "y": 180,
+      "uvlock": true
     },
+
     "facing=east,single_slab=true": {
-      "model": "enchanted-vertical-slabs:block/vertical_smooth_stone_slab",
+      "model": "enchanted-vertical-slabs:block/vertical_smooth_stone_slab_ew",
       "y": 270,
       "uvlock": true
     },
     "facing=east,single_slab=false": {
-      "model": "minecraft:block/smooth_stone"
+      "model": "enchanted-vertical-slabs:block/vertical_double_smooth_stone_slab_ew",
+      "y": 270,
+      "uvlock": true
     },
+
     "facing=south,single_slab=true": {
-      "model": "enchanted-vertical-slabs:block/vertical_smooth_stone_slab",
+      "model": "enchanted-vertical-slabs:block/vertical_smooth_stone_slab_ns",
       "uvlock": true
     },
     "facing=south,single_slab=false": {
-      "model": "minecraft:block/smooth_stone"
+      "model": "enchanted-vertical-slabs:block/vertical_double_smooth_stone_slab_ns"
     },
+
     "facing=west,single_slab=true": {
-      "model": "enchanted-vertical-slabs:block/vertical_smooth_stone_slab",
+      "model": "enchanted-vertical-slabs:block/vertical_smooth_stone_slab_ew",
       "y": 90,
       "uvlock": true
     },
     "facing=west,single_slab=false": {
-      "model": "minecraft:block/smooth_stone"
+      "model": "enchanted-vertical-slabs:block/vertical_double_smooth_stone_slab_ew",
+      "y": 90,
+      "uvlock": true
     }
   }
 }
