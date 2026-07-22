@@ -70,5 +70,12 @@
     "block.enchanted-vertical-slabs.vertical_polished_tuff_slab": "Vertical Polished Tuff Slab",
     "block.enchanted-vertical-slabs.vertical_tuff_brick_slab": "Vertical Tuff Brick Slab",
     
-    "block.enchanted-vertical-slabs.vertical_pale_oak_slab": "Vertical Pale Oak Slab"
+    "block.enchanted-vertical-slabs.vertical_pale_oak_slab": "Vertical Pale Oak Slab",
+
+    "block.enchanted-vertical-slabs.vertical_cinnabar_slab": "Vertical Cinnabar Slab",
+    "block.enchanted-vertical-slabs.vertical_polished_cinnabar_slab": "Vertical Polished Cinnabar Slab",
+    "block.enchanted-vertical-slabs.vertical_cinnabar_brick_slab": "Vertical Cinnabar Brick Slab",
+    "block.enchanted-vertical-slabs.vertical_sulfur_slab": "Vertical Sulphur Slab",
+    "block.enchanted-vertical-slabs.vertical_polished_sulfur_slab": "Vertical Polished Sulphur Slab",
+    "block.enchanted-vertical-slabs.vertical_sulfur_brick_slab": "Vertical Sulphur Brick Slab"
 }

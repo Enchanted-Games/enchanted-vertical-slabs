@@ -64,6 +64,13 @@
 
         "enchanted-vertical-slabs:vertical_tuff_slab",
         "enchanted-vertical-slabs:vertical_polished_tuff_slab",
-        "enchanted-vertical-slabs:vertical_tuff_brick_slab"
+        "enchanted-vertical-slabs:vertical_tuff_brick_slab",
+
+        "enchanted-vertical-slabs:vertical_cinnabar_slab",
+        "enchanted-vertical-slabs:vertical_polished_cinnabar_slab",
+        "enchanted-vertical-slabs:vertical_cinnabar_brick_slab",
+        "enchanted-vertical-slabs:vertical_sulfur_slab",
+        "enchanted-vertical-slabs:vertical_polished_sulfur_slab",
+        "enchanted-vertical-slabs:vertical_sulfur_brick_slab"
     ]
 }

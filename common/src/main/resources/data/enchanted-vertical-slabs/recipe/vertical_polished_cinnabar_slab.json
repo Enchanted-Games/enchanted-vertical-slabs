@@ -1,0 +1,15 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#",
+        "#",
+        "#"
+    ],
+    "key": {
+        "#": "minecraft:polished_cinnabar"
+    },
+    "result": {
+        "id": "enchanted-vertical-slabs:vertical_polished_cinnabar_slab",
+        "count": 6
+    }
+}
