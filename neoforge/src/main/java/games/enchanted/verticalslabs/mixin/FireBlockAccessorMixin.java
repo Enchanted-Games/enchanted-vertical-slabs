@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(FireBlock.class)
-public interface FireBlockAccessor {
+public interface FireBlockAccessorMixin {
     @Invoker("setFlammable")
     void evs$setFlammable(Block block, int igniteOdds, int burnOdds);
 }
