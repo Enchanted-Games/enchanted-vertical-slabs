@@ -4,7 +4,7 @@
     "provides": [
         "enchanted-vertical-slabs"
     ],
-    "version": "${mod_version}",
+    "version": "${version}",
     "name": "${mod_name}",
     "description": "${description}",
     "authors": [
@@ -30,8 +30,7 @@
     "depends": {
         "fabricloader": ">=${fabric_loader_version}",
         "fabric-api": "*",
-        "minecraft": ${minecraft_fabric_version_range},
+        "minecraft": "~${minecraft_version}",
         "java": ">=${java_version}"
     }
 }
-  

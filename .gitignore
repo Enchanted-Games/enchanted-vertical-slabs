@@ -1,4 +1,4 @@
-# eclipse
+# Eclipse
 bin
 *.launch
 .settings
@@ -6,7 +6,7 @@ bin
 .classpath
 .project
 
-# idea
+# Idea
 out
 *.ipr
 *.iws
@@ -14,7 +14,11 @@ out
 .idea/*
 !.idea/scopes
 
-# gradle
+# VS Code
+.vscode/*
+!.vscode/extensions.json
+
+# Gradle
 build
 .gradle
 

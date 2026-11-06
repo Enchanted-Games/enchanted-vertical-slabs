@@ -19,6 +19,7 @@ public class VerticalSlabIds {
     public static final BlockItemId VERTICAL_BAMBOO_SLAB = create("vertical_bamboo_slab");
     public static final BlockItemId VERTICAL_BAMBOO_MOSAIC_SLAB = create("vertical_bamboo_mosaic_slab");
     public static final BlockItemId VERTICAL_PALE_OAK_SLAB = create("vertical_pale_oak_slab");
+    public static final BlockItemId VERTICAL_POPLAR_SLAB = create("vertical_poplar_slab");
 
     public static final BlockItemId VERTICAL_CUT_COPPER_SLAB = create("vertical_cut_copper_slab");
     public static final BlockItemId VERTICAL_EXPOSED_CUT_COPPER_SLAB = create("vertical_exposed_cut_copper_slab");
@@ -84,6 +85,39 @@ public class VerticalSlabIds {
     public static final BlockItemId VERTICAL_POLISHED_SULFUR_SLAB = create("vertical_polished_sulfur_slab");
     public static final BlockItemId VERTICAL_SULFUR_BRICK_SLAB = create("vertical_sulfur_brick_slab");
 
+    public static final BlockItemId VERTICAL_WHITE_WOOL_SLAB = create("vertical_white_wool_slab");
+    public static final BlockItemId VERTICAL_ORANGE_WOOL_SLAB = create("vertical_orange_wool_slab");
+    public static final BlockItemId VERTICAL_MAGENTA_WOOL_SLAB = create("vertical_magenta_wool_slab");
+    public static final BlockItemId VERTICAL_LIGHT_BLUE_WOOL_SLAB = create("vertical_light_blue_wool_slab");
+    public static final BlockItemId VERTICAL_YELLOW_WOOL_SLAB = create("vertical_yellow_wool_slab");
+    public static final BlockItemId VERTICAL_LIME_WOOL_SLAB = create("vertical_lime_wool_slab");
+    public static final BlockItemId VERTICAL_PINK_WOOL_SLAB = create("vertical_pink_wool_slab");
+    public static final BlockItemId VERTICAL_GRAY_WOOL_SLAB = create("vertical_gray_wool_slab");
+    public static final BlockItemId VERTICAL_LIGHT_GRAY_WOOL_SLAB = create("vertical_light_gray_wool_slab");
+    public static final BlockItemId VERTICAL_CYAN_WOOL_SLAB = create("vertical_cyan_wool_slab");
+    public static final BlockItemId VERTICAL_PURPLE_WOOL_SLAB = create("vertical_purple_wool_slab");
+    public static final BlockItemId VERTICAL_BLUE_WOOL_SLAB = create("vertical_blue_wool_slab");
+    public static final BlockItemId VERTICAL_BROWN_WOOL_SLAB = create("vertical_brown_wool_slab");
+    public static final BlockItemId VERTICAL_GREEN_WOOL_SLAB = create("vertical_green_wool_slab");
+    public static final BlockItemId VERTICAL_RED_WOOL_SLAB = create("vertical_red_wool_slab");
+    public static final BlockItemId VERTICAL_BLACK_WOOL_SLAB = create("vertical_black_wool_slab");
+
+    public static final BlockItemId VERTICAL_WHITE_CONCRETE_SLAB = create("vertical_white_concrete_slab");
+    public static final BlockItemId VERTICAL_ORANGE_CONCRETE_SLAB = create("vertical_orange_concrete_slab");
+    public static final BlockItemId VERTICAL_MAGENTA_CONCRETE_SLAB = create("vertical_magenta_concrete_slab");
+    public static final BlockItemId VERTICAL_LIGHT_BLUE_CONCRETE_SLAB = create("vertical_light_blue_concrete_slab");
+    public static final BlockItemId VERTICAL_YELLOW_CONCRETE_SLAB = create("vertical_yellow_concrete_slab");
+    public static final BlockItemId VERTICAL_LIME_CONCRETE_SLAB = create("vertical_lime_concrete_slab");
+    public static final BlockItemId VERTICAL_PINK_CONCRETE_SLAB = create("vertical_pink_concrete_slab");
+    public static final BlockItemId VERTICAL_GRAY_CONCRETE_SLAB = create("vertical_gray_concrete_slab");
+    public static final BlockItemId VERTICAL_LIGHT_GRAY_CONCRETE_SLAB = create("vertical_light_gray_concrete_slab");
+    public static final BlockItemId VERTICAL_CYAN_CONCRETE_SLAB = create("vertical_cyan_concrete_slab");
+    public static final BlockItemId VERTICAL_PURPLE_CONCRETE_SLAB = create("vertical_purple_concrete_slab");
+    public static final BlockItemId VERTICAL_BLUE_CONCRETE_SLAB = create("vertical_blue_concrete_slab");
+    public static final BlockItemId VERTICAL_BROWN_CONCRETE_SLAB = create("vertical_brown_concrete_slab");
+    public static final BlockItemId VERTICAL_GREEN_CONCRETE_SLAB = create("vertical_green_concrete_slab");
+    public static final BlockItemId VERTICAL_RED_CONCRETE_SLAB = create("vertical_red_concrete_slab");
+    public static final BlockItemId VERTICAL_BLACK_CONCRETE_SLAB = create("vertical_black_concrete_slab");
 
     private static BlockItemId create(String id) {
         Identifier identifier = Identifier.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.MOD_ID, id);

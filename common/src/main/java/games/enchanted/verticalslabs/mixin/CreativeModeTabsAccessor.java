@@ -12,4 +12,9 @@ public interface CreativeModeTabsAccessor {
     static ResourceKey<CreativeModeTab> getBuildingBlocksTab() {
         throw new AssertionError();
     }
+
+    @Accessor("COLORED_BLOCKS")
+    static ResourceKey<CreativeModeTab> getColoredBlocksTab() {
+        throw new AssertionError();
+    }
 }

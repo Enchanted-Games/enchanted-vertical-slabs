@@ -2,17 +2,17 @@
   "required": true,
   "minVersion": "0.8",
   "package": "games.enchanted.verticalslabs.mixin",
-  "compatibilityLevel": "JAVA_21",
+  "compatibilityLevel": "JAVA_25",
   "mixins": [
-    "FireBlockAccessor",
-    "HoneyCombItemMixin",
-    "WeatheringCopperMixin",
-    "WeatheringCopperVerticalSlabBlockMixin"
+    "FireBlockAccessorMixin",
+    "HoneyCombItemMixin"
   ],
-  "client": [
-  ],
+  "client": [],
   "server": [],
   "injectors": {
     "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
   }
 }

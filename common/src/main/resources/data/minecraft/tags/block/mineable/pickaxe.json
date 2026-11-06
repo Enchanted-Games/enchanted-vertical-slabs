@@ -59,6 +59,23 @@
         "enchanted-vertical-slabs:vertical_cinnabar_brick_slab",
         "enchanted-vertical-slabs:vertical_sulfur_slab",
         "enchanted-vertical-slabs:vertical_polished_sulfur_slab",
-        "enchanted-vertical-slabs:vertical_sulfur_brick_slab"
+        "enchanted-vertical-slabs:vertical_sulfur_brick_slab",
+        
+        "enchanted-vertical-slabs:vertical_white_concrete_slab",
+        "enchanted-vertical-slabs:vertical_orange_concrete_slab",
+        "enchanted-vertical-slabs:vertical_magenta_concrete_slab",
+        "enchanted-vertical-slabs:vertical_light_blue_concrete_slab",
+        "enchanted-vertical-slabs:vertical_yellow_concrete_slab",
+        "enchanted-vertical-slabs:vertical_lime_concrete_slab",
+        "enchanted-vertical-slabs:vertical_pink_concrete_slab",
+        "enchanted-vertical-slabs:vertical_gray_concrete_slab",
+        "enchanted-vertical-slabs:vertical_light_gray_concrete_slab",
+        "enchanted-vertical-slabs:vertical_cyan_concrete_slab",
+        "enchanted-vertical-slabs:vertical_purple_concrete_slab",
+        "enchanted-vertical-slabs:vertical_blue_concrete_slab",
+        "enchanted-vertical-slabs:vertical_brown_concrete_slab",
+        "enchanted-vertical-slabs:vertical_green_concrete_slab",
+        "enchanted-vertical-slabs:vertical_red_concrete_slab",
+        "enchanted-vertical-slabs:vertical_black_concrete_slab"
     ]
 }
