@@ -85,6 +85,22 @@ public class VerticalSlabIds {
     public static final BlockItemId VERTICAL_POLISHED_SULFUR_SLAB = create("vertical_polished_sulfur_slab");
     public static final BlockItemId VERTICAL_SULFUR_BRICK_SLAB = create("vertical_sulfur_brick_slab");
 
+    public static final BlockItemId VERTICAL_WHITE_WOOL_SLAB = create("vertical_white_wool_slab");
+    public static final BlockItemId VERTICAL_ORANGE_WOOL_SLAB = create("vertical_orange_wool_slab");
+    public static final BlockItemId VERTICAL_MAGENTA_WOOL_SLAB = create("vertical_magenta_wool_slab");
+    public static final BlockItemId VERTICAL_LIGHT_BLUE_WOOL_SLAB = create("vertical_light_blue_wool_slab");
+    public static final BlockItemId VERTICAL_YELLOW_WOOL_SLAB = create("vertical_yellow_wool_slab");
+    public static final BlockItemId VERTICAL_LIME_WOOL_SLAB = create("vertical_lime_wool_slab");
+    public static final BlockItemId VERTICAL_PINK_WOOL_SLAB = create("vertical_pink_wool_slab");
+    public static final BlockItemId VERTICAL_GRAY_WOOL_SLAB = create("vertical_gray_wool_slab");
+    public static final BlockItemId VERTICAL_LIGHT_GRAY_WOOL_SLAB = create("vertical_light_gray_wool_slab");
+    public static final BlockItemId VERTICAL_CYAN_WOOL_SLAB = create("vertical_cyan_wool_slab");
+    public static final BlockItemId VERTICAL_PURPLE_WOOL_SLAB = create("vertical_purple_wool_slab");
+    public static final BlockItemId VERTICAL_BLUE_WOOL_SLAB = create("vertical_blue_wool_slab");
+    public static final BlockItemId VERTICAL_BROWN_WOOL_SLAB = create("vertical_brown_wool_slab");
+    public static final BlockItemId VERTICAL_GREEN_WOOL_SLAB = create("vertical_green_wool_slab");
+    public static final BlockItemId VERTICAL_RED_WOOL_SLAB = create("vertical_red_wool_slab");
+    public static final BlockItemId VERTICAL_BLACK_WOOL_SLAB = create("vertical_black_wool_slab");
 
     private static BlockItemId create(String id) {
         Identifier identifier = Identifier.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.MOD_ID, id);

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "vertical_wool_slab",
+  "pattern": [
+    "#",
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": "minecraft:black_wool"
+  },
+  "result": {
+    "id": "enchanted-vertical-slabs:vertical_black_wool_slab",
+    "count": 6
+  }
+}

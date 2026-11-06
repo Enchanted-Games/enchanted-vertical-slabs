@@ -6,10 +6,13 @@ import games.enchanted.verticalslabs.item.ModCreativeTab.DummyCreativeTabData;
 import games.enchanted.verticalslabs.mixin.CreativeModeTabsAccessor;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
 
 public class ModCreativeTabs {
 	private static final ResourceKey<CreativeModeTab> buildingBlocksTab = CreativeModeTabsAccessor.getBuildingBlocksTab();
+	private static final ResourceKey<CreativeModeTab> coloredBlocksTab = CreativeModeTabsAccessor.getColoredBlocksTab();
 
     private static final DummyCreativeTabData VERTICAL_SLABS_TAB = new DummyCreativeTabData(
         VerticalSlabBlocks.VERTICAL_OAK_SLAB.blockItem(),
@@ -82,7 +85,23 @@ public class ModCreativeTabs {
 			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_CINNABAR_BRICK_SLAB.blockItem(), buildingBlocksTab, Items.CINNABAR_BRICK_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
 			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_SULFUR_SLAB.blockItem(), buildingBlocksTab, Items.SULFUR_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
 			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_POLISHED_SULFUR_SLAB.blockItem(), buildingBlocksTab, Items.POLISHED_SULFUR_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
-			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_SULFUR_BRICK_SLAB.blockItem(), buildingBlocksTab, Items.SULFUR_BRICK_SLAB, ModCreativeTab.INSERT_AFTER_RELATED)
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_SULFUR_BRICK_SLAB.blockItem(), buildingBlocksTab, Items.SULFUR_BRICK_SLAB, ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_WHITE_WOOL_SLAB.blockItem(), coloredBlocksTab, Blocks.WOOL_SLAB.pick(DyeColor.WHITE).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_ORANGE_WOOL_SLAB.blockItem(), coloredBlocksTab, Blocks.WOOL_SLAB.pick(DyeColor.ORANGE).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_MAGENTA_WOOL_SLAB.blockItem(), coloredBlocksTab, Blocks.WOOL_SLAB.pick(DyeColor.MAGENTA).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_LIGHT_BLUE_WOOL_SLAB.blockItem(), coloredBlocksTab, Blocks.WOOL_SLAB.pick(DyeColor.LIGHT_BLUE).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_YELLOW_WOOL_SLAB.blockItem(), coloredBlocksTab, Blocks.WOOL_SLAB.pick(DyeColor.YELLOW).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_LIME_WOOL_SLAB.blockItem(), coloredBlocksTab, Blocks.WOOL_SLAB.pick(DyeColor.LIME).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_PINK_WOOL_SLAB.blockItem(), coloredBlocksTab, Blocks.WOOL_SLAB.pick(DyeColor.PINK).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_GRAY_WOOL_SLAB.blockItem(), coloredBlocksTab, Blocks.WOOL_SLAB.pick(DyeColor.GRAY).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_LIGHT_GRAY_WOOL_SLAB.blockItem(), coloredBlocksTab, Blocks.WOOL_SLAB.pick(DyeColor.LIGHT_GRAY).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_CYAN_WOOL_SLAB.blockItem(), coloredBlocksTab, Blocks.WOOL_SLAB.pick(DyeColor.CYAN).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_PURPLE_WOOL_SLAB.blockItem(), coloredBlocksTab, Blocks.WOOL_SLAB.pick(DyeColor.PURPLE).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_BLUE_WOOL_SLAB.blockItem(), coloredBlocksTab, Blocks.WOOL_SLAB.pick(DyeColor.BLUE).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_BROWN_WOOL_SLAB.blockItem(), coloredBlocksTab, Blocks.WOOL_SLAB.pick(DyeColor.BROWN).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_GREEN_WOOL_SLAB.blockItem(), coloredBlocksTab, Blocks.WOOL_SLAB.pick(DyeColor.GREEN).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_RED_WOOL_SLAB.blockItem(), coloredBlocksTab, Blocks.WOOL_SLAB.pick(DyeColor.RED).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_BLACK_WOOL_SLAB.blockItem(), coloredBlocksTab, Blocks.WOOL_SLAB.pick(DyeColor.BLACK).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
         }
     );
 

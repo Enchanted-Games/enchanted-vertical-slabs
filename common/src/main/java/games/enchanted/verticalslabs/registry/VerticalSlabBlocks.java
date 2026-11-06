@@ -1,6 +1,7 @@
 package games.enchanted.verticalslabs.registry;
 
 import games.enchanted.verticalslabs.block.BlockAndItemContainer;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.WeatheringCopper;
 
@@ -86,6 +87,23 @@ public class VerticalSlabBlocks {
     public static final BlockAndItemContainer VERTICAL_SULFUR_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_SULFUR_SLAB, Blocks.SULFUR_SLAB.properties());
     public static final BlockAndItemContainer VERTICAL_POLISHED_SULFUR_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_POLISHED_SULFUR_SLAB, Blocks.POLISHED_SULFUR_SLAB.properties());
     public static final BlockAndItemContainer VERTICAL_SULFUR_BRICK_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_SULFUR_BRICK_SLAB, Blocks.SULFUR_BRICK_SLAB.properties());
+
+    public static final BlockAndItemContainer VERTICAL_WHITE_WOOL_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_WHITE_WOOL_SLAB, Blocks.WOOL_SLAB.pick(DyeColor.WHITE).properties());
+    public static final BlockAndItemContainer VERTICAL_ORANGE_WOOL_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_ORANGE_WOOL_SLAB, Blocks.WOOL_SLAB.pick(DyeColor.ORANGE).properties());
+    public static final BlockAndItemContainer VERTICAL_MAGENTA_WOOL_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_MAGENTA_WOOL_SLAB, Blocks.WOOL_SLAB.pick(DyeColor.MAGENTA).properties());
+    public static final BlockAndItemContainer VERTICAL_LIGHT_BLUE_WOOL_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_LIGHT_BLUE_WOOL_SLAB, Blocks.WOOL_SLAB.pick(DyeColor.LIGHT_BLUE).properties());
+    public static final BlockAndItemContainer VERTICAL_YELLOW_WOOL_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_YELLOW_WOOL_SLAB, Blocks.WOOL_SLAB.pick(DyeColor.YELLOW).properties());
+    public static final BlockAndItemContainer VERTICAL_LIME_WOOL_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_LIME_WOOL_SLAB, Blocks.WOOL_SLAB.pick(DyeColor.LIME).properties());
+    public static final BlockAndItemContainer VERTICAL_PINK_WOOL_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_PINK_WOOL_SLAB, Blocks.WOOL_SLAB.pick(DyeColor.PINK).properties());
+    public static final BlockAndItemContainer VERTICAL_GRAY_WOOL_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_GRAY_WOOL_SLAB, Blocks.WOOL_SLAB.pick(DyeColor.GRAY).properties());
+    public static final BlockAndItemContainer VERTICAL_LIGHT_GRAY_WOOL_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_LIGHT_GRAY_WOOL_SLAB, Blocks.WOOL_SLAB.pick(DyeColor.LIGHT_GRAY).properties());
+    public static final BlockAndItemContainer VERTICAL_CYAN_WOOL_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_CYAN_WOOL_SLAB, Blocks.WOOL_SLAB.pick(DyeColor.CYAN).properties());
+    public static final BlockAndItemContainer VERTICAL_PURPLE_WOOL_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_PURPLE_WOOL_SLAB, Blocks.WOOL_SLAB.pick(DyeColor.PURPLE).properties());
+    public static final BlockAndItemContainer VERTICAL_BLUE_WOOL_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_BLUE_WOOL_SLAB, Blocks.WOOL_SLAB.pick(DyeColor.BLUE).properties());
+    public static final BlockAndItemContainer VERTICAL_BROWN_WOOL_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_BROWN_WOOL_SLAB, Blocks.WOOL_SLAB.pick(DyeColor.BROWN).properties());
+    public static final BlockAndItemContainer VERTICAL_GREEN_WOOL_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_GREEN_WOOL_SLAB, Blocks.WOOL_SLAB.pick(DyeColor.GREEN).properties());
+    public static final BlockAndItemContainer VERTICAL_RED_WOOL_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_RED_WOOL_SLAB, Blocks.WOOL_SLAB.pick(DyeColor.RED).properties());
+    public static final BlockAndItemContainer VERTICAL_BLACK_WOOL_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_BLACK_WOOL_SLAB, Blocks.WOOL_SLAB.pick(DyeColor.BLACK).properties());
 
     /**
      * Load the class to register blocks
