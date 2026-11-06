@@ -94,5 +94,22 @@
     "block.enchanted-vertical-slabs.vertical_brown_wool_slab": "Vertical Brown Wool Slab",
     "block.enchanted-vertical-slabs.vertical_green_wool_slab": "Vertical Green Wool Slab",
     "block.enchanted-vertical-slabs.vertical_red_wool_slab": "Vertical Red Wool Slab",
-    "block.enchanted-vertical-slabs.vertical_black_wool_slab": "Vertical Black Wool Slab"
+    "block.enchanted-vertical-slabs.vertical_black_wool_slab": "Vertical Black Wool Slab",
+
+    "block.enchanted-vertical-slabs.vertical_white_concrete_slab": "Vertical White Concrete Slab",
+    "block.enchanted-vertical-slabs.vertical_orange_concrete_slab": "Vertical Orange Concrete Slab",
+    "block.enchanted-vertical-slabs.vertical_magenta_concrete_slab": "Vertical Magenta Concrete Slab",
+    "block.enchanted-vertical-slabs.vertical_light_blue_concrete_slab": "Vertical Light Blue Concrete Slab",
+    "block.enchanted-vertical-slabs.vertical_yellow_concrete_slab": "Vertical Yellow Concrete Slab",
+    "block.enchanted-vertical-slabs.vertical_lime_concrete_slab": "Vertical Lime Concrete Slab",
+    "block.enchanted-vertical-slabs.vertical_pink_concrete_slab": "Vertical Pink Concrete Slab",
+    "block.enchanted-vertical-slabs.vertical_gray_concrete_slab": "Vertical Gray Concrete Slab",
+    "block.enchanted-vertical-slabs.vertical_light_gray_concrete_slab": "Vertical Light Gray Concrete Slab",
+    "block.enchanted-vertical-slabs.vertical_cyan_concrete_slab": "Vertical Cyan Concrete Slab",
+    "block.enchanted-vertical-slabs.vertical_purple_concrete_slab": "Vertical Purple Concrete Slab",
+    "block.enchanted-vertical-slabs.vertical_blue_concrete_slab": "Vertical Blue Concrete Slab",
+    "block.enchanted-vertical-slabs.vertical_brown_concrete_slab": "Vertical Brown Concrete Slab",
+    "block.enchanted-vertical-slabs.vertical_green_concrete_slab": "Vertical Green Concrete Slab",
+    "block.enchanted-vertical-slabs.vertical_red_concrete_slab": "Vertical Red Concrete Slab",
+    "block.enchanted-vertical-slabs.vertical_black_concrete_slab": "Vertical Black Concrete Slab"
 }

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "vertical_concrete_slab",
+  "pattern": [
+    "#",
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": "minecraft:brown_concrete"
+  },
+  "result": {
+    "id": "enchanted-vertical-slabs:vertical_brown_concrete_slab",
+    "count": 6
+  }
+}

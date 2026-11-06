@@ -102,6 +102,22 @@ public class ModCreativeTabs {
 			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_GREEN_WOOL_SLAB.blockItem(), coloredBlocksTab, Blocks.WOOL_SLAB.pick(DyeColor.GREEN).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
 			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_RED_WOOL_SLAB.blockItem(), coloredBlocksTab, Blocks.WOOL_SLAB.pick(DyeColor.RED).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
 			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_BLACK_WOOL_SLAB.blockItem(), coloredBlocksTab, Blocks.WOOL_SLAB.pick(DyeColor.BLACK).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_WHITE_CONCRETE_SLAB.blockItem(), coloredBlocksTab, Blocks.CONCRETE_SLAB.pick(DyeColor.WHITE).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_ORANGE_CONCRETE_SLAB.blockItem(), coloredBlocksTab, Blocks.CONCRETE_SLAB.pick(DyeColor.ORANGE).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_MAGENTA_CONCRETE_SLAB.blockItem(), coloredBlocksTab, Blocks.CONCRETE_SLAB.pick(DyeColor.MAGENTA).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_LIGHT_BLUE_CONCRETE_SLAB.blockItem(), coloredBlocksTab, Blocks.CONCRETE_SLAB.pick(DyeColor.LIGHT_BLUE).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_YELLOW_CONCRETE_SLAB.blockItem(), coloredBlocksTab, Blocks.CONCRETE_SLAB.pick(DyeColor.YELLOW).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_LIME_CONCRETE_SLAB.blockItem(), coloredBlocksTab, Blocks.CONCRETE_SLAB.pick(DyeColor.LIME).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_PINK_CONCRETE_SLAB.blockItem(), coloredBlocksTab, Blocks.CONCRETE_SLAB.pick(DyeColor.PINK).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_GRAY_CONCRETE_SLAB.blockItem(), coloredBlocksTab, Blocks.CONCRETE_SLAB.pick(DyeColor.GRAY).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_LIGHT_GRAY_CONCRETE_SLAB.blockItem(), coloredBlocksTab, Blocks.CONCRETE_SLAB.pick(DyeColor.LIGHT_GRAY).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_CYAN_CONCRETE_SLAB.blockItem(), coloredBlocksTab, Blocks.CONCRETE_SLAB.pick(DyeColor.CYAN).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_PURPLE_CONCRETE_SLAB.blockItem(), coloredBlocksTab, Blocks.CONCRETE_SLAB.pick(DyeColor.PURPLE).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_BLUE_CONCRETE_SLAB.blockItem(), coloredBlocksTab, Blocks.CONCRETE_SLAB.pick(DyeColor.BLUE).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_BROWN_CONCRETE_SLAB.blockItem(), coloredBlocksTab, Blocks.CONCRETE_SLAB.pick(DyeColor.BROWN).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_GREEN_CONCRETE_SLAB.blockItem(), coloredBlocksTab, Blocks.CONCRETE_SLAB.pick(DyeColor.GREEN).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_RED_CONCRETE_SLAB.blockItem(), coloredBlocksTab, Blocks.CONCRETE_SLAB.pick(DyeColor.RED).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
+			new ModCreativeTabEntry(VerticalSlabBlocks.VERTICAL_BLACK_CONCRETE_SLAB.blockItem(), coloredBlocksTab, Blocks.CONCRETE_SLAB.pick(DyeColor.BLACK).asItem(), ModCreativeTab.INSERT_AFTER_RELATED),
         }
     );
 

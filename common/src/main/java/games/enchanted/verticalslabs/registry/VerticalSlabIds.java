@@ -102,6 +102,23 @@ public class VerticalSlabIds {
     public static final BlockItemId VERTICAL_RED_WOOL_SLAB = create("vertical_red_wool_slab");
     public static final BlockItemId VERTICAL_BLACK_WOOL_SLAB = create("vertical_black_wool_slab");
 
+    public static final BlockItemId VERTICAL_WHITE_CONCRETE_SLAB = create("vertical_white_concrete_slab");
+    public static final BlockItemId VERTICAL_ORANGE_CONCRETE_SLAB = create("vertical_orange_concrete_slab");
+    public static final BlockItemId VERTICAL_MAGENTA_CONCRETE_SLAB = create("vertical_magenta_concrete_slab");
+    public static final BlockItemId VERTICAL_LIGHT_BLUE_CONCRETE_SLAB = create("vertical_light_blue_concrete_slab");
+    public static final BlockItemId VERTICAL_YELLOW_CONCRETE_SLAB = create("vertical_yellow_concrete_slab");
+    public static final BlockItemId VERTICAL_LIME_CONCRETE_SLAB = create("vertical_lime_concrete_slab");
+    public static final BlockItemId VERTICAL_PINK_CONCRETE_SLAB = create("vertical_pink_concrete_slab");
+    public static final BlockItemId VERTICAL_GRAY_CONCRETE_SLAB = create("vertical_gray_concrete_slab");
+    public static final BlockItemId VERTICAL_LIGHT_GRAY_CONCRETE_SLAB = create("vertical_light_gray_concrete_slab");
+    public static final BlockItemId VERTICAL_CYAN_CONCRETE_SLAB = create("vertical_cyan_concrete_slab");
+    public static final BlockItemId VERTICAL_PURPLE_CONCRETE_SLAB = create("vertical_purple_concrete_slab");
+    public static final BlockItemId VERTICAL_BLUE_CONCRETE_SLAB = create("vertical_blue_concrete_slab");
+    public static final BlockItemId VERTICAL_BROWN_CONCRETE_SLAB = create("vertical_brown_concrete_slab");
+    public static final BlockItemId VERTICAL_GREEN_CONCRETE_SLAB = create("vertical_green_concrete_slab");
+    public static final BlockItemId VERTICAL_RED_CONCRETE_SLAB = create("vertical_red_concrete_slab");
+    public static final BlockItemId VERTICAL_BLACK_CONCRETE_SLAB = create("vertical_black_concrete_slab");
+
     private static BlockItemId create(String id) {
         Identifier identifier = Identifier.fromNamespaceAndPath(EnchantedVerticalSlabsConstants.MOD_ID, id);
         return BlockItemId.create(identifier, identifier);

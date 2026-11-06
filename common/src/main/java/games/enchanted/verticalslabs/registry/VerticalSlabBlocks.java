@@ -105,6 +105,23 @@ public class VerticalSlabBlocks {
     public static final BlockAndItemContainer VERTICAL_RED_WOOL_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_RED_WOOL_SLAB, Blocks.WOOL_SLAB.pick(DyeColor.RED).properties());
     public static final BlockAndItemContainer VERTICAL_BLACK_WOOL_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_BLACK_WOOL_SLAB, Blocks.WOOL_SLAB.pick(DyeColor.BLACK).properties());
 
+    public static final BlockAndItemContainer VERTICAL_WHITE_CONCRETE_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_WHITE_CONCRETE_SLAB, Blocks.CONCRETE_SLAB.pick(DyeColor.WHITE).properties());
+    public static final BlockAndItemContainer VERTICAL_ORANGE_CONCRETE_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_ORANGE_CONCRETE_SLAB, Blocks.CONCRETE_SLAB.pick(DyeColor.ORANGE).properties());
+    public static final BlockAndItemContainer VERTICAL_MAGENTA_CONCRETE_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_MAGENTA_CONCRETE_SLAB, Blocks.CONCRETE_SLAB.pick(DyeColor.MAGENTA).properties());
+    public static final BlockAndItemContainer VERTICAL_LIGHT_BLUE_CONCRETE_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_LIGHT_BLUE_CONCRETE_SLAB, Blocks.CONCRETE_SLAB.pick(DyeColor.LIGHT_BLUE).properties());
+    public static final BlockAndItemContainer VERTICAL_YELLOW_CONCRETE_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_YELLOW_CONCRETE_SLAB, Blocks.CONCRETE_SLAB.pick(DyeColor.YELLOW).properties());
+    public static final BlockAndItemContainer VERTICAL_LIME_CONCRETE_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_LIME_CONCRETE_SLAB, Blocks.CONCRETE_SLAB.pick(DyeColor.LIME).properties());
+    public static final BlockAndItemContainer VERTICAL_PINK_CONCRETE_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_PINK_CONCRETE_SLAB, Blocks.CONCRETE_SLAB.pick(DyeColor.PINK).properties());
+    public static final BlockAndItemContainer VERTICAL_GRAY_CONCRETE_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_GRAY_CONCRETE_SLAB, Blocks.CONCRETE_SLAB.pick(DyeColor.GRAY).properties());
+    public static final BlockAndItemContainer VERTICAL_LIGHT_GRAY_CONCRETE_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_LIGHT_GRAY_CONCRETE_SLAB, Blocks.CONCRETE_SLAB.pick(DyeColor.LIGHT_GRAY).properties());
+    public static final BlockAndItemContainer VERTICAL_CYAN_CONCRETE_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_CYAN_CONCRETE_SLAB, Blocks.CONCRETE_SLAB.pick(DyeColor.CYAN).properties());
+    public static final BlockAndItemContainer VERTICAL_PURPLE_CONCRETE_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_PURPLE_CONCRETE_SLAB, Blocks.CONCRETE_SLAB.pick(DyeColor.PURPLE).properties());
+    public static final BlockAndItemContainer VERTICAL_BLUE_CONCRETE_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_BLUE_CONCRETE_SLAB, Blocks.CONCRETE_SLAB.pick(DyeColor.BLUE).properties());
+    public static final BlockAndItemContainer VERTICAL_BROWN_CONCRETE_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_BROWN_CONCRETE_SLAB, Blocks.CONCRETE_SLAB.pick(DyeColor.BROWN).properties());
+    public static final BlockAndItemContainer VERTICAL_GREEN_CONCRETE_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_GREEN_CONCRETE_SLAB, Blocks.CONCRETE_SLAB.pick(DyeColor.GREEN).properties());
+    public static final BlockAndItemContainer VERTICAL_RED_CONCRETE_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_RED_CONCRETE_SLAB, Blocks.CONCRETE_SLAB.pick(DyeColor.RED).properties());
+    public static final BlockAndItemContainer VERTICAL_BLACK_CONCRETE_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_BLACK_CONCRETE_SLAB, Blocks.CONCRETE_SLAB.pick(DyeColor.BLACK).properties());
+
     /**
      * Load the class to register blocks
      */
