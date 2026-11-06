@@ -27,6 +27,7 @@ public class FuelItems {
             modifyFuel(context, VerticalSlabBlocks.VERTICAL_MANGROVE_SLAB.blockItem(), woodFuel);
             modifyFuel(context, VerticalSlabBlocks.VERTICAL_CHERRY_SLAB.blockItem(), woodFuel);
             modifyFuel(context, VerticalSlabBlocks.VERTICAL_PALE_OAK_SLAB.blockItem(), woodFuel);
+            modifyFuel(context, VerticalSlabBlocks.VERTICAL_POPLAR_SLAB.blockItem(), woodFuel);
 
             modifyFuel(context, VerticalSlabBlocks.VERTICAL_BAMBOO_SLAB.blockItem(), bambooFuel);
             modifyFuel(context, VerticalSlabBlocks.VERTICAL_BAMBOO_MOSAIC_SLAB.blockItem(), bambooFuel);

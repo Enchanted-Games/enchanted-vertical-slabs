@@ -21,6 +21,7 @@ public class VerticalSlabBlocks {
     public static final BlockAndItemContainer VERTICAL_BAMBOO_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_BAMBOO_SLAB, Blocks.BAMBOO_SLAB.properties());
     public static final BlockAndItemContainer VERTICAL_BAMBOO_MOSAIC_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_BAMBOO_MOSAIC_SLAB, Blocks.BAMBOO_MOSAIC_SLAB.properties());
     public static final BlockAndItemContainer VERTICAL_PALE_OAK_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_PALE_OAK_SLAB, Blocks.PALE_OAK_SLAB.properties());
+    public static final BlockAndItemContainer VERTICAL_POPLAR_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_POPLAR_SLAB, Blocks.POPLAR_SLAB.properties());
 
     public static final BlockAndItemContainer VERTICAL_CUT_COPPER_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_CUT_COPPER_SLAB, Blocks.CUT_COPPER_SLAB.weathering().unaffected().properties(), WeatheringCopper.WeatherState.UNAFFECTED);
     public static final BlockAndItemContainer VERTICAL_EXPOSED_CUT_COPPER_SLAB = registerVerticalSlab(VerticalSlabIds.VERTICAL_EXPOSED_CUT_COPPER_SLAB, Blocks.CUT_COPPER_SLAB.weathering().exposed().properties(), WeatheringCopper.WeatherState.EXPOSED);

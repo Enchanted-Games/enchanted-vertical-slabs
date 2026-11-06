@@ -10,6 +10,8 @@
     "block.enchanted-vertical-slabs.vertical_mangrove_slab": "Vertical Mangrove Slab",
     "block.enchanted-vertical-slabs.vertical_crimson_slab": "Vertical Crimson Slab",
     "block.enchanted-vertical-slabs.vertical_warped_slab": "Vertical Warped Slab",
+    "block.enchanted-vertical-slabs.vertical_pale_oak_slab": "Vertical Pale Oak Slab",
+    "block.enchanted-vertical-slabs.vertical_poplar_slab": "Vertical Poplar Slab",
 
     "block.enchanted-vertical-slabs.vertical_stone_slab": "Vertical Stone Slab",
     "block.enchanted-vertical-slabs.vertical_smooth_stone_slab": "Vertical Smooth Stone Slab",
@@ -69,8 +71,6 @@
     "block.enchanted-vertical-slabs.vertical_tuff_slab": "Vertical Tuff Slab",
     "block.enchanted-vertical-slabs.vertical_polished_tuff_slab": "Vertical Polished Tuff Slab",
     "block.enchanted-vertical-slabs.vertical_tuff_brick_slab": "Vertical Tuff Brick Slab",
-    
-    "block.enchanted-vertical-slabs.vertical_pale_oak_slab": "Vertical Pale Oak Slab",
 
     "block.enchanted-vertical-slabs.vertical_cinnabar_slab": "Vertical Cinnabar Slab",
     "block.enchanted-vertical-slabs.vertical_polished_cinnabar_slab": "Vertical Polished Cinnabar Slab",

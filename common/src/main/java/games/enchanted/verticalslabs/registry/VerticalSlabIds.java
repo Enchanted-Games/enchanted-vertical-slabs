@@ -19,6 +19,7 @@ public class VerticalSlabIds {
     public static final BlockItemId VERTICAL_BAMBOO_SLAB = create("vertical_bamboo_slab");
     public static final BlockItemId VERTICAL_BAMBOO_MOSAIC_SLAB = create("vertical_bamboo_mosaic_slab");
     public static final BlockItemId VERTICAL_PALE_OAK_SLAB = create("vertical_pale_oak_slab");
+    public static final BlockItemId VERTICAL_POPLAR_SLAB = create("vertical_poplar_slab");
 
     public static final BlockItemId VERTICAL_CUT_COPPER_SLAB = create("vertical_cut_copper_slab");
     public static final BlockItemId VERTICAL_EXPOSED_CUT_COPPER_SLAB = create("vertical_exposed_cut_copper_slab");

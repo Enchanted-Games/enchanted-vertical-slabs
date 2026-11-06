@@ -13,6 +13,7 @@ public class FlammableBlocks {
         Services.PLATFORM.addFlammableBlock(VerticalSlabBlocks.VERTICAL_MANGROVE_SLAB.block(), 5, 20);
         Services.PLATFORM.addFlammableBlock(VerticalSlabBlocks.VERTICAL_CHERRY_SLAB.block(), 5, 20);
         Services.PLATFORM.addFlammableBlock(VerticalSlabBlocks.VERTICAL_PALE_OAK_SLAB.block(), 5, 20);
+        Services.PLATFORM.addFlammableBlock(VerticalSlabBlocks.VERTICAL_POPLAR_SLAB.block(), 5, 20);
 
         Services.PLATFORM.addFlammableBlock(VerticalSlabBlocks.VERTICAL_BAMBOO_SLAB.block(), 5, 20);
         Services.PLATFORM.addFlammableBlock(VerticalSlabBlocks.VERTICAL_BAMBOO_MOSAIC_SLAB.block(), 5, 20);

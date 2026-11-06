@@ -26,6 +26,7 @@ public class FuelItems {
         modifyFuel(event, VerticalSlabBlocks.VERTICAL_MANGROVE_SLAB.blockItem(), woodFuel);
         modifyFuel(event, VerticalSlabBlocks.VERTICAL_CHERRY_SLAB.blockItem(), woodFuel);
         modifyFuel(event, VerticalSlabBlocks.VERTICAL_PALE_OAK_SLAB.blockItem(), woodFuel);
+        modifyFuel(event, VerticalSlabBlocks.VERTICAL_POPLAR_SLAB.blockItem(), woodFuel);
 
         modifyFuel(event, VerticalSlabBlocks.VERTICAL_BAMBOO_SLAB.blockItem(), bambooFuel);
         modifyFuel(event, VerticalSlabBlocks.VERTICAL_BAMBOO_MOSAIC_SLAB.blockItem(), bambooFuel);
