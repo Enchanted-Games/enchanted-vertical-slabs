@@ -29,10 +29,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import com.mojang.serialization.MapCodec;
-
 public class VerticalSlabBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
-    public static final MapCodec<? extends VerticalSlabBlock> CODEC = simpleCodec(VerticalSlabBlock::new);
     public static final BooleanProperty SINGLE = BooleanProperty.create("single_slab");
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateManager) {
@@ -148,10 +145,5 @@ public class VerticalSlabBlock extends HorizontalDirectionalBlock implements Sim
     @Override
     protected boolean isPathfindable(BlockState state, @NotNull PathComputationType type) {
         return !state.getValue(SINGLE);
-    }
-
-    @Override
-    protected @NotNull MapCodec<? extends VerticalSlabBlock> codec() {
-        return CODEC;
     }
 }

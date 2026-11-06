@@ -4,6 +4,7 @@ import games.enchanted.verticalslabs.registry.VerticalSlabBlocks;
 import games.enchanted.verticalslabs.platform.NeoForgeCreativeTabRegistration;
 import games.enchanted.verticalslabs.registry.FlammableBlocks;
 import games.enchanted.verticalslabs.registry.WeatheringBlocks;
+import games.enchanted.verticalslabs.item.FuelItems;
 import net.minecraft.core.registries.Registries;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
@@ -30,5 +31,6 @@ public class NeoForgeEntrypoint {
         });
 
         bus.addListener(NeoForgeCreativeTabRegistration::addItemsInExistingTabs);
+        bus.addListener(FuelItems::onModifyDefaultComponents);
     }
 }

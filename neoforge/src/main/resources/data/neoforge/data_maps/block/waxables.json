@@ -1,0 +1,8 @@
+{
+  "values": {
+    "enchanted-vertical-slabs:vertical_cut_copper_slab":           { "waxed": "enchanted-vertical-slabs:vertical_waxed_cut_copper_slab" },
+    "enchanted-vertical-slabs:vertical_exposed_cut_copper_slab":   { "waxed": "enchanted-vertical-slabs:vertical_waxed_exposed_cut_copper_slab" },
+    "enchanted-vertical-slabs:vertical_weathered_cut_copper_slab": { "waxed": "enchanted-vertical-slabs:vertical_waxed_weathered_cut_copper_slab" },
+    "enchanted-vertical-slabs:vertical_oxidized_cut_copper_slab":  { "waxed": "enchanted-vertical-slabs:vertical_waxed_oxidized_cut_copper_slab" }
+  }
+}
